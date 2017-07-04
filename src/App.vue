@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
+    <header-cmp> </header-cmp>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
+import HeaderCmp from './components/HeaderCmp'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    HeaderCmp
+  }
 }
 </script>
 
