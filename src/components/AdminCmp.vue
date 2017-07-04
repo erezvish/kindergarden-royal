@@ -15,7 +15,8 @@ export default {
 }
 </script>
 
-<style  scoped>
+<style lang="scss" scoped>
+
 .admin-cmp {
   background: cornsilk;
 }

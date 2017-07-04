@@ -1,23 +1,27 @@
 <template>
-  <section class="home-cmp">
-<h1> Home Page </h1>
-    </section>
+  <section class="main-panel">
+    <h1> Main Panel </h1>
+    <card-list></card-list>
+  </section>
 </template>
 
 <script>
+import CardList from './CardList'
 export default {
   name: 'main-panel',
-  data () {
+  components: {
+    CardList
+  },
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js PWA'
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.home-cmp {
+<style lang="scss" scoped>
+.main-panel {
   background: pink;
 }
 </style>

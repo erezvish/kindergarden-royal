@@ -1,8 +1,9 @@
 <template>
   <header>
     <h1> Header Component </h1>
-    <router-link to="/admin"> Goto Admin </router-link>
-    
+    <router-link class="router-link" to="/"> Home </router-link>
+    <router-link class="router-link" to="/admin"> Admin </router-link>
+  
   </header>
 </template>
 
@@ -16,8 +17,11 @@ export default {
 }
 </script>
 
-<style scoped>
-  header {
-    background: lightgreen;
-  }
+<style lang="scss" scoped>
+header {
+  background: lightgreen;
+}
+.router-link {
+  margin: 1em;
+}
 </style>
