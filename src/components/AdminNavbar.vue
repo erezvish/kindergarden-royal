@@ -1,12 +1,12 @@
 <template>
-  <section>
-    <h1> Admin </h1>
+  <section class="admin-navbar">
+    <h1> Admin Nav Bar </h1>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'admin-cmp',
+  name: 'admin-navbar',
   data() {
     return {
 
@@ -16,5 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.admin-navbar {
+  background: lightskyblue;
+}
 </style>
