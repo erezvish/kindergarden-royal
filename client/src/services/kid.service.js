@@ -15,10 +15,8 @@ const url = 'http://localhost:3003/data/kid'
 export default {
 
     getList() {
-        console.log('kid service fetching kids')
         return axios.get(url)
             .then(res => {
-                console.log('server responded list request')
                 return res
             })
             .catch(err => console.log('list request failed:', err))

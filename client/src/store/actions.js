@@ -1,4 +1,5 @@
 import kidService from '../services/kid.service.js'
+import userService from '../services/user.service.js'
 
 export default {
 
@@ -45,5 +46,15 @@ export default {
 
     toggleIsPresent() {
 
+    },
+
+    login({ commit }, payload) {
+        userService.login(payload.user)
+            .then(res => {
+                console.log('login success', res.data)
+                payload.token = res.data.token
+                commit(payload)
+            })
+            .catch(res => console.log(res.data))
     }
 }

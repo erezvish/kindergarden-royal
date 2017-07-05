@@ -8,7 +8,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        kids: []
+        kids: [],
+        isAdmin: false,
+        token: ''
     },
     actions,
     mutations

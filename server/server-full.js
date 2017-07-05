@@ -199,7 +199,7 @@ app.post('/login', function (req, res) {
 			} else {
 				cl('Login NOT Succesful');
 				req.session.user = null;
-				res.json(403, { error: 'Login failed' })
+				res.status(403).json({ error: 'Login failed' })
 			}
 		});
 	});

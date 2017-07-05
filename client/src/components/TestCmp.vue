@@ -1,8 +1,19 @@
 <template>
     <section class="test">
         <h1> for test purposes only! </h1>
-
-    <!-- Form -->
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="username">
+                <el-select v-model="formInline.username" placeholder="Enter username">
+                <el-option label="Puki" value="Puki"></el-option>
+                <el-option label="Popo" value="Popo"></el-option>
+                </el-select>
+            </el-form-item><el-form-item>
+            <el-form-item label="password">
+                <el-input v-model="formInline.pass" placeholder="Enter password"></el-input>
+            </el-form-item>
+                <el-button type="primary" @click="onSubmit">Query</el-button>
+            </el-form-item>
+        </el-form>
         <el-button @click="create">create kid</el-button>
             <ul>
                 <li v-for="kid in kids" :key="kid._id">{{kid}}
@@ -10,6 +21,7 @@
         <el-button @click="deleteKid(kid)">delete kid</el-button>
         </li>
             </ul>
+                
         </section>
 </template>
 
@@ -23,19 +35,10 @@ export default {
     },
     data() {
         return {
-        box1visible: false,
-        box2visible: false,
-        form: {
-            name: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
-        },
-        formLabelWidth: '120px'
+            formInline: {
+            username: '',
+            pass: ''
+            }
         };
     },
     computed: {
@@ -65,6 +68,13 @@ export default {
             this.$store.dispatch({
                 type: 'deleteKid',
                 _id: kid._id
+            })
+        },
+        onSubmit() {
+            console.log('submit!');
+            this.$store.dispatch({
+                type: 'login',
+                user: this.formInline
             })
         }
     }
