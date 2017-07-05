@@ -2,7 +2,7 @@ import axios from 'axios-es6'
 import moment from 'moment';
 import ioClient from 'socket.io-client'
 
-const port= '3003';
+const port = '3003';
 const url = `http://localhost:${port}/data/kid`
 const socket = ioClient(`http://localhost:${port}`);
 
@@ -19,8 +19,6 @@ const socket = ioClient(`http://localhost:${port}`);
 // }
 
 export default {
-
-
     getList() {
         return axios.get(url)
             .then(res => {
@@ -30,6 +28,18 @@ export default {
 
             .catch(err => {
                 console.log('list request failed:', err)
+                return err;
+            })
+    },
+    getOne(kidId) {
+        const kidUrl = url + `/${kidId}`
+        return axios.get(kidUrl)
+            .then(kid => {
+                console.log('server responded to find kid request:', kid);
+                return kid;
+            })
+            .catch(err => {
+                console.log('find kid failed');
                 return err;
             })
     },
@@ -49,8 +59,8 @@ export default {
     },
 
     update(kid, user = null) {
-        const childUrl = url + `/${kid._id}`
-        return axios.put(childUrl, tempKid)
+        const kidUrl = url + `/${kid._id}`
+        return axios.put(kidUrl, kid)
             .then(res => {
                 console.log('server responded to kid update')
                 return res;
@@ -62,8 +72,8 @@ export default {
     },
 
     delete(kidId, user = null) {
-        const childUrl = url + `/${kidId}`
-        return axios.delete(childUrl)
+        const kidUrl = url + `/${kidId}`
+        return axios.delete(kidUrl)
             .then(res => {
                 console.log('server responded to kid delete')
                 return res;
@@ -71,15 +81,32 @@ export default {
             .catch(err => {
                 console.log('deleting kid object failed:', err)
                 return err;
-        })
+            })
     },
-
-    setIsPresent(kidId) {
-        console.log('hi!');
+    //TODO: design-goal: add a feature that only allows changing with pincode
+    toggleIsPresent(kidId, kidPinCode) {
+        this.getOne(kidId)
+            .then(res => {
+                console.log('updating kid status:', res);
+                res.data.isPresent = !res.data.isPresent;
+                return this.update(res.data)
+                    .then(kid => {
+                        console.log('kid update successful, notifying all')
+                        // debugger;
+                        socket.emit('toggle present', JSON.stringify(kid))
+                        return kid.data;
+                    })
+                    .catch(err => {
+                        console.log('cannot update kid status - update phase:', err)
+                        return err
+                    })
+            })
+            .catch(err => {
+                console.log('cannot update kid status - find phase:', err)
+                return err;
+            })
     },
-
-    userLogged(nickName='tempname') {
-        console.log('emitting user', JSON.stringify(nickName))
-        socket.emit('new login', JSON.stringify(nickName));
-    }
 }
+socket.on('toggle notice', (res) => {
+    console.log('emit received!:', JSON.parse(res))
+})

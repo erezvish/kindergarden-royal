@@ -98,12 +98,12 @@ app.get('/data/:objType/:id', function (req, res) {
 				.then((obj) => {
 					cl("Returning a single" + objType);
 					res.json(obj);
-					db.close();	
+					db.close();
 				})
 				.catch(err => {
 					cl('Cannot get you that ', err)
 					res.json(404, { error: 'not found' })
-					db.close();	
+					db.close();
 				})
 
 		});
@@ -111,8 +111,8 @@ app.get('/data/:objType/:id', function (req, res) {
 
 // DELETE
 app.delete('/data/:objType/:id', function (req, res) {
-	const objType 	= req.params.objType;
-	const objId 	= req.params.id;
+	const objType = req.params.objType;
+	const objId = req.params.id;
 	cl(`Requested to DELETE the ${objType} with id: ${objId}`);
 	dbConnect().then((db) => {
 		const collection = db.collection(objType);
@@ -121,7 +121,7 @@ app.delete('/data/:objType/:id', function (req, res) {
 				cl('Cannot Delete', err)
 				res.json(500, { error: 'Delete failed' })
 			} else {
-				cl("Deleted", result);
+				cl("Deleted");
 				res.json({});
 			}
 			db.close();
@@ -166,9 +166,9 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 
 // PUT - updates
 app.put('/data/:objType/:id', function (req, res) {
-	const objType 	= req.params.objType;
-	const objId 	= req.params.id;
-	const newObj 	= req.body;
+	const objType = req.params.objType;
+	const objId = req.params.id;
+	const newObj = req.body;
 	if (newObj._id && typeof newObj._id === 'string') newObj._id = new mongodb.ObjectID(newObj._id);
 
 	cl(`Requested to UPDATE the ${objType} with id: ${objId}`);
@@ -199,7 +199,7 @@ app.post('/login', function (req, res) {
 			} else {
 				cl('Login NOT Succesful');
 				req.session.user = null;
-				res.json(403, { error: 'Login failed' })
+				res.status(403).json({ error: 'Login failed' })
 			}
 		});
 	});
@@ -246,6 +246,10 @@ io.on('connection', function (socket) {
 		// console.log('message: ' + msg);
 		io.emit('chat message', msg);
 	});
+	socket.on('toggle present', function (kid) {
+		console.log('kid presence toggled')
+		io.emit('toggle notice' ,kid);
+	})
 });
 
 cl('WebSocket is Ready');
