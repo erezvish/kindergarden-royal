@@ -1,12 +1,12 @@
 <template>
-  <section class="admin-navbar">
+  <section class="admin-sidebar">
     <h1> Admin Nav Bar </h1>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'admin-navbar',
+  name: 'admin-sidebar',
   data() {
     return {
 

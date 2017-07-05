@@ -2,18 +2,18 @@
   <section class="admin-cmp">
 <h1> Admin </h1>
 <admin-content></admin-content>
-<admin-navbar></admin-navbar>
+<admin-sidebar></admin-sidebar>
     </section>
 </template>
 
 <script>
 import AdminContent from './AdminContent'
-import AdminNavbar from './AdminNavbar'
+import AdminSidebar from './AdminSidebar'
 export default {
   name: 'admin-cmp',
   components: {
     AdminContent,
-    AdminNavbar
+    AdminSidebar
   },
   data () {
     return {
