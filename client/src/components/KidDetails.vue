@@ -1,12 +1,12 @@
 <template>
   <section class="card-details">
-    <h2> Card Details </h2>
+    <h2> Kid Details </h2>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'card-list',
+  name: 'kid-details',
   data() {
     return {
 
