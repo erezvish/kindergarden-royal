@@ -1,16 +1,17 @@
 <template>
   <section class="admin-content">
     <h1> Admin Main Content Area </h1>
-    <kid-list> </kid-list>
+    <card-list> </card-list>
   </section>
 </template>
 
 <script>
-import KidList from './KidList'
+import CardList from './CardList'
+import kidService from '../services/kid.service'
 export default {
   name: 'admin-content',
     components: {
-    KidList
+    CardList
   },
   data() {
     return {
