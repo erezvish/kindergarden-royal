@@ -2,17 +2,17 @@
   <section class="main-panel">
     <h1> Main Panel </h1>
     <control-panel></control-panel>
-    <card-list></card-list>
+    <kid-list></kid-list>
   </section>
 </template>
 
 <script>
-import CardList from './CardList'
+import KidList from './KidList'
 import ControlPanel from './ControlPanel'
 export default {
   name: 'main-panel',
   components: {
-    CardList,
+    KidList,
     ControlPanel
   },
   data() {
