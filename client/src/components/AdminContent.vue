@@ -7,6 +7,7 @@
 
 <script>
 import CardList from './CardList'
+import kidService from '../services/kid.service'
 export default {
   name: 'admin-content',
     components: {
@@ -16,6 +17,8 @@ export default {
     return {
 
     }
+  },
+  created() {
   }
 }
 </script>
