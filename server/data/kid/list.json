@@ -1,0 +1,22 @@
+[
+    {
+        "_id":"1",
+        "firstName":"Meir",
+        "lastName":"Pechthalt", 
+        "isPresent":"false", 
+        "isApproved":"false", 
+        "imgUrl":"https://hips.hearstapps.com/cosmouk.cdnds.net/15/31/1438173668-cute-success-kid.jpg",
+        "parents": "[{_id:100, firstName: 'moshe', phoneNum: 555, email: 'Iamhere@here.com' }]" 
+    },
+{
+        "_id":"1",
+        "firstName":"Tamir",
+        "lastName":"Kitay", 
+        "isPresent":"true", 
+        "isApproved":"false", 
+        "imgUrl":"http://www.adweek.com/files/blogs/wisest-kid-campbell-hed-2013.jpg",
+        "parents": "[{_id:200, firstName: 'Mimi', phoneNum: 666, email: 'NotHere@here.com' }]" 
+    }
+
+
+]

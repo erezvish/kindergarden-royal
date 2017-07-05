@@ -121,7 +121,7 @@ app.delete('/data/:objType/:id', function (req, res) {
 				cl('Cannot Delete', err)
 				res.json(500, { error: 'Delete failed' })
 			} else {
-				cl("Deleted", result);
+				cl("Deleted");
 				res.json({});
 			}
 			db.close();
@@ -199,7 +199,7 @@ app.post('/login', function (req, res) {
 			} else {
 				cl('Login NOT Succesful');
 				req.session.user = null;
-				res.json(403, { error: 'Login failed' })
+				res.status(403).json({ error: 'Login failed' })
 			}
 		});
 	});
