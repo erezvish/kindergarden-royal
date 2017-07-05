@@ -6,13 +6,14 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	cors = require('cors'),
 	upload = require('./uploads');
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
 
+const app = express();
 app.use(express.static('uploads'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const serverRoot = 'http://localhost:3003/';
 // Main Cache object, entities are lazily loaded and saved here for in memory CRUD
 const cache = {};
@@ -40,22 +41,7 @@ var corsOptions = {
 	credentials: true
 };
 
-
-
-
 // uncomment here and blelow to activate socket
-
-
-io.on('connection', function (socket) {
-	console.log('a user connected');
-	socket.on('disconnect', function () {
-		console.log('user disconnected');
-	});
-	socket.on('chat message', function (msg) {
-		console.log('message: ' + msg);
-		io.emit('chat message', msg);
-	});
-});
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
@@ -112,18 +98,6 @@ app.put('/data/:objType/:id', function (req, res) {
 	else res.json(404, { error: 'not found' })
 });
 
-const PORT = 3003;
-// Kickup our server 
-const baseUrl = `http://localhost:${PORT}/data`;
-app.listen(PORT, function () {
-	console.log(`misterREST server is ready at ${baseUrl}`);
-	console.log(`GET (list): \t\t ${baseUrl}/{entity}`);
-	console.log(`GET (single): \t\t ${baseUrl}/{entity}/{id}`);
-	console.log(`DELETE: \t\t ${baseUrl}/{entity}/{id}`);
-	console.log(`PUT (update): \t\t ${baseUrl}/{entity}/{id}`);
-	console.log(`POST (add): \t\t ${baseUrl}/{entity} - INDEX IS automatically ADDED AT _id`);
-
-});
 
 
 // Some small time utility functions
@@ -156,3 +130,26 @@ function findNextId() {
 	return text;
 }
 
+io.on('connection', function (socket) {
+	console.log('a user connected');
+	socket.on('disconnect', function () {
+		console.log('user disconnected');
+	});
+	socket.on('chat message', function (msg) {
+		// console.log('message: ' + msg);
+		io.emit('chat message', msg);
+	});
+});
+
+const PORT = 3003;
+// Kickup our server 
+const baseUrl = `http://localhost:${PORT}/data`;
+app.listen(PORT, function () {
+	console.log(`misterREST server is ready at ${baseUrl}`);
+	console.log(`GET (list): \t\t ${baseUrl}/{entity}`);
+	console.log(`GET (single): \t\t ${baseUrl}/{entity}/{id}`);
+	console.log(`DELETE: \t\t ${baseUrl}/{entity}/{id}`);
+	console.log(`PUT (update): \t\t ${baseUrl}/{entity}/{id}`);
+	console.log(`POST (add): \t\t ${baseUrl}/{entity} - INDEX IS automatically ADDED AT _id`);
+
+});
