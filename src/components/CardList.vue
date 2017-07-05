@@ -1,7 +1,7 @@
 <template>
   <section class="card-list">
     <h1> Card List Area </h1>
-    <card-details v-for="card in cards" :key="card.id"></card-details>
+    <card-details v-for="card in cards" :key="card._id"></card-details>
   </section>
 </template>
 
