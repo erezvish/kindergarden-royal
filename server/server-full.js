@@ -121,7 +121,7 @@ app.delete('/data/:objType/:id', function (req, res) {
 				cl('Cannot Delete', err)
 				res.json(500, { error: 'Delete failed' })
 			} else {
-				cl("Deleted", result);
+				cl("Deleted");
 				res.json({});
 			}
 			db.close();

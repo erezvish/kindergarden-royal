@@ -16,6 +16,11 @@
 <script>
 export default {
     name: 'test-cmp',
+    created() {
+        this.$store.dispatch({
+            type: 'getKids'
+        })
+    },
     data() {
         return {
         box1visible: false,
