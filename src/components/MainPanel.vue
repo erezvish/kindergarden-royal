@@ -8,10 +8,12 @@
 
 <script>
 import CardList from './CardList'
+import ControlPanel from './ControlPanel'
 export default {
   name: 'main-panel',
   components: {
-    CardList
+    CardList,
+    ControlPanel
   },
   data() {
     return {

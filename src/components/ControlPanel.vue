@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="control-panel">
     <h1> Mega Control Panel </h1>
   </section>
 </template>
@@ -16,5 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.control-panel {
+  background: darkgray;
+}
 </style>
