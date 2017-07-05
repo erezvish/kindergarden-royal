@@ -19,8 +19,6 @@ export default {
     }
   },
   created() {
-    console.log('testingggg')
-    kidService.userLogged();
   }
 }
 </script>
