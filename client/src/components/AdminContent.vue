@@ -6,7 +6,9 @@
 </template>
 
 <script>
+
 import KidList from './KidList'
+
 export default {
   name: 'admin-content',
     components: {
@@ -16,6 +18,8 @@ export default {
     return {
 
     }
+  },
+  created() {
   }
 }
 </script>

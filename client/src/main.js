@@ -6,6 +6,12 @@ import router from './router'
 import Element from 'element-ui'
 import 'font-awesome/css/font-awesome.css'
 
+//Temoprary for testing!!!!!! Remove!!!!!
+//------------------------------------------------
+import storeService from './services/kid.service' 
+window.theStore = storeService;
+//-------------------------------------------------
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
