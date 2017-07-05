@@ -1,12 +1,6 @@
 import axios from 'axios-es6'
-import moment from 'moment';
-import ioClient from 'socket.io-client'
 
-const port = '3003';
-const url = `http://localhost:${port}/data/kid`
-const socket = ioClient(`http://localhost:${port}`);
-
-
+const url = 'http://localhost:3003/data/kid'
 
 // const tempKid = {
 //     _id: 1,
@@ -19,29 +13,13 @@ const socket = ioClient(`http://localhost:${port}`);
 // }
 
 export default {
+
     getList() {
         return axios.get(url)
             .then(res => {
-                console.log('server responded list request')
-                return res;
+                return res
             })
-
-            .catch(err => {
-                console.log('list request failed:', err)
-                return err;
-            })
-    },
-    getOne(kidId) {
-        const kidUrl = url + `/${kidId}`
-        return axios.get(kidUrl)
-            .then(kid => {
-                console.log('server responded to find kid request:', kid);
-                return kid;
-            })
-            .catch(err => {
-                console.log('find kid failed');
-                return err;
-            })
+            .catch(err => console.log('list request failed:', err))
     },
 
     //for CRUD actions, user has to be sent to the server in order for the server to 
@@ -50,63 +28,25 @@ export default {
         return axios.post(url, kid)
             .then(res => {
                 console.log('server responded to kid post')
-                return res;
+                return res
             })
-            .catch(err => {
-                console.log('post kid object failed:', err)
-                return err;
-            })
+            .catch(err => console.log('post kid object failed:', err))
     },
 
     update(kid, user = null) {
-        const kidUrl = url + `/${kid._id}`
-        return axios.put(kidUrl, kid)
+        const childUrl = url + `/${kid._id}`
+        return axios.put(childUrl, kid)
             .then(res => {
                 console.log('server responded to kid update')
-                return res;
+                return res
             })
-            .catch(err => {
-                console.log('updating kid object failed:', err)
-                return err;
-            })
+            .catch(err => console.log('updating kid object failed:', err))
     },
 
     delete(kidId, user = null) {
-        const kidUrl = url + `/${kidId}`
-        return axios.delete(kidUrl)
-            .then(res => {
-                console.log('server responded to kid delete')
-                return res;
-            })
-            .catch(err => {
-                console.log('deleting kid object failed:', err)
-                return err;
-            })
-    },
-    //TODO: design-goal: add a feature that only allows changing with pincode
-    toggleIsPresent(kidId, kidPinCode) {
-        this.getOne(kidId)
-            .then(res => {
-                console.log('updating kid status:', res);
-                res.data.isPresent = !res.data.isPresent;
-                return this.update(res.data)
-                    .then(kid => {
-                        console.log('kid update successful, notifying all')
-                        // debugger;
-                        socket.emit('toggle present', JSON.stringify(kid))
-                        return kid.data;
-                    })
-                    .catch(err => {
-                        console.log('cannot update kid status - update phase:', err)
-                        return err
-                    })
-            })
-            .catch(err => {
-                console.log('cannot update kid status - find phase:', err)
-                return err;
-            })
-    },
+        const childUrl = url + `/${kidId}`
+        return axios.delete(childUrl)
+            .then(res => console.log('server responded to kid delete'))
+            .catch(err => console.log('deleting kid object failed:', err))
+    }
 }
-socket.on('toggle notice', (res) => {
-    console.log('emit received!:', JSON.parse(res))
-})
