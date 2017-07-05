@@ -6,8 +6,13 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	cors = require('cors'),
 	upload = require('./uploads');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
-
+app.use(express.static('uploads'));
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
 const serverRoot = 'http://localhost:3003/';
 // Main Cache object, entities are lazily loaded and saved here for in memory CRUD
 const cache = {};
@@ -36,15 +41,21 @@ var corsOptions = {
 };
 
 
-const app = express();
-app.use(express.static('uploads'));
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
 
 
 // uncomment here and blelow to activate socket
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
+
+
+io.on('connection', function (socket) {
+	console.log('a user connected');
+	socket.on('disconnect', function () {
+		console.log('user disconnected');
+	});
+	socket.on('chat message', function (msg) {
+		console.log('message: ' + msg);
+		io.emit('chat message', msg);
+	});
+});
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
@@ -122,7 +133,7 @@ function cl(...params) {
 
 function findIndexForId(objs, id) {
 	for (var i = 0; i < objs.length; i++) {
-		if (objs[i]._id == id ) return i;
+		if (objs[i]._id == id) return i;
 	}
 	return -1;
 }
@@ -135,24 +146,13 @@ function findIndexForId(objs, id) {
 // 	return nextId + 1;
 // }
 
-function findNextId()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function findNextId() {
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 5; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+	for (var i = 0; i < 5; i++)
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-    return text;
+	return text;
 }
 
-// io.on('connection', function (socket) {
-// 	console.log('a user connected');
-// 	socket.on('disconnect', function () {
-// 		console.log('user disconnected');
-// 	});
-// 	socket.on('chat message', function (msg) {
-// 		// console.log('message: ' + msg);
-// 		io.emit('chat message', msg);
-// 	});
-// });
