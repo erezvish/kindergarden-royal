@@ -13,7 +13,7 @@
         <li class="hr">last seen:</li>
       </ul>
       <div class="msg-parent">
-        <el-input placeholder="Message parent" v-model="input"></el-input>
+        <el-input placeholder="Message parent" v-model="inputMsgParent"></el-input>
         <el-button type="success"><i class="fa fa-paper-plane" aria-hidden="true"></i></el-button>
       </div>
     </div>
@@ -25,7 +25,7 @@ export default {
   name: 'kid-details',
   data() {
     return {
-
+      inputMsgParent: ''
     }
   }
 }
