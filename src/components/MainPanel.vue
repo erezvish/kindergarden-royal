@@ -1,6 +1,7 @@
 <template>
   <section class="main-panel">
     <h1> Main Panel </h1>
+    <control-panel></control-panel>
     <card-list></card-list>
   </section>
 </template>

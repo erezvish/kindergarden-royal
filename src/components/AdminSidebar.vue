@@ -1,6 +1,6 @@
 <template>
   <section class="admin-sidebar">
-    <h1> Admin Nav Bar </h1>
+    <h1> Admin Side Bar </h1>
   </section>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.admin-navbar {
+.admin-sidebar {
   background: lightskyblue;
 }
 </style>

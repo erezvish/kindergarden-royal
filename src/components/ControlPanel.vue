@@ -1,12 +1,12 @@
 <template>
   <section>
-    <h1> Admin </h1>
+    <h1> Mega Control Panel </h1>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'admin-cmp',
+  name: 'control-panel',
   data() {
     return {
 
