@@ -16,6 +16,8 @@ export default {
     return {
 
     }
+  },
+  created() {
   }
 }
 </script>
