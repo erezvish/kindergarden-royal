@@ -1,28 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPanel from '@/components/MainPanel'
-import AdminCmp from '@/components/AdminCmp'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import Vuex from 'vuex'
+import MainPanel from '@/components/MainPanel'
+import AdminCmp from '@/components/AdminCmp'
 
+// test component for dev time
+import TestCmp from '@/components/TestCmp'
 
-Vue.use(Router)
 Vue.use(Element)
-Vue.use(Vuex)
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'MainPanel',
+      name: 'main-panel',
       component: MainPanel
     },
     {
       path: '/admin',
-      name: 'AdminCmp',
+      name: 'admin-cmp',
       component: AdminCmp
+    },
+    {
+      path: '/test',
+      name: 'test-cmp',
+      component: TestCmp
     }
   ]
 })

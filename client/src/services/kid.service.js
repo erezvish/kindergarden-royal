@@ -1,11 +1,11 @@
 import axios from 'axios-es6'
+
 import moment from 'moment';
 import ioClient from 'socket.io-client'
 
 const port = '3003';
 const url = `http://localhost:${port}/data/kid`
 const socket = ioClient(`http://localhost:${port}`);
-
 
 
 // const tempKid = {
@@ -19,6 +19,7 @@ const socket = ioClient(`http://localhost:${port}`);
 // }
 
 export default {
+
     getList() {
         return axios.get(url)
             .then(res => {
@@ -42,6 +43,7 @@ export default {
                 console.log('find kid failed');
                 return err;
             })
+
     },
 
     //for CRUD actions, user has to be sent to the server in order for the server to 
@@ -50,6 +52,7 @@ export default {
         return axios.post(url, kid)
             .then(res => {
                 console.log('server responded to kid post')
+
                 return res;
             })
             .catch(err => {
@@ -110,3 +113,4 @@ export default {
 socket.on('toggle notice', (res) => {
     console.log('emit received!:', JSON.parse(res))
 })
+
