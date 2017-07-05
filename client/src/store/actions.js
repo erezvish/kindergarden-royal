@@ -1,20 +1,22 @@
+import kidService from '../services/kid.service.js'
+
 export default {
 
     createKid({ commit }, payload) {
         kidService.create(payload.kid)
-            .then(kid => {
-                payload.kid = kid
+            .then(res => {
+                payload.kid = res.data
                 commit(payload)
             })
             .catch(err => {
-                console.error('server cannot create kid ', kid.firstName, kid.lastName, err)
+                console.error('server cannot create kid ', payload.kid.firstName, payload.kid.lastName, err)
             })
     },
 
     getKids({ commit }, payload) {
-        kidService.get()
-            .then(kids => {
-                payload.kids = kids
+        kidService.getList()
+            .then(res => {
+                payload.kids = res.data
                 commit(payload)
             })
             .catch(err => {
@@ -24,8 +26,8 @@ export default {
 
     updateKid({ commit }, payload) {
         kidService.update(payload.kid)
-            .then(kid => {
-                payload.kid = kid
+            .then(res => {
+                payload.kid = res.data
                 commit(payload)
             })
             .catch(err => {
@@ -34,7 +36,7 @@ export default {
     },
 
     deleteKid({ commit }, payload) {
-        kidService.delete(paload._id)
+        kidService.delete(payload._id)
             .then(() => commit(payload))
             .catch(err => {
                 console.error('cannot delete kid on server', kid.firstName, kid.lastName, err)

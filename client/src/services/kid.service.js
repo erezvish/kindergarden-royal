@@ -14,10 +14,13 @@ const url = 'http://localhost:3003/data/kid'
 
 export default {
 
-
     getList() {
+        console.log('kid service fetching kids')
         return axios.get(url)
-            .then(res => console.log('server responded list request'))
+            .then(res => {
+                console.log('server responded list request')
+                return res
+            })
             .catch(err => console.log('list request failed:', err))
     },
 
@@ -25,14 +28,20 @@ export default {
     //authenticate that the request is allowable
     create(kid, user = null) {
         return axios.post(url, kid)
-            .then(res => console.log('server responded to kid post'))
+            .then(res => {
+                console.log('server responded to kid post')
+                return res
+            })
             .catch(err => console.log('post kid object failed:', err))
     },
 
     update(kid, user = null) {
         const childUrl = url + `/${kid._id}`
-        return axios.put(childUrl, tempKid)
-            .then(res => console.log('server responded to kid update'))
+        return axios.put(childUrl, kid)
+            .then(res => {
+                console.log('server responded to kid update')
+                return res
+            })
             .catch(err => console.log('updating kid object failed:', err))
     },
 
