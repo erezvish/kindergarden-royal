@@ -3,16 +3,19 @@
     <h1> Main Panel </h1>
     <control-panel></control-panel>
     <kid-list></kid-list>
+    <!--<kid-edit></kid-edit>-->
   </section>
 </template>
 
 <script>
 import KidList from './KidList'
+import KidEdit from './KidEdit'
 import ControlPanel from './ControlPanel'
 export default {
   name: 'main-panel',
   components: {
     KidList,
+    KidEdit,
     ControlPanel
   },
   data() {
@@ -24,9 +27,13 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .main-panel {
-  background: pink;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  background: lightblue;
+  padding: 2em;
+  min-height: 100vh;
 }
 </style>
