@@ -13,7 +13,8 @@ export default {
   name: 'app',
   created() {
     this.$store.dispatch({
-      type: 'initSocket'
+      type: 'initSocket',
+    })
     console.log('fetching kids from state!')
     this.$store.dispatch({
        type: 'getKids'

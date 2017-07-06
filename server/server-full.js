@@ -247,6 +247,7 @@ io.on('connection', function (socket) {
 		io.emit('chat message', msg);
 	});
 	socket.on('toggle present', function (kid) {
+		
 		io.emit('toggle notice', kid);
 	})
 });
