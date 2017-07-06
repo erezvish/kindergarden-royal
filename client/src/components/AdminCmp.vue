@@ -2,10 +2,9 @@
   <section class="admin-panel">
     <el-row>
       <el-col :sm="24" :md="17">
-        <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
-        <!--<kid-list></kid-list>-->
-        <kid-edit></kid-edit>
+        <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
+        <kid-list v-if="!isEditMode" @edit="setEditMode"></kid-list>
       </el-col>
       <el-col :md="7">
         <!--<h1>Notification panel</h1>-->
@@ -35,7 +34,17 @@ export default {
   },
   data() {
     return {
-
+      isEditMode: false,
+      kidToEdit: null
+    }
+  },
+  methods: {
+    setEditMode(kid) {
+      this.toggleEditMode()
+      this.kidToEdit = kid
+    },
+    toggleEditMode() {
+      this.isEditMode = !this.isEditMode
     }
   }
 }

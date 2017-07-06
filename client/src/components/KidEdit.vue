@@ -2,7 +2,6 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-edit">
-        <!--<div class=-->
         <h1> Kid edit </h1>
         <div class="editor-header">
           editor header
@@ -13,36 +12,38 @@
         
         <el-col :span="17" class="info-form">
         <h2>Kid details</h2>
-        <el-form label-width="120px">
-          <el-form-item label="First name">
-            <el-input></el-input>
+        <el-form :model="editedKid" :rules="rules" ref="edit-kid" label-width="120px">
+          <el-form-item label="First name" prop="firstName">
+            <el-input v-model="editedKid.firstName"></el-input>
           </el-form-item>
-          <el-form-item label="Last name">
-            <el-input></el-input>
+          <el-form-item label="Last name" prop="lastName">
+            <el-input v-model="editedKid.lastName"></el-input>
           </el-form-item>
-          <el-form-item label="Gender">
-            <el-select placeholder="Gender">
+          <el-form-item label="Gender" prop="gender">
+            <el-select placeholder="Gender" v-model="editedKid.gender">
               <el-option label="Male" value="Male"></el-option>
               <el-option label="Female" value="Female"></el-option>
+              <el-option label="Undefined" value="Undefined"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Birthdate:" required>
+          <el-form-item label="Birthdate:">
             <el-col :span="11">
-              <el-form-item prop="date1">
-                <el-date-picker type="date" placeholder="Pick a date"></el-date-picker>
+              <el-form-item prop="birthdate">
+                <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
               </el-form-item>
             </el-col>
   
           </el-form-item>
-          <el-form-item label="membership" prop="isMember">
+          <!--<el-form-item label="membership" prop="isMember">
             <el-switch on-text="Yes" off-text="No"></el-switch>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item label="Note" prop="note">
-            <el-input type="textarea"></el-input>
+            <el-input type="textarea" v-model="editedKid.note"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary">Update</el-button>
-            <el-button>Reset</el-button>
+            <el-button type="primary" @click="submitForm('edit-kid')">Update</el-button>
+            <el-button @click="resetForm('edit-kid')">Reset</el-button>
+            <el-button @click="cancel">Cancel</el-button>
           </el-form-item>
         </el-form>
         </el-col>
@@ -58,35 +59,31 @@
 <script>
 export default {
   name: 'kid-edit',
+  props: {
+    kid: Object
+  },
   data() {
     return {
-      ruleForm: {
-        name: '',
-        region: '',
-        date1: '',
-        delivery: false,
-        type: [],
-        note: ''
+      editedKid: {
+        firstName: '',
+        lastName: '',
+        gender: '',
+        birthdate: '',
+        note: '',
+        _id: ''
       },
       rules: {
-        name: [
-          { required: true, message: 'Please input first name', trigger: 'blur' },
-          { min: 2, max: 15, message: 'Length should be 2 to 15', trigger: 'blur' }
+        firstName: [
+          { required: true, message: 'Please input first name', trigger: 'submit' },
         ],
-        region: [
-          { required: true, message: 'Please select Activity zone', trigger: 'change' }
+        lastName: [
+          { required: true, message: 'Please input last name', trigger: 'submit' },
         ],
-        date1: [
-          { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
+        birthdate: [
+          { required: false }
         ],
-        type: [
-          { type: 'array', required: true, message: 'Please select at least one activity type', trigger: 'change' }
-        ],
-        resource: [
-          { required: true, message: 'Please select activity resource', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: 'Please input activity form', trigger: 'blur' }
+        gender: [
+          { required: true, message: 'Please select gender', trigger: 'submit' }
         ]
       }
     };
@@ -95,15 +92,30 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          if(this.kid) {
+            this.editedKid._id = this.kid._id
+            this.$store.dispatch({
+              type: 'updateKid',
+              kid: this.editedKid
+            })
+          } else {
+            this.$store.dispatch({
+              type: 'createKid',
+              kid: this.editedKid
+            })
+          }
+          this.$emit('closeEdit')
+
         } else {
-          console.log('error submit!!');
           return false;
         }
-      });
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    cancel() {
+      this.$emit('closeEdit')
     }
   }
 }

@@ -5,14 +5,16 @@
     </div>
     <div class="properties">
       <div class="card-header hr">
-        <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
-        <i class="fa fa-pencil" @click.stop="openEditMode" aria-hidden="true"></i>
+        <h2>{{`${kid.firstName} ${kid.lastName}`}}  </h2>
+        <el-button @click="edit">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </el-button>
       </div>
       <ul>
-        <li>status:
-          <span class="kid-present" v-show="kid.isPresent"> In Class </span>
-          <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
-        </li>
+        <li>status: 
+          <span class="kid-present" v-show="kid.isPresent"> In Class </span> 
+          <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span></li>
+
         <li class="hr">last seen:</li>
       </ul>
       <div class="msg-parent">
@@ -44,6 +46,7 @@ export default {
       inputMsgParent: '',
     }
   },
+
   created() {
     console.log('kid details:', this.kid)
   },
@@ -63,8 +66,8 @@ export default {
     deleteKidCard() {
       this.$emit('delete')
     },
-    openEditMode() {
-      this.$emit('edit-mode');
+    edit() {
+    this.$emit('edit')
     }
   }
 }

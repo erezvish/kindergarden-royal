@@ -4,11 +4,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import locale from 'element-ui/lib/locale/lang/en'
 import 'font-awesome/css/font-awesome.css'
 import App from './App'
 import router from './router'
 import store from './store'
 
+Vue.use(Element, { locale })
 
 Vue.use(Vuex)
 
@@ -17,7 +19,6 @@ Vue.use(Vuex)
 import storeService from './services/kid.service' 
 window.theStore = storeService;
 //-------------------------------------------------
-
 
 Vue.config.productionTip = false
 
