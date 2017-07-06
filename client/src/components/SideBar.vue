@@ -1,4 +1,5 @@
 <template>
+<el-col  :md="7">
     <section class="sidebar-container">
         <div class="notes-header hr-bottom">
             <div class="title">
@@ -12,6 +13,7 @@
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </div>
     </section>
+</el-col>
 </template>
 
 <script>
@@ -66,7 +68,7 @@ export default {
 }
 
 @media screen and (max-width: $md) {
-    .sidebar-container {
+    .el-col {
         display: none;
     }
 }
