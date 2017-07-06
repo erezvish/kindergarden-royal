@@ -17,9 +17,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+
+
 body {
   margin: 0;
+  
 }
 
 #app {
@@ -31,7 +35,7 @@ body {
 
 main {
   text-align: center;
-  margin-top: 40px;
+  // margin-top: 40px;
 }
 
 header {
@@ -52,4 +56,7 @@ header span {
   box-sizing: border-box;
   padding-top: 16px;
 }
+
+// Media queries sizes
+
 </style>
