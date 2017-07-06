@@ -27,5 +27,7 @@ export default {
 <style lang="scss" scoped>
 .admin-content {
   background: firebrick;
+  display: flex;
+  flex-direction: column;
 }
 </style>
