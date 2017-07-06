@@ -6,7 +6,7 @@
     <div class="properties">
       <div class="card-header hr">
         <h2>{{`${kid.firstName} ${kid.lastName}`}}  </h2>
-        <el-button @click="edit">
+        <el-button @click.stop="edit">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </el-button>
       </div>
