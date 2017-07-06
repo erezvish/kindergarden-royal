@@ -4,7 +4,7 @@
       <section class="kid-list">
         <h1> Kid List Area </h1>
         <div v-if="kids.length" class="kid-details-container">
-          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -33,9 +33,13 @@ export default {
       this.$store.dispatch({
         type: 'togglePresent',
         kid
-      }).then(kid => {
-        debugger;
-     })
+      })
+    },
+    deleteKidCard(kid) {
+      this.$store.dispatch({
+        type: 'deleteKid',
+        _id: kid._id
+      })
     }
   }
 }

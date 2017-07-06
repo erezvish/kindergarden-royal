@@ -1,5 +1,5 @@
 <template>
-  <section :class="classObject" @click="toggleIsPresent" >
+  <section :class="classObject" @click="toggleIsPresent">
     <div class="kid-img">
       <img :src="kid.imgUrl">
     </div>
@@ -21,6 +21,16 @@
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
         </el-button>
       </div>
+      <div class="action-icons">
+        <div class="icons-left">
+          <i class="fa fa-trash" @click="deleteKidCard" aria-hidden="true"></i>
+          <i class="fa fa-cog" aria-hidden="true"></i>
+        </div>
+        <div class="icons-right">
+          <i class="fa fa-medkit" aria-hidden="true"></i>
+          <i class="fa fa-phone-square" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -32,19 +42,26 @@ export default {
   data() {
     return {
       inputMsgParent: '',
-      classObject: {
-        'kid-details': true,
-        'mark-present': this.kid.isPresent,
-        'mark-absent': !this.kid.isPresent        
-      }
     }
   },
   created() {
     console.log('kid details:', this.kid)
   },
+  computed: {
+    classObject() {
+      return {
+        'kid-details': true,
+        'mark-present': this.kid.isPresent,
+        'mark-absent': !this.kid.isPresent
+      }
+    }
+  },
   methods: {
     toggleIsPresent() {
       this.$emit('toggle')
+    },
+    deleteKidCard() {
+      this.$emit('delete')
     }
   }
 }
@@ -97,23 +114,32 @@ export default {
   background: lightgray;
   height: 150px;
   width: 100%;
-
   & img {
     max-width: 100%;
   }
 }
 
 .mark-present {
-  border: 2px solid green;
+  border: 4px solid green;
 }
+
 .mark-absent {
-  border: 2px solid red;
+  border: 4px solid red;
 }
 
 .msg-parent {
   display: flex;
   justify-content: space-between;
   margin: 1.2em 0;
+}
+
+.action-icons {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2em;
+  .fa {
+    margin: 0.1em;
+  }
 }
 
 .hr {
