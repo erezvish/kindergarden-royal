@@ -34,6 +34,10 @@ export default {
     login(state, payload) {
         state.isAdmin = true
         state.token = payload.token
-        console.log(state)
+    },
+
+    logout(state) {
+        state.isAdmin = false
+        state.token = ''
     }
 }

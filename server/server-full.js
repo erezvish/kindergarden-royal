@@ -247,8 +247,7 @@ io.on('connection', function (socket) {
 		io.emit('chat message', msg);
 	});
 	socket.on('toggle present', function (kid) {
-		console.log('kid presence toggled')
-		io.emit('toggle notice' ,kid);
+		io.emit('toggle notice', kid);
 	})
 });
 

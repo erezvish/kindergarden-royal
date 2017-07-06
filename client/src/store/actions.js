@@ -44,8 +44,17 @@ export default {
             })
     },
 
-    toggleIsPresent() {
+    initSocket({ commit }) {
+        kidService.initSocket(kid => {
+            commit({
+                type: 'updateKid',
+                kid
+            })
+        })
+    },
 
+    togglePresent({ commit }, payload) {
+        kidService.togglePresent(payload.kid)
     },
 
     login({ commit }, payload) {
@@ -56,5 +65,12 @@ export default {
                 commit(payload)
             })
             .catch(res => console.log(res.data))
+    },
+
+    logout({ commit }, payload) {
+        userService.logout()
+        .then(() => {
+            commit(payload)
+        })
     }
 }
