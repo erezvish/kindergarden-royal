@@ -75,7 +75,16 @@ export default {
       this.$emit('edit')
     },
     cameraClicked() {
-      if (this.isCameraOn) window.Webcam.reset()
+      if (this.isCameraOn) {
+        let capturedImgUrl = null;
+        Webcam.snap(function (data_uri) {
+          capturedImgUrl = data_uri;
+        });
+        Webcam.reset()
+        let updatedKid = Object.assign({}, this.kid)
+        updatedKid.imgUrl = capturedImgUrl;
+        this.$emit('picture', updatedKid);
+      }
       else Webcam.attach(`#${this.cameraId}`);
 
       this.isCameraOn = !this.isCameraOn;

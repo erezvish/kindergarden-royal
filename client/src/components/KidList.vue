@@ -3,11 +3,10 @@
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-list">
         <h1> Kid List Area </h1>
-
+  
         <div v-if="kids.length" class="kid-details-container">
-          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" 
-          @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" @picture="updateKidPicture" :key="kid._id"></kid-details>
+  
         </div>
       </section>
     </el-col>
@@ -46,6 +45,13 @@ export default {
     },
     edit(kid) {
       this.$emit('edit', kid)
+    },
+    updateKidPicture(kid) {
+      console.log('recieved picture update request', kid)
+      this.$store.dispatch({
+        type: 'updateKid',
+        kid
+      })
     }
   }
 }
