@@ -40,6 +40,7 @@ export default {
     menuClicked: function () {
       console.log('clicking on menu btn');
       this.menuIsClicked = !this.menuIsClicked;
+      // $('body, html').css('overflow-y', 'hidden');
       console.log(this.menuIsClicked);
     }
   }
@@ -137,13 +138,14 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    top: -39em;
+    top: 0;
     height: 100vh;
-    left: 0;
+    right: -20em;
     padding: 0;
     margin: 0;
-    background: #ADD8E6;
-    background: linear-gradient(to bottom, transparent, #ADD8E6 12%);
+    // background: #ADD8E6;
+    background: #376283;
+    background: linear-gradient(to bottom, white -3em, #376283 12%);
     z-index: 2;
     width: 100%;
     transition: all, 0.8s;
@@ -160,7 +162,7 @@ header {
 }
 
 .menu-on {
-  top: 0;
+  right: 0;
   transition: all, 0.7s;
 }
 </style>
