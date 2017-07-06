@@ -1,6 +1,6 @@
 <template>
   <section :class="classObject" @click="toggleIsPresent">
-    <div class="kid-img">
+    <div class="kid-img" :id="cameraId">
       <img :src="kid.imgUrl">
     </div>
     <div class="properties">
@@ -30,7 +30,7 @@
           <i class="fa fa-cog" aria-hidden="true"></i>
         </div>
         <div class="icons-right">
-          <i class="fa fa-camera" aria-hidden="true"></i>
+          <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
           <i class="fa fa-medkit" aria-hidden="true"></i>
           <i class="fa fa-phone-square" aria-hidden="true"></i>
         </div>
@@ -40,12 +40,15 @@
 </template>
 
 <script>
+import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
   props: ['kid'],
   data() {
     return {
       inputMsgParent: '',
+      isCameraOn: false,
+      cameraId: 'K' + this.kid._id
     }
   },
 
@@ -70,6 +73,12 @@ export default {
     },
     edit() {
       this.$emit('edit')
+    },
+    cameraClicked() {
+      if (this.isCameraOn) window.Webcam.reset()
+      else Webcam.attach(`#${this.cameraId}`);
+
+      this.isCameraOn = !this.isCameraOn;
     }
   }
 }
