@@ -6,7 +6,7 @@
     <div class="properties">
       <div class="card-header hr">
         <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
+        <i class="fa fa-pencil" @click.stop="openEditMode" aria-hidden="true"></i>
       </div>
       <ul>
         <li>status:
@@ -23,7 +23,7 @@
       </div>
       <div class="action-icons">
         <div class="icons-left">
-          <i class="fa fa-trash" @click="deleteKidCard" aria-hidden="true"></i>
+          <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
           <i class="fa fa-cog" aria-hidden="true"></i>
         </div>
         <div class="icons-right">
@@ -62,6 +62,9 @@ export default {
     },
     deleteKidCard() {
       this.$emit('delete')
+    },
+    openEditMode() {
+      this.$emit('edit-mode');
     }
   }
 }
