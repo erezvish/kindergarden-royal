@@ -3,8 +3,9 @@
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-list">
         <h1> Kid List Area </h1>
-        <div  v-if="kids.length" class="kid-details-container">
-          <kid-details v-for="kid in kids" :kid="kid" :key="kid._id"></kid-details>
+        <div v-if="kids.length" class="kid-details-container">
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" 
+          @delete="deleteKidCard(kid)" @edit-mode="openEditMode(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -13,6 +14,7 @@
 
 <script>
 import KidDetails from './KidDetails'
+import store from '../store'
 export default {
   name: 'kid-list',
   components: {
@@ -24,7 +26,24 @@ export default {
   },
   computed: {
     kids() {
-      return this.$store.state.kids
+      return this.$store.getters.filteredKids;
+    }
+  },
+  methods: {
+    toggleIsPresent(kid) {
+      this.$store.dispatch({
+        type: 'togglePresent',
+        kid
+      })
+    },
+    deleteKidCard(kid) {
+      this.$store.dispatch({
+        type: 'deleteKid',
+        _id: kid._id
+      })
+    },
+    openEditMode(kid) {
+      console.log('Moving to edit mode!')
     }
   }
 }

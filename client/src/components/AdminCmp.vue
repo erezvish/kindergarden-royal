@@ -4,7 +4,8 @@
       <el-col :sm="24" :md="17">
         <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
-        <kid-list></kid-list>
+        <!--<kid-list></kid-list>-->
+        <kid-edit></kid-edit>
       </el-col>
       <el-col :md="7">
         <!--<h1>Notification panel</h1>-->
@@ -16,6 +17,7 @@
 
 <script>
 import KidList from './KidList'
+import KidEdit from './KidEdit'
 import ControlPanel from './ControlPanel'
 import SideBar from './SideBar'
 
@@ -25,6 +27,7 @@ export default {
   name: 'admin-cmp',
   components: {
     KidList,
+    KidEdit,
     ControlPanel,
     SideBar
     // AdminContent,
