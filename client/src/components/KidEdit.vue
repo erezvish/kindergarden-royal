@@ -11,7 +11,9 @@
           </div>
         </div>
         
-        <el-form  label-width="120px">
+        <el-col :span="17" class="info-form">
+        <h2>Kid details</h2>
+        <el-form label-width="120px">
           <el-form-item label="First name">
             <el-input></el-input>
           </el-form-item>
@@ -27,22 +29,24 @@
           <el-form-item label="Birthdate:" required>
             <el-col :span="11">
               <el-form-item prop="date1">
-                <el-date-picker type="date" placeholder="Pick a date"  style="width: 100%;"></el-date-picker>
+                <el-date-picker type="date" placeholder="Pick a date"></el-date-picker>
               </el-form-item>
             </el-col>
-   
+  
           </el-form-item>
           <el-form-item label="membership" prop="isMember">
-            <el-switch on-text="Yes" off-text="No" ></el-switch>
+            <el-switch on-text="Yes" off-text="No"></el-switch>
           </el-form-item>
-          <el-form-item label="Notes" prop="notes">
-            <el-input type="textarea" ></el-input>
+          <el-form-item label="Note" prop="note">
+            <el-input type="textarea"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary">Update</el-button>
             <el-button>Reset</el-button>
           </el-form-item>
         </el-form>
+        </el-col>
+        </div>
         <div class="editor-nav">
           <h1>nav</h1>
         </div>
@@ -60,11 +64,9 @@ export default {
         name: '',
         region: '',
         date1: '',
-        date2: '',
         delivery: false,
         type: [],
-        resource: '',
-        desc: ''
+        note: ''
       },
       rules: {
         name: [
@@ -112,7 +114,10 @@ export default {
 //   outline: 1px solid #333;
 // }
 
+
 .el-row {
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
 }
@@ -120,10 +125,18 @@ export default {
 .el-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  // width: 80%;
+  align-items: flex-start; 
+  text-align: start;
+  & .el-form-item {
+    // display: none;
+    width: 100%;
+  }
 }
 
+.info-form {
+  align-self: center;
+  
+}
 .kid-edit {
   width: 100%;
   display: flex;
@@ -142,13 +155,12 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   min-height: 16.6em;
-
+  border-bottom: 5px solid rgba(0,0,0,0.051);
   padding: 0 2em;
   & .kid-img {
     background: #f4f4f4;
     background-image: url('../assets/img-kid/img.png');
-    background-size: cover;
-    // position: relative;
+    background-size: cover; // position: relative;
     // top: 2.3em;
     width: 11.6em;
     height: 11.6em;
