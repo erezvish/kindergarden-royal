@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     kids() {
-      return this.$store.state.kids
+      return this.$store.getters.filteredKids;
     }
   },
   methods: {

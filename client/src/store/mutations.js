@@ -27,6 +27,11 @@ export default {
         }
     },
 
+    filterKids(state, {text}) {
+        state.kidsFilter = text;
+        console.log('state filter:', state.kidsFilter)
+    },
+
     toggleIsPresent() {
 
     },
