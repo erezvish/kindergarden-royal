@@ -2,51 +2,47 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-edit">
-        <h1> Kid edit </h1>
+        <h2> Kid properties </h2>
         <div class="editor-header">
-          editor header
-          <div class="kid-img">
-            img
-          </div>
-        </div>
-        
-        <el-col :span="17" class="info-form">
-        <h2>Kid details</h2>
-        <el-form :model="editedKid" :rules="rules" ref="edit-kid" label-width="120px">
-          <el-form-item label="First name" prop="firstName">
-            <el-input v-model="editedKid.firstName"></el-input>
-          </el-form-item>
-          <el-form-item label="Last name" prop="lastName">
-            <el-input v-model="editedKid.lastName"></el-input>
-          </el-form-item>
-          <el-form-item label="Gender" prop="gender">
-            <el-select placeholder="Gender" v-model="editedKid.gender">
-              <el-option label="Male" value="Male"></el-option>
-              <el-option label="Female" value="Female"></el-option>
-              <el-option label="Undefined" value="Undefined"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Birthdate:">
-            <el-col :span="11">
-              <el-form-item prop="birthdate">
-                <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
+          <el-col  :lg="14" class="info-form">
+            <el-form :model="editedKid" :rules="rules" ref="edit-kid" label-width="120px">
+              <el-form-item label="First name" prop="firstName">
+                <el-input v-model="editedKid.firstName"></el-input>
               </el-form-item>
+              <el-form-item label="Last name" prop="lastName">
+                <el-input v-model="editedKid.lastName"></el-input>
+              </el-form-item>
+              <el-form-item label="Gender" prop="gender">
+                <el-select placeholder="Gender" v-model="editedKid.gender">
+                  <el-option label="Male" value="Male"></el-option>
+                  <el-option label="Female" value="Female"></el-option>
+                  <el-option label="Undefined" value="Undefined"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-col :span="11">
+                <el-form-item prop="birthdate">
+                  <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="Note" prop="note">
+                  <el-input type="textarea" v-model="editedKid.note"></el-input>
+                </el-form-item>
+              </el-col>
+
+                <h4>Parents details</h4>
+                <el-form-item label="Parent name">
+                  <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="Parent name">
+                  <el-input></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary">Update</el-button>
+                  <el-button>Reset</el-button>
+                <el-button @click="cancel">Cancel</el-button>
+                </el-form-item>
+              </el-form>
             </el-col>
-  
-          </el-form-item>
-          <!--<el-form-item label="membership" prop="isMember">
-            <el-switch on-text="Yes" off-text="No"></el-switch>
-          </el-form-item>-->
-          <el-form-item label="Note" prop="note">
-            <el-input type="textarea" v-model="editedKid.note"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('edit-kid')">Update</el-button>
-            <el-button @click="resetForm('edit-kid')">Reset</el-button>
-            <el-button @click="cancel">Cancel</el-button>
-          </el-form-item>
-        </el-form>
-        </el-col>
+          </div>
         </div>
         <div class="editor-nav">
           <h1>nav</h1>
@@ -122,11 +118,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../sass/main.scss";
 // * {
 //   outline: 1px solid #333;
 // }
-
-
 .el-row {
   padding: 0;
   margin: 0;
@@ -137,52 +132,86 @@ export default {
 .el-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   text-align: start;
   & .el-form-item {
-    // display: none;
     width: 100%;
   }
 }
 
 .info-form {
   align-self: center;
-  
 }
+
 .kid-edit {
-  width: 100%;
+  // width: 100%;
   display: flex;
   align-self: center;
-  background: white;
+  background: $bg-default;
   border-radius: 1em;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
+  box-shadow: $box-shadow-default;
   border-radius: 1em;
   margin-bottom: 1em;
 }
 
 .editor-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
+  background: rgba(55, 98, 131, 0.06);
   min-height: 16.6em;
-  border-bottom: 5px solid rgba(0,0,0,0.051);
-  padding: 0 2em;
+  padding: 2EM 2em;
+  border: {
+    bottom: $border-alpha-wide;
+    top: $border-alpha-wide;
+  }
+  ;
   & .kid-img {
     background: #f4f4f4;
     background-image: url('../assets/img-kid/img.png');
-    background-size: cover; // position: relative;
-    // top: 2.3em;
-    width: 11.6em;
-    height: 11.6em;
-    border: 1px solid rgba(0, 0, 0, 0.2); // box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    width: 12.4em;
+    height: 20em;
+    border: $border-alpha-narrow;
+  }
+  ;
+
+  & ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 2em;
+
+    & .fa {
+      font-size: 1em;
+      margin-right: 0.6em;
+      opacity: 0.7;
+    }
+
+    & li {
+      margin: 1em 0;
+      font-size: 1.5em;
+    }
   }
 }
 
 .editor-nav {
   background: #376283;
-  color: white; // border-bottom: 5px solid rgba(255,255,255,0.5);
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
+  color: white;
+  box-shadow: $box-shadow-default;
+}
+
+@media screen and (max-width: $md) {
+  .editor-header {
+    flex-direction: column;
+    align-items: center;
+    & .kid-img {
+      width: 10.4em;
+      height: 14em;
+    }
+  }
 }
 </style>
