@@ -23,9 +23,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
 
-.admin-cmp {
-  background: cornsilk;
+<style lang="scss" scoped>
+.main-panel {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  background: lightblue;
+  padding: 2em;
+  min-height: 100vh;
 }
+
 </style>

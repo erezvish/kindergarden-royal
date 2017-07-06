@@ -4,7 +4,7 @@
       <section class="control-panel">
         <i class="fa fa-cogs" aria-hidden="true"></i>
         <!--<h1>Control Panel </h1>-->
-        <el-input placeholder="Search " icon="search" v-model="input2" :on-icon-click="handleIconClick">
+        <el-input placeholder="Search " icon="search" v-model="searchInput" :on-icon-click="handleIconClick">
         </el-input>
         <div class="controls">
           <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
@@ -22,7 +22,12 @@ export default {
   name: 'control-panel',
   data() {
     return {
-
+      searchInput: ''
+    }
+  },
+  methods: {
+    handleIconClick: () => {
+      console.log('search icon clicked');
     }
   }
 }
