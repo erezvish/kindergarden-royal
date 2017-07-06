@@ -1,21 +1,36 @@
 <template>
-  <section class="admin-cmp">
-<h1> Admin </h1>
-<admin-content></admin-content>
-<admin-sidebar></admin-sidebar>
-    </section>
+  <section class="admin-panel">
+    <el-row>
+      <el-col :sm="24" :md="17">
+        <!--<h1>Admin Panel </h1>-->
+        <control-panel></control-panel>
+        <kid-list></kid-list>
+      </el-col>
+      <el-col :md="7">
+        <!--<h1>Notification panel</h1>-->
+        <side-bar></side-bar>
+      </el-col>
+    </el-row>
+  </section>
 </template>
 
 <script>
-import AdminContent from './AdminContent'
-import AdminSidebar from './AdminSidebar'
+import KidList from './KidList'
+import ControlPanel from './ControlPanel'
+import SideBar from './SideBar'
+
+// import AdminContent from './AdminContent'
+// import AdminSidebar from './AdminSidebar'
 export default {
   name: 'admin-cmp',
   components: {
-    AdminContent,
-    AdminSidebar
+    KidList,
+    ControlPanel,
+    SideBar
+    // AdminContent,
+    // AdminSidebar
   },
-  data () {
+  data() {
     return {
 
     }
@@ -25,7 +40,13 @@ export default {
 
 
 <style lang="scss" scoped>
-.main-panel {
+@import "../sass/vars.scss";
+
+.el-row {
+  display: flex;
+}
+
+.admin-panel {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -34,4 +55,7 @@ export default {
   min-height: 100vh;
 }
 
+@media screen and (max-width: $sm) {
+
+}
 </style>
