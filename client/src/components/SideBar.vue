@@ -13,12 +13,17 @@
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </div>
     </section>
+
 </el-col>
 </template>
 
 <script>
+
 export default {
-    name: 'side-bar'
+    name: 'side-bar',
+    components: {
+     
+    }
 }
 </script>
 

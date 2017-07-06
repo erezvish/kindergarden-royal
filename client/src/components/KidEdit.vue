@@ -19,14 +19,14 @@
                   <el-option label="Undefined" value="Undefined"></el-option>
                 </el-select>
               </el-form-item>
-              <el-col :span="11">
+              <!--<el-col :span="11">
                 <el-form-item prop="birthdate">
                   <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="Note" prop="note">
                   <el-input type="textarea" v-model="editedKid.note"></el-input>
                 </el-form-item>
-              </el-col>
+              </el-col>-->
 
                 <h4>Parents details</h4>
                 <el-form-item label="Parent name">
