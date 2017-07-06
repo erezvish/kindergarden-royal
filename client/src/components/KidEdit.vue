@@ -68,17 +68,14 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: 'Please input Activity name', trigger: 'blur' },
-          { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+          { required: true, message: 'Please input first name', trigger: 'blur' },
+          { min: 2, max: 15, message: 'Length should be 2 to 15', trigger: 'blur' }
         ],
         region: [
           { required: true, message: 'Please select Activity zone', trigger: 'change' }
         ],
         date1: [
           { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
-        ],
-        date2: [
-          { type: 'date', required: true, message: 'Please pick a time', trigger: 'change' }
         ],
         type: [
           { type: 'array', required: true, message: 'Please select at least one activity type', trigger: 'change' }
