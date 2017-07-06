@@ -9,7 +9,16 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+
 Vue.use(Vuex)
+
+//Temoprary for testing!!!!!! Remove!!!!!
+//------------------------------------------------
+import storeService from './services/kid.service' 
+window.theStore = storeService;
+//-------------------------------------------------
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
