@@ -5,16 +5,17 @@
     </div>
     <div class="properties">
       <div class="card-header hr">
-        <h2>{{`${kid.firstName} ${kid.lastName}`}}  </h2>
+        <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
         <el-button @click="edit">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </el-button>
       </div>
       <ul>
-        <li>status: 
-          <span class="kid-present" v-show="kid.isPresent"> In Class </span> 
-          <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span></li>
-
+        <li>status:
+          <span class="kid-present" v-show="kid.isPresent"> In Class </span>
+          <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
+        </li>
+  
         <li class="hr">last seen:</li>
       </ul>
       <div class="msg-parent">
@@ -29,6 +30,7 @@
           <i class="fa fa-cog" aria-hidden="true"></i>
         </div>
         <div class="icons-right">
+          <i class="fa fa-camera" aria-hidden="true"></i>
           <i class="fa fa-medkit" aria-hidden="true"></i>
           <i class="fa fa-phone-square" aria-hidden="true"></i>
         </div>
@@ -67,7 +69,7 @@ export default {
       this.$emit('delete')
     },
     edit() {
-    this.$emit('edit')
+      this.$emit('edit')
     }
   }
 }
