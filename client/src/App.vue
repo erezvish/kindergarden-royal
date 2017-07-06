@@ -11,6 +11,11 @@
 import HeaderCmp from './components/HeaderCmp'
 export default {
   name: 'app',
+  created() {
+    this.$store.dispatch({
+      type: 'initSocket'
+    })
+  },
   components: {
     HeaderCmp
   }
