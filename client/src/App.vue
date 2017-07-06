@@ -14,11 +14,14 @@ export default {
   created() {
     this.$store.dispatch({
       type: 'initSocket'
+    console.log('fetching kids from state!')
+    this.$store.dispatch({
+       type: 'getKids'
     })
   },
   components: {
     HeaderCmp
-  }
+  },
 }
 </script>
 

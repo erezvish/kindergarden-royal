@@ -1,15 +1,17 @@
 <template>
   <section class="kid-details">
     <div class="kid-img">
-      <img src="../assets/img-demo.png">
+      <img :src="kid.imgUrl">
     </div>
     <div class="properties">
       <div class="card-header hr">
-        <h2> Kid name </h2>
+        <h2>{{`${kid.firstName} ${kid.lastName}`}}  </h2>
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </div>
       <ul>
-        <li>status:</li>
+        <li>status: 
+          <span class="kid-present" v-show="kid.isPresent"> In Class </span> 
+          <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span></li>
         <li class="hr">last seen:</li>
       </ul>
       <div class="msg-parent">
@@ -23,11 +25,15 @@
 <script>
 export default {
   name: 'kid-details',
+  props: ['kid'],
   data() {
     return {
-      inputMsgParent: ''
+      inputMsgParent: '',
     }
-  }
+  },
+    created() {
+    console.log('kid details:', this.kid)
+  },
 }
 </script>
 

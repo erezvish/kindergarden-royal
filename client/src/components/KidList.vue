@@ -1,10 +1,10 @@
 <template>
   <el-row>
-    <el-col  :xs="24" :sm="24" :md="20">
+    <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-list">
         <h1> Kid List Area </h1>
-        <div class="kid-details-container">
-          <kid-details v-for="kid in kids" :key="kid.id"></kid-details>
+        <div  v-if="kids.length" class="kid-details-container">
+          <kid-details v-for="kid in kids" :kid="kid" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -20,12 +20,11 @@ export default {
   },
   data() {
     return {
-      kids: [
-        { _id: 1, name: 'kid1' },
-        { _id: 2, name: 'kid2' },
-        { _id: 3, name: 'kid3' },
-        { _id: 3, name: 'kid4' }
-      ] //Temporary for connections
+    }
+  },
+  computed: {
+    kids() {
+      return this.$store.state.kids
     }
   }
 }
