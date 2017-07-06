@@ -10,7 +10,8 @@ export default {
     },
 
     logout() {
-
+        const logoutUrl = url + '/logout'
+        return axios.get(url)
     }
 
 }

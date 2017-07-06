@@ -11,9 +11,18 @@
 import HeaderCmp from './components/HeaderCmp'
 export default {
   name: 'app',
+  created() {
+    this.$store.dispatch({
+      type: 'initSocket',
+    })
+    console.log('fetching kids from state!')
+    this.$store.dispatch({
+       type: 'getKids'
+    })
+  },
   components: {
     HeaderCmp
-  }
+  },
 }
 </script>
 

@@ -15,41 +15,24 @@
         <el-button type="success" @click="create">create kid</el-button>
             </el-form-item>
         </el-form>
-            <!--<ul>
+            <ul>
                 <li v-for="kid in kids" :key="kid._id">{{kid}}
         <el-button @click="update(kid)">update kid</el-button>
         <el-button @click="deleteKid(kid)">delete kid</el-button>
+        <el-button @click="togglePresent(kid)">toggle present</el-button>
+        <span v-show="kid.isPresent">PRESENT!</span>
+        <span v-show="!kid.isPresent">NOT PRESENT!</span>
         </li>
-            </ul>-->
-            <el-row type="flex" class="row-bg" justify="center">
-            <el-col :span="17">
-                <el-table
-    :data="tableData"
-    border
-    style="width: 100%">
-    <el-table-column
-      
-      prop="firstName"
-      label="first name"
-      width="150">
-    </el-table-column>
-    <el-table-column
-      prop="lastName"
-      label="last name"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      label="Operations"
-      width="120">
-      <template scope="scope">
-        <el-button @click="handleClick" type="text" size="small">Detail</el-button>
-        <el-button type="text" size="small">Edit</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  </el-col>
-  </el-row>
-        </section>
+            </ul>
+        <!--<el-table :data="kids" style="width: 100%">
+            <el-table-column prop="firstName" label="first name" width="180">
+            </el-table-column>
+            <el-table-column prop="lastName" label="last name" width="180">
+            </el-table-column>
+            <el-table-column prop="_id" label="id">
+            </el-table-column>
+        </el-table>-->
+    </section>
 </template>
 
 <script>
@@ -62,39 +45,6 @@ export default {
     },
     data() {
         return {
-            tableData: [{
-          date: '2016-05-03',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-          tag: 'Home'
-        }, {
-          date: '2016-05-02',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-          tag: 'Office'
-        }, {
-          date: '2016-05-04',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-          tag: 'Home'
-        }, {
-          date: '2016-05-01',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-          tag: 'Office'
-        }],
             formInline: {
             username: '',
             pass: ''
@@ -112,7 +62,8 @@ export default {
                 type: 'createKid',
                 kid: {
                     firstName: 'meir',
-                    lastName: 'pechthalt'
+                    lastName: 'pechthalt',
+                    isPresent: false
                 }
             })
         },
@@ -131,12 +82,23 @@ export default {
             })
         },
         onSubmit() {
-            console.log('submit!');
             this.$store.dispatch({
                 type: 'login',
                 user: this.formInline
             })
+        },
+        togglePresent(kid) {
+            this.$store.dispatch({
+                type: 'togglePresent',
+                kid
+            })
         }
     }
 };
-    </script>
+</script>
+
+<style scoped>
+ul {
+    position: absolute;
+}
+</style>
