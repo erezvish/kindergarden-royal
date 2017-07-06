@@ -21,25 +21,15 @@
         <el-button @click="deleteKid(kid)">delete kid</el-button>
         </li>
             </ul>-->
-            <el-table
-      :data="kids"
-      style="width: 100%">
-      <el-table-column
-        prop="firstName"
-        label="first name"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="lastName"
-        label="last name"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="_id"
-        label="id">
-      </el-table-column>
-    </el-table>
-        </section>
+        <el-table :data="kids" style="width: 100%">
+            <el-table-column prop="firstName" label="first name" width="180">
+            </el-table-column>
+            <el-table-column prop="lastName" label="last name" width="180">
+            </el-table-column>
+            <el-table-column prop="_id" label="id">
+            </el-table-column>
+        </el-table>
+    </section>
 </template>
 
 <script>

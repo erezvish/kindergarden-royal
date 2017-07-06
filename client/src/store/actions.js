@@ -56,5 +56,12 @@ export default {
                 commit(payload)
             })
             .catch(res => console.log(res.data))
+    },
+
+    logout({ commit }, payload) {
+        userService.logout()
+        .then(() => {
+            commit(payload)
+        })
     }
 }
