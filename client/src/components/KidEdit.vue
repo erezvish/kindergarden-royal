@@ -20,13 +20,13 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="Birthdate:" required>
-                <el-col :span="11">
+                <el-col >
                   <el-form-item prop="date1">
                     <el-date-picker type="date" placeholder="Pick a date"></el-date-picker>
                   </el-form-item>
                 </el-col>
-  
               </el-form-item>
+  
 
               <h4>Parents details</h4>
               <el-form-item label="Parent name">
