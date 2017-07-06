@@ -4,6 +4,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import MainPanel from '@/components/MainPanel'
 import AdminCmp from '@/components/AdminCmp'
+import LoginCmp from '@/components/LoginCmp'
 
 // test component for dev time
 import TestCmp from '@/components/TestCmp'
@@ -23,6 +24,11 @@ export default new Router({
       path: '/admin',
       name: 'admin-cmp',
       component: AdminCmp
+    },
+    {
+      path: '/login',
+      name: 'login-cpm',
+      component: LoginCmp
     },
     {
       path: '/test',
