@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import store from '../store'
 export default {
   name: 'kid-details',
   props: ['kid'],
@@ -45,10 +44,7 @@ export default {
   },
   methods: {
     toggleIsPresent() {
-      this.$store.dispatch({
-        type: 'togglePresent',
-        kid: this.kid
-      })
+      this.$emit('toggle')
     }
   }
 }
