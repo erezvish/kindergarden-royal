@@ -1,11 +1,11 @@
 <template>
   <el-row>
-    <el-col  :xs="24" :sm="24" :md="20">
+    <el-col :xs="24" :sm="24" :md="20">
       <section class="control-panel">
         <i class="fa fa-cogs" aria-hidden="true"></i>
-        <!--<h1>Control Panel </h1>-->
-        <el-input placeholder="Search " icon="search" v-model="searchInput" :on-icon-click="handleIconClick">
-        </el-input>
+        <filter-cmp class="filter-cmp"> </filter-cmp>
+        <!--<el-input placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>-->
+        <!--</el-input>-->
         <div class="controls">
           <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
           <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
@@ -18,16 +18,20 @@
 </template>
 
 <script>
+import FilterCmp from './FilterCmp'
 export default {
   name: 'control-panel',
+  components: {
+    FilterCmp
+  },
   data() {
     return {
       searchInput: ''
     }
   },
   methods: {
-    handleIconClick: () => {
-      console.log('search icon clicked');
+    filterKids() {
+      console.log('filtering!')
     }
   }
 }
@@ -56,10 +60,15 @@ export default {
   border-radius: 1em;
   margin-bottom: 1em;
 
+  .filter-cmp {
+    width: 100%;
+  }
+
   &>* {
     margin: 0 1em;
   }
 }
+
 
 .control-panel::after {}
 
@@ -94,9 +103,8 @@ export default {
 @media screen and (max-width: $sm) {
   .controls {
     font-size: 0px;
-    display:none;
+    display: none;
     color: $color-default;
   }
-
 }
 </style>

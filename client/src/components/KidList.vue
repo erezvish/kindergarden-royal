@@ -3,9 +3,11 @@
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-list">
         <h1> Kid List Area </h1>
-        <div  v-if="kids.length" class="kid-details-container">
-          <kid-details v-for="kid in kids" :kid="kid" :key="kid._id" @edit="edit(kid)">
-          </kid-details>
+
+        <div v-if="kids.length" class="kid-details-container">
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" 
+          @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+
         </div>
       </section>
     </el-col>
@@ -14,6 +16,7 @@
 
 <script>
 import KidDetails from './KidDetails'
+import store from '../store'
 export default {
   name: 'kid-list',
   components: {
@@ -25,10 +28,22 @@ export default {
   },
   computed: {
     kids() {
-      return this.$store.state.kids
+      return this.$store.getters.filteredKids;
     }
   },
   methods: {
+    toggleIsPresent(kid) {
+      this.$store.dispatch({
+        type: 'togglePresent',
+        kid
+      })
+    },
+    deleteKidCard(kid) {
+      this.$store.dispatch({
+        type: 'deleteKid',
+        _id: kid._id
+      })
+    },
     edit(kid) {
       this.$emit('edit', kid)
     }

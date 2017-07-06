@@ -44,6 +44,12 @@ export default {
             })
     },
 
+
+    filterKids({commit}, payload) {
+        console.log('Firing filter Action!')
+        commit(payload);
+    },
+
     initSocket({ commit }) {
         kidService.initSocket(kid => {
             commit({
