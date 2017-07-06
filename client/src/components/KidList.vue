@@ -4,7 +4,8 @@
       <section class="kid-list">
         <h1> Kid List Area </h1>
         <div  v-if="kids.length" class="kid-details-container">
-          <kid-details v-for="kid in kids" :kid="kid" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :key="kid._id" @edit="edit(kid)">
+          </kid-details>
         </div>
       </section>
     </el-col>
@@ -25,6 +26,11 @@ export default {
   computed: {
     kids() {
       return this.$store.state.kids
+    }
+  },
+  methods: {
+    edit(kid) {
+      this.$emit('edit', kid)
     }
   }
 }

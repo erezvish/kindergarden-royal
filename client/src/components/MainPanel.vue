@@ -3,7 +3,6 @@
     <h1> Main Panel </h1>
     <control-panel></control-panel>
     <kid-list></kid-list>
-    <!--<kid-edit></kid-edit>-->
   </section>
 </template>
 

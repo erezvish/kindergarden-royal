@@ -6,7 +6,9 @@
     <div class="properties">
       <div class="card-header hr">
         <h2>{{`${kid.firstName} ${kid.lastName}`}}  </h2>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
+        <el-button @click="edit">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </el-button>
       </div>
       <ul>
         <li>status: 
@@ -34,6 +36,11 @@ export default {
     created() {
     console.log('kid details:', this.kid)
   },
+  methods: {
+    edit() {
+      this.$emit('edit')
+    }
+  }
 }
 </script>
 
