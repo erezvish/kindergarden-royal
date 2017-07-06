@@ -1,7 +1,7 @@
 <template>
   <section class="kid-details">
     <div class="kid-img">
-      <img src="kid.imgURL">
+      <img :src="kid.imgUrl">
     </div>
     <div class="properties">
       <div class="card-header hr">
