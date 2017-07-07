@@ -2,6 +2,10 @@
   <section :class="classObject" @click="toggleIsPresent">
     <div class="kid-img" :id="cameraId">
       <img :src="kid.imgUrl">
+      <div class="thumbs-chooser">
+        <i class="fa fa-thumbs-down" @click.stop="discardImg" aria-hidden="true"></i>
+        <i class="fa fa-thumbs-up" @click.stop="approveImg" aria-hidden="true"></i>
+      </div>
     </div>
     <div class="properties">
       <div class="card-header hr">
@@ -77,6 +81,8 @@ export default {
     cameraClicked() {
       if (this.isCameraOn) {
         let capturedImgUrl = null;
+        // Webcam.freeze()
+
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
@@ -88,6 +94,12 @@ export default {
       else Webcam.attach(`#${this.cameraId}`);
 
       this.isCameraOn = !this.isCameraOn;
+    },
+    approveImg() {
+      console.log('approved!')
+    },
+    discardImg() {
+      console.log('discarded')
     }
   }
 }
@@ -102,6 +114,21 @@ export default {
 
   & .fa {
     // font-size: 1.8em;
+  }
+}
+
+.thumbs-chooser {
+  display: flex;
+  position: relative;
+  bottom: 40%;
+  justify-content: space-around;
+  font-size: 2em;
+
+  .fa-thumbs-up {
+    color: #65C601;
+  }
+  .fa-thumbs-down {
+    color: red;
   }
 }
 
