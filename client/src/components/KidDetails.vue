@@ -2,10 +2,6 @@
   <section :class="classObject" @click="toggleIsPresent">
     <div class="kid-img" :id="cameraId">
       <img :src="kid.imgUrl">
-      <!--<div class="thumbs-chooser">-->
-      <!--<i class="fa fa-thumbs-down" @click.stop="discardImg" aria-hidden="true"></i>-->
-      <!--<i class="fa fa-thumbs-up" @click.stop="approveImg" aria-hidden="true"></i>-->
-      <!--</div>-->
     </div>
     <div class="properties">
       <div class="card-header hr">
@@ -108,22 +104,6 @@ export default {
 
   & .fa {
     // font-size: 1.8em;
-  }
-}
-
-.thumbs-chooser {
-  display: flex;
-  position: relative;
-  z-index: 100;
-  bottom: 40%;
-  justify-content: space-around;
-  font-size: 2em;
-
-  .fa-thumbs-up {
-    color: #65C601;
-  }
-  .fa-thumbs-down {
-    color: red;
   }
 }
 
