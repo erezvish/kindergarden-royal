@@ -2,10 +2,10 @@
   <section :class="classObject" @click="toggleIsPresent">
     <div class="kid-img" :id="cameraId">
       <img :src="kid.imgUrl">
-      <div class="thumbs-chooser">
-        <i class="fa fa-thumbs-down" @click.stop="discardImg" aria-hidden="true"></i>
-        <i class="fa fa-thumbs-up" @click.stop="approveImg" aria-hidden="true"></i>
-      </div>
+      <!--<div class="thumbs-chooser">-->
+      <!--<i class="fa fa-thumbs-down" @click.stop="discardImg" aria-hidden="true"></i>-->
+      <!--<i class="fa fa-thumbs-up" @click.stop="approveImg" aria-hidden="true"></i>-->
+      <!--</div>-->
     </div>
     <div class="properties">
       <div class="card-header hr">
@@ -80,26 +80,20 @@ export default {
     },
     cameraClicked() {
       if (this.isCameraOn) {
+        Webcam.freeze()
         let capturedImgUrl = null;
-        // Webcam.freeze()
-
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
         Webcam.reset()
         let updatedKid = Object.assign({}, this.kid)
         updatedKid.imgUrl = capturedImgUrl;
-        this.$emit('picture', updatedKid);
+        this.$emit('picture', updatedKid, this.kid)
       }
       else Webcam.attach(`#${this.cameraId}`);
 
       this.isCameraOn = !this.isCameraOn;
-    },
-    approveImg() {
-      console.log('approved!')
-    },
-    discardImg() {
-      console.log('discarded')
+
     }
   }
 }
@@ -120,6 +114,7 @@ export default {
 .thumbs-chooser {
   display: flex;
   position: relative;
+  z-index: 100;
   bottom: 40%;
   justify-content: space-around;
   font-size: 2em;
@@ -159,6 +154,7 @@ export default {
 }
 
 .kid-img {
+  position: relative;
   border: {
     top-left-radius: 0.1em;
     top-right-radius: 0.1em;

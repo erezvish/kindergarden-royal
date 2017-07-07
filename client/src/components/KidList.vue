@@ -46,12 +46,36 @@ export default {
     edit(kid) {
       this.$emit('edit', kid)
     },
-    updateKidPicture(kid) {
-      console.log('recieved picture update request', kid)
+    updateKidPicture(kid, prevKid) {
+      console.log('recieved picture update request', prevKid)
       this.$store.dispatch({
         type: 'updateKid',
         kid
-      })
+      }).then(
+        this.confirmImg(prevKid)
+        )
+    },
+    confirmImg(kid) {
+      console.log('current kid url:', kid.imgUrl)
+      this.$confirm('Accpet new Image?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: 'Image Saved!'
+        });
+      }).catch(() => {
+        this.$store.dispatch({
+          type: 'updateKid',
+          kid
+        })
+        this.$message({
+          type: 'info',
+          message: 'Image Discarded'
+        });
+      });
     }
   }
 }
