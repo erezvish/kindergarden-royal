@@ -4,8 +4,9 @@
       <section class="kid-edit">
         <h2> Kid properties </h2>
         <div class="editor-header">
+          <div class="kid-img"></div>
           <el-col  :lg="14" class="info-form">
-            <el-form :model="editedKid" :rules="rules" ref="edit-kid" label-width="120px">
+            <el-form :model="editedKid" :rules="rules" ref="edit-kid">
               <el-form-item label="First name" prop="firstName">
                 <el-input v-model="editedKid.firstName"></el-input>
               </el-form-item>
@@ -20,32 +21,34 @@
                 </el-select>
               </el-form-item>
               <!--<el-col :span="11">
-                <el-form-item prop="birthdate">
-                  <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="Note" prop="note">
-                  <el-input type="textarea" v-model="editedKid.note"></el-input>
-                </el-form-item>
-              </el-col>-->
+                  <el-form-item prop="birthdate">
+                    <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="Note" prop="note">
+                    <el-input type="textarea" v-model="editedKid.note"></el-input>
+                  </el-form-item>
+                </el-col>-->
+  
+              <h4>Parents details</h4>
+              <el-form-item label="Parent name">
+                <el-input></el-input>
+              </el-form-item>
+              <el-form-item label="Parent Tel.">
+                <el-input placeholder="05x-xxxxxxx"></el-input>
+              </el-form-item>
 
-                <h4>Parents details</h4>
-                <el-form-item label="Parent name">
-                  <el-input></el-input>
-                </el-form-item>
-                <el-form-item label="Parent name">
-                  <el-input></el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary">Update</el-button>
-                  <el-button>Reset</el-button>
-                <el-button @click="cancel">Cancel</el-button>
-                </el-form-item>
-              </el-form>
-            </el-col>
-          </div>
+              <div class="form-controls">
+                <el-button type="success">OK</el-button>
+                <el-button type="danger"@click="cancel">Cancel</el-button>
+                <el-button type="default">Reset</el-button>
+              </div>
+
+            </el-form>
+          </el-col>
+        </div>
         </div>
         <div class="editor-nav">
-          <h1>nav</h1>
+          <h1>Edit mode</h1>
         </div>
       </section>
     </el-col>
@@ -88,7 +91,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if(this.kid) {
+          if (this.kid) {
             this.editedKid._id = this.kid._id
             this.$store.dispatch({
               type: 'updateKid',
@@ -136,11 +139,20 @@ export default {
   text-align: start;
   & .el-form-item {
     width: 100%;
+  };
+  & .form-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    margin: 1em 0;
   }
+
 }
 
 .info-form {
   align-self: center;
+  margin-left: 1em;
 }
 
 .kid-edit {
@@ -162,13 +174,14 @@ export default {
   justify-content: flex-start;
   background: rgba(55, 98, 131, 0.06);
   min-height: 16.6em;
-  padding: 2EM 2em;
+  padding: 1EM 2em;
   border: {
     bottom: $border-alpha-wide;
     top: $border-alpha-wide;
   }
   ;
   & .kid-img {
+    margin: 1em 0;
     background: #f4f4f4;
     background-image: url('../assets/img-kid/img.png');
     background-size: cover;
@@ -212,6 +225,10 @@ export default {
       width: 10.4em;
       height: 14em;
     }
+  };
+  .form-controls {
+    flex-direction: column;
+    margin: 1em 0;
   }
 }
 </style>

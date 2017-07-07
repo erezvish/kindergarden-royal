@@ -1,7 +1,9 @@
 <template>
   <section class="admin-panel">
+    <h1> Admin Panel </h1>
     <el-row>
-      <el-col :xs="24" :sm="24" :md="17">
+      
+      <el-col :xs="24" :sm="24" :md="24">
         <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
@@ -21,8 +23,6 @@ import KidEdit from './KidEdit'
 import ControlPanel from './ControlPanel'
 import SideBar from './SideBar'
 
-// import AdminContent from './AdminContent'
-// import AdminSidebar from './AdminSidebar'
 export default {
   name: 'admin-cmp',
   components: {

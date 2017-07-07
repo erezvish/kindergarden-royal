@@ -1,6 +1,5 @@
 <template>
-<el-col  :md="7">
-    <section class="sidebar-container">
+    <section class="note">
         <div class="notes-header hr-bottom">
             <div class="title">
                 <ul>
@@ -12,43 +11,22 @@
             </div>
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </div>
-        <div>
-            <note-cmp></note-cmp>
-        </div>
-    </section>
 
-</el-col>
+    </section>
 </template>
 
 <script>
-import NoteCmp from './NoteCmp'
 export default {
-    name: 'side-bar',
-    components: {
-        NoteCmp
-    }
+    name: 'note-cmp'
 }
 </script>
 
+
 <style lang="scss" scoped>
 @import "../sass/vars.scss";
-// * {
-//     outline: 1px solid #333;
-// }
-.sidebar-container {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    background: white;
-    box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
-    border-radius: 1em;
-    margin-bottom: 1em;
-    min-height: 95vh;
-    height: 90%;
-    & .fa {
-        font-size: 2em;
-        margin: 0 0.5em;
-    }
+
+.note {
+    background: blue;
 }
 
 .hr-bottom {
@@ -75,9 +53,4 @@ export default {
     }
 }
 
-@media screen and (max-width: $lg) {
-    .el-col {
-        display: none;
-    }
-}
 </style>
