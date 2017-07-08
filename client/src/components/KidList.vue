@@ -2,11 +2,10 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-list">
+          <code-keypad class="code-keypad" v-if="showKeyPad" @close-keypad="closeKeyPad"></code-keypad>
         <h1> Kid List Area </h1>
-  
         <div v-if="kids.length" class="kid-details-container">
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" @picture="updateKidPicture" :key="kid._id"></kid-details>
-          <code-keypad class="code-keypad"></code-keypad>
         </div>
       </section>
     </el-col>
@@ -25,6 +24,7 @@ export default {
   },
   data() {
     return {
+      showKeyPad: false
     }
   },
   computed: {
@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     toggleIsPresent(kid) {
+      this.showKeyPad = true;
       this.$store.dispatch({
         type: 'togglePresent',
         kid
@@ -78,6 +79,9 @@ export default {
           message: 'Image Discarded'
         });
       });
+    },
+    closeKeyPad() {
+      this.showKeyPad = false;
     }
   }
 }
@@ -106,8 +110,11 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .code-keypad {
-  z-index: 100;
-  position: absolute;
+  position: fixed;
+  z-index: 100; 
+  top: 25%;
+  left: 25%;
 }
 </style>
