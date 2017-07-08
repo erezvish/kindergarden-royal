@@ -6,15 +6,15 @@
       </div>
   
       <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }">
-        <li @click="menuClicked">
+        <li @click="slideMenu">
           <router-link class="router-link" to="/">
             <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
         </li>
-        <li @click="menuClicked">
+        <li>
           <router-link class="router-link" to="/admin">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
         </li>
-        <li @click="menuClicked">
+        <li>
           <router-link class="router-link" to="/login">
             <i class="fa fa-user-circle" aria-hidden="true"></i>Log-in</router-link>
         </li>
@@ -32,11 +32,15 @@ export default {
   name: 'header-cmp',
   data() {
     return {
-      menuIsClicked: true
+      menuIsClicked: true,
+      a: true
     }
 
   },
   methods: {
+    iconClicked: () => {
+
+    },
     menuClicked: function () {
       this.menuIsClicked = !this.menuIsClicked;
       // $('body, html').css('overflow-y', 'hidden');
@@ -48,6 +52,13 @@ export default {
       } else {
         fixed.classList.remove('unScroll');
       }
+    },
+    slideMenu: function() {
+      console.log('slide menu...');
+      var nav = document.querySelector('.nav-items');
+      nav.classList.remove('menu-on');
+      this.menuIsClicked = !this.menuIsClicked;
+      
     }
   }
 }
@@ -56,7 +67,7 @@ export default {
 <style lang="scss" scoped>
 // * {
 //   outline: 1px solid #333;
-// }
+// }    
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
 

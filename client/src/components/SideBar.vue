@@ -1,19 +1,9 @@
 <template>
 <el-col  :md="7">
     <section class="sidebar-container">
-        <div class="notes-header hr-bottom">
-            <div class="title">
-                <ul>
-                    <li>
-                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                    </li>
-                    <li>Notes</li>
-                </ul>
-            </div>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-        </div>
         <div>
-            <note-cmp></note-cmp>
+            <notes-panel></notes-panel>
+            <!--<note-cmp></note-cmp>-->
         </div>
     </section>
 
@@ -21,11 +11,11 @@
 </template>
 
 <script>
-import NoteCmp from './NoteCmp'
+import NotesPanel from './NotesPanel'
 export default {
     name: 'side-bar',
     components: {
-        NoteCmp
+        NotesPanel
     }
 }
 </script>
@@ -36,15 +26,15 @@ export default {
 //     outline: 1px solid #333;
 // }
 .sidebar-container {
-    padding: 1em;
     display: flex;
     flex-direction: column;
+    padding: 0;
+    margin-bottom: 0em;
     background: white;
+    background: linear-gradient(to top, #95C1D2 1%, white 25%);
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
-    margin-bottom: 1em;
-    min-height: 95vh;
-    height: 90%;
+    min-height: 100%;
     & .fa {
         font-size: 2em;
         margin: 0 0.5em;
