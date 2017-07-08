@@ -51,10 +51,6 @@ export default {
       cameraId: 'K' + this.kid._id
     }
   },
-
-  created() {
-    console.log('kid details:', this.kid)
-  },
   computed: {
     classObject() {
       return {

@@ -8,31 +8,43 @@
 </template>
 
 <script>
+import appSpeech from './speech/app.speech'
 import HeaderCmp from './components/HeaderCmp'
 export default {
   name: 'app',
+  components: {
+    HeaderCmp
+  },
+  data() {
+    return {
+      temp: {
+        'hello': function () { alert('Hello world!'); },
+        'hey': () => { this.$message('Hello'); },
+      }
+    }
+  },
   created() {
     this.$store.dispatch({
       type: 'initSocket',
     })
     console.log('fetching kids from state!')
     this.$store.dispatch({
-       type: 'getKids'
+      type: 'getKids'
     })
+
+    // Add our commands to annyang
+    annyang.addCommands(this.temp);
+    annyang.start();
   },
-  components: {
-    HeaderCmp
-  },
+  destroyed() {
+    annyang.abort()
+  }
 }
 </script>
 
 <style lang="scss">
-
-
-
 body {
   margin: 0;
-  
 }
 
 #app {
@@ -43,8 +55,7 @@ body {
 }
 
 main {
-  text-align: center;
-  // margin-top: 40px;
+  text-align: center; // margin-top: 40px;
 }
 
 header {
@@ -67,5 +78,4 @@ header span {
 }
 
 // Media queries sizes
-
 </style>
