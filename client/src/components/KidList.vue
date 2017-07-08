@@ -6,7 +6,7 @@
   
         <div v-if="kids.length" class="kid-details-container">
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" @picture="updateKidPicture" :key="kid._id"></kid-details>
-  
+          <code-keypad class="code-keypad"></code-keypad>
         </div>
       </section>
     </el-col>
@@ -15,11 +15,13 @@
 
 <script>
 import KidDetails from './KidDetails'
+import CodeKeypad from './CodeKeypad'
 import store from '../store'
 export default {
   name: 'kid-list',
   components: {
-    KidDetails
+    KidDetails,
+    CodeKeypad
   },
   data() {
     return {
@@ -103,5 +105,9 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+.code-keypad {
+  z-index: 100;
+  position: absolute;
 }
 </style>
