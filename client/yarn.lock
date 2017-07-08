@@ -6014,6 +6014,10 @@ watchpack@^1.3.1:
     chokidar "^1.4.3"
     graceful-fs "^4.1.2"
 
+webcamjs@^1.0.22:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/webcamjs/-/webcamjs-1.0.22.tgz#3039dfce5c8550eefb17205d23c3b665ca625fda"
+
 webpack-bundle-analyzer@^2.2.1:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.8.2.tgz#8b6240c29a9d63bc72f09d920fb050adbcce9fe8"

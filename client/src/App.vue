@@ -8,31 +8,47 @@
 </template>
 
 <script>
+import appSpeech from './speech/app.speech'
 import HeaderCmp from './components/HeaderCmp'
 export default {
   name: 'app',
+  components: {
+    HeaderCmp
+  },
+  data() {
+    return {
+      voiceCommands: {
+        'hello': () => { this.$message('Hello, how are you?'); },
+        'Tamir': () => { this.$message('Number 1 Designer!'); },
+        'Meir': () => { this.$message('Programmer Extraordinaire'); },
+        'Erez': () => { this.$message('Google him, you may be surprised!'); },
+        'Alon': () => { this.$message('He is VP R&D'); },
+        
+      }
+    }
+  },
   created() {
     this.$store.dispatch({
       type: 'initSocket',
     })
     console.log('fetching kids from state!')
     this.$store.dispatch({
-       type: 'getKids'
+      type: 'getKids'
     })
+
+    // Add our commands to annyang
+    annyang.addCommands(this.voiceCommands);
+    annyang.start();
   },
-  components: {
-    HeaderCmp
-  },
+  destroyed() {
+    annyang.abort()
+  }
 }
 </script>
 
 <style lang="scss">
-
-
-
 body {
   margin: 0;
-  
 }
 
 #app {
@@ -43,8 +59,7 @@ body {
 }
 
 main {
-  text-align: center;
-  // margin-top: 40px;
+  text-align: center; // margin-top: 40px;
 }
 
 header {
@@ -67,5 +82,4 @@ header span {
 }
 
 // Media queries sizes
-
 </style>

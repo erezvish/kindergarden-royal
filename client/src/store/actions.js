@@ -47,6 +47,7 @@ export default {
 
     filterKids({commit}, payload) {
         console.log('Firing filter Action!')
+        payload.text = payload.text.toLowerCase()
         commit(payload);
     },
 

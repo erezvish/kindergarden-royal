@@ -1,12 +1,14 @@
 <template>
   <section :class="classObject" @click="toggleIsPresent">
-    <div class="kid-img">
+    <div class="kid-img" :id="cameraId">
       <img :src="kid.imgUrl">
     </div>
     <div class="properties">
       <div class="card-header hr">
         <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
+
         <el-button @click.stop="edit">
+
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </el-button>
       </div>
@@ -30,6 +32,7 @@
           <i class="fa fa-cog" aria-hidden="true"></i>
         </div>
         <div class="icons-right">
+          <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
           <i class="fa fa-medkit" aria-hidden="true"></i>
           <i class="fa fa-phone-square" aria-hidden="true"></i>
         </div>
@@ -39,6 +42,7 @@
 </template>
 
 <script>
+import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
   props: ['kid'],
@@ -46,11 +50,10 @@ export default {
     return {
       inputMsgParent: '',
 
-    }
-  },
+      isCameraOn: false,
+      cameraId: 'K' + this.kid._id
 
-  created() {
-    console.log('kid details:', this.kid)
+    }
   },
   computed: {
     classObject() {
@@ -70,6 +73,24 @@ export default {
     },
     edit() {
       this.$emit('edit')
+
+    },
+    cameraClicked() {
+      if (this.isCameraOn) {
+        Webcam.freeze()
+        let capturedImgUrl = null;
+        Webcam.snap(function (data_uri) {
+          capturedImgUrl = data_uri;
+        });
+        Webcam.reset()
+        let updatedKid = Object.assign({}, this.kid)
+        updatedKid.imgUrl = capturedImgUrl;
+        this.$emit('picture', updatedKid, this.kid)
+      }
+      else Webcam.attach(`#${this.cameraId}`);
+
+      this.isCameraOn = !this.isCameraOn;
+
     }
   }
 }
@@ -117,6 +138,7 @@ export default {
 }
 
 .kid-img {
+  position: relative;
   border: {
     top-left-radius: 0.1em;
     top-right-radius: 0.1em;
