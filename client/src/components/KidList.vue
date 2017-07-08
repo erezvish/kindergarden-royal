@@ -2,7 +2,7 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-list">
-          <code-keypad class="code-keypad" v-if="showKeyPad" @close-keypad="closeKeyPad"></code-keypad>
+        <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <h1> Kid List Area </h1>
         <div v-if="kids.length" class="kid-details-container">
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" @picture="updateKidPicture" :key="kid._id"></kid-details>
@@ -24,7 +24,8 @@ export default {
   },
   data() {
     return {
-      showKeyPad: false
+      showKeyPad: false,
+      keyPadActiveKid: {}
     }
   },
   computed: {
@@ -34,11 +35,8 @@ export default {
   },
   methods: {
     toggleIsPresent(kid) {
+      this.keyPadActiveKid = kid;
       this.showKeyPad = true;
-      this.$store.dispatch({
-        type: 'togglePresent',
-        kid
-      })
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -80,8 +78,14 @@ export default {
         });
       });
     },
-    closeKeyPad() {
+    closeKeyPad(passCheck) {
       this.showKeyPad = false;
+      if (passCheck) {
+        this.$store.dispatch({
+          type: 'togglePresent',
+          kid: this.keyPadActiveKid
+        })
+      }
     }
   }
 }
@@ -113,7 +117,7 @@ export default {
 
 .code-keypad {
   position: fixed;
-  z-index: 100; 
+  z-index: 100;
   top: 25%;
   left: 25%;
 }

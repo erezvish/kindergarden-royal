@@ -36,11 +36,11 @@
 <<script>
 export default {
   name: 'code-keypad',
+  props: ['kidPass'],
     data() {
     return {
         insertedPass: '',
         passSymbol: '*',
-        correctPass: '12345', //temp until received as a prop
         maxPassLength: 5,
         isPassCorrect: false,
     }
@@ -65,9 +65,14 @@ export default {
       },
       confirmClicked() {
           console.log('confirm clicked')
-          if(this.insertedPass === this.correctPass) {
-              this.closeKeypad();
+          if(this.insertedPass === this.kidPass) {              
+              this.isPassCorrect = true; //for some reason the first command is ignored
+                                        //but the second works. For now this is a makeshift fix.
               this.isPassCorrect = true;
+              this.closeKeypad();
+          } else {
+              this.$message.error("Incorrect Code")
+              this.insertedPass ='';
           }
       }
   }
