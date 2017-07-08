@@ -1,5 +1,6 @@
 <template>
     <section>
+        <i class="fa fa-microphone annyang-on" :class="micClassObject" aria-hidden="true"></i>
         <table class="keypad">
             <i class="fa fa-times" aria-hidden="true" @click="closeKeypad"></i>
             <tr>
@@ -63,11 +64,15 @@ export default {
   computed: {
       shownPass() {
         return this.passSymbol.repeat(this.insertedPass.length)
+      },
+        micClassObject() {
+        return {
+            'annyang-on': annyang.isListening()
       }
   },
+},
   created() {
         console.log('keypad created')
-        annyang.removeCommands();
         annyang.addCommands(this.voiceCommands)
   },
   methods: {
@@ -136,6 +141,24 @@ export default {
     top: 0.2em;
     left: 0.2em;
     cursor: pointer;
+}
+
+.fa-microphone {
+    display: none;
+    position: absolute;
+    top: 0.2em;
+    right: 0.2em;
+    font-size: 3em;
+    &.annyang-on {
+        display: block;
+        animation: 3s blink infinite;
+    }
+}
+
+@keyframes blink {
+    50% {
+        color: goldenrod;
+    }
 }
 </style>
 
