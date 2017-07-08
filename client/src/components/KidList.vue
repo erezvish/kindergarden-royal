@@ -2,15 +2,15 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23">
       <section class="kid-list">
-
-       <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
-      <div class="status-bar">
+  
+        <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
+        <div class="status-bar">
           <h1> Kid list area </h1>
           <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
         </div>
         <div v-if="kids.length" class="kid-details-container">
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-
+  
         </div>
       </section>
     </el-col>
@@ -94,7 +94,7 @@ export default {
           kid: this.keyPadActiveKid
         })
       }
-
+    },
     plusClicked: () => {
       console.log('plusClicked');
 
