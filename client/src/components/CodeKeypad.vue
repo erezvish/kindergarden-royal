@@ -50,6 +50,9 @@ export default {
         return this.passSymbol.repeat(this.insertedPass.length)
       }
   },
+  created() {
+        console.log('keypad created')
+  },
   methods: {
       closeKeypad() {
           console.log('Closing Keypad')
