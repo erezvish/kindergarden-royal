@@ -43,6 +43,21 @@ export default {
         passSymbol: '*',
         maxPassLength: 5,
         isPassCorrect: false,
+        voiceCommands: {
+            'one': () => this.numberSpoken(1),
+            'two': () => this.numberSpoken(2),
+            'three': () => this.numberSpoken(3),
+            'four': () => this.numberSpoken(4),
+            'five': () => this.numberSpoken(5),
+            'six': () => this.numberSpoken(6),
+            'seven': () => this.numberSpoken(7),
+            'eight': () => this.numberSpoken(8),
+            'nine': () => this.numberSpoken(9),
+            'zero': () => this.numberSpoken(0),
+            'yes': () => this.confirmClicked(),
+            'delete': () => this.eraseClicked(),
+            'exit': () => this.closeKeypad(),
+        }
     }
   },
   computed: {
@@ -52,6 +67,8 @@ export default {
   },
   created() {
         console.log('keypad created')
+        annyang.removeCommands();
+        annyang.addCommands(this.voiceCommands)
   },
   methods: {
       closeKeypad() {
@@ -61,6 +78,9 @@ export default {
       numberClicked(event) {
           console.log(event.target.innerText, 'clicked')
           if (this.insertedPass.length < this.maxPassLength) this.insertedPass += event.target.innerText;
+      },
+      numberSpoken(val) {
+          if (this.insertedPass.length < this.maxPassLength) this.insertedPass += val;          
       },
       eraseClicked() {
           if (this.insertedPass) this.insertedPass = this.insertedPass.slice(0, this.insertedPass.length - 1)

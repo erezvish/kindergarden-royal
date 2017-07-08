@@ -17,9 +17,13 @@ export default {
   },
   data() {
     return {
-      temp: {
-        'hello': function () { alert('Hello world!'); },
-        'hey': () => { this.$message('Hello'); },
+      voiceCommands: {
+        'hello': () => { this.$message('Hello, how are you?'); },
+        'Tamir': () => { this.$message('Number 1 Designer!'); },
+        'Meir': () => { this.$message('Programmer Extraordinaire'); },
+        'Erez': () => { this.$message('Google him, you may be surprised!'); },
+        'Alon': () => { this.$message('He is VP R&D'); },
+        
       }
     }
   },
@@ -33,7 +37,7 @@ export default {
     })
 
     // Add our commands to annyang
-    annyang.addCommands(this.temp);
+    annyang.addCommands(this.voiceCommands);
     annyang.start();
   },
   destroyed() {
