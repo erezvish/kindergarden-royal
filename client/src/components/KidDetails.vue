@@ -6,7 +6,9 @@
     <div class="properties">
       <div class="card-header hr">
         <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
-        <el-button @click="edit">
+
+        <el-button @click.stop="edit">
+
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </el-button>
       </div>
@@ -18,9 +20,9 @@
   
         <li class="hr">last seen:</li>
       </ul>
-      <div class="msg-parent">
+      <div class="msg-parent x-space-child">
         <el-input placeholder="Message parent" v-model="inputMsgParent"></el-input>
-        <el-button type="success">
+        <el-button type="default">
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
         </el-button>
       </div>
@@ -47,8 +49,10 @@ export default {
   data() {
     return {
       inputMsgParent: '',
+
       isCameraOn: false,
       cameraId: 'K' + this.kid._id
+
     }
   },
   computed: {
@@ -69,6 +73,7 @@ export default {
     },
     edit() {
       this.$emit('edit')
+
     },
     cameraClicked() {
       if (this.isCameraOn) {
@@ -92,6 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../sass/main.scss";
 // * {
 //   outline: 1px solid green;
 // }
@@ -106,13 +112,15 @@ export default {
 .kid-details {
   background: white;
   border-radius: 1em;
+  padding: 1em;
   display: flex;
   flex-direction: column;
+  padding-top: 1em;
   width: 250px; // height: 350px;
   margin: 1em;
   border: 0.2em solid rgba(51, 51, 51, 0.2);
   cursor: pointer;
-
+  box-shadow: 0 0 8 px #333;
   & ul {
     list-style-type: none;
     padding: 0;
@@ -145,11 +153,19 @@ export default {
 }
 
 .mark-present {
-  border: 4px solid green;
+  border: none;
+  background: rgba(0, 155, 2, 0.7);
+  // background: linear-gradient(to bottom, rgba(0, 155, 2, 0.7), lightgreen 2em, rgba(0, 155, 2, 0.7) 17em);
+  background: linear-gradient(to top, rgba(0, 155, 2, 0.7) 1%, lightgreen 0.5em, rgba(0, 155, 2, 0.7) 50%);
+  color: white;
 }
 
 .mark-absent {
-  border: 4px solid red;
+  border: none;
+  background: rgba(230, 0, 0, 0.9);
+  // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
+  background: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
+  color: white;
 }
 
 .msg-parent {
@@ -164,6 +180,12 @@ export default {
   font-size: 2em;
   .fa {
     margin: 0.1em;
+    color: rgba(0, 0, 0, 0.4);
+    transition: all, 0.4s;
+  }
+  .fa:hover {
+    color: #fff;
+    transition: all, 0.4s;
   }
 }
 

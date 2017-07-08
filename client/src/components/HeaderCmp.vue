@@ -5,16 +5,16 @@
         <h1>KinderYA!</h1>
       </div>
   
-      <ul class="nav-items" :class="{ 'menu-on': menuIsClicked }">
-        <li @click="menuClicked">
-          <router-link class="router-link" to="/" >
-            <i  class="fa fa-home" aria-hidden="true" ></i>Home</router-link>
+      <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }">
+        <li @click="slideMenu">
+          <router-link class="router-link" to="/">
+            <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
         </li>
-        <li @click="menuClicked">
+        <li>
           <router-link class="router-link" to="/admin">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
         </li>
-        <li @click="menuClicked">
+        <li>
           <router-link class="router-link" to="/login">
             <i class="fa fa-user-circle" aria-hidden="true"></i>Log-in</router-link>
         </li>
@@ -32,16 +32,33 @@ export default {
   name: 'header-cmp',
   data() {
     return {
-      menuIsClicked: true
+      menuIsClicked: true,
+      a: true
     }
 
   },
   methods: {
+    iconClicked: () => {
+
+    },
     menuClicked: function () {
-      console.log('clicking on menu btn');
       this.menuIsClicked = !this.menuIsClicked;
       // $('body, html').css('overflow-y', 'hidden');
-      console.log(this.menuIsClicked);
+      console.log('Clicking on menu btn: ', this.menuIsClicked);
+      var fixed = document.querySelector('body');
+      if (this.menuIsClicked) {
+        fixed.classList.add('unScroll');
+        console.log(fixed);
+      } else {
+        fixed.classList.remove('unScroll');
+      }
+    },
+    slideMenu: function() {
+      console.log('slide menu...');
+      var nav = document.querySelector('.nav-items');
+      nav.classList.remove('menu-on');
+      this.menuIsClicked = !this.menuIsClicked;
+      
     }
   }
 }
@@ -50,9 +67,9 @@ export default {
 <style lang="scss" scoped>
 // * {
 //   outline: 1px solid #333;
-// }
+// }    
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
-@import "../sass/vars.scss";
+@import "../sass/main.scss";
 
 h1 {
   margin: 0;
@@ -91,7 +108,6 @@ header {
   border-bottom: 0.5em solid rgba(0, 0, 0, 0.2);
 }
 
-
 .router-link {
   margin: 1em;
 }
@@ -128,9 +144,7 @@ header {
 }
 
 
-
-
-
+// -------------------------------
 @media screen and (max-width: $sm) {
   .nav-items {
     display: flex;
@@ -143,7 +157,6 @@ header {
     right: -20em;
     padding: 0;
     margin: 0;
-    // background: #ADD8E6;
     background: #376283;
     background: linear-gradient(to bottom, white -3em, #376283 12%);
     z-index: 2;
@@ -164,5 +177,14 @@ header {
 .menu-on {
   right: 0;
   transition: all, 0.7s;
+}
+</style>
+
+
+// unscoped style
+
+<style>
+.unScroll {
+  overflow: hidden;
 }
 </style>

@@ -46,6 +46,7 @@
   align-items: center;
   flex-direction: column;
   background: lightblue;
+  
   padding: 2em;
   min-height: 100vh;
 }
@@ -55,6 +56,7 @@
   display: flex;
   flex-direction: column;
   background: white;
+  background: linear-gradient(to top, #95C1D2 1%, white 55%);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   border-radius: 1em;
   margin-bottom: 1em;

@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :xs="24" :sm="24" :md="20">
+    <el-col :xs="24" :sm="24" :md="23" :lg="20">
       <section class="control-panel">
         <i class="fa fa-cogs" aria-hidden="true"></i>
         <filter-cmp class="filter-cmp"> </filter-cmp>
