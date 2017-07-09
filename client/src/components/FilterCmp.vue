@@ -3,9 +3,9 @@
         <el-input class="filter-text" placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
         </el-input>
         <el-radio-group class="controls" v-model="radioSelected">
-            <el-radio-button label="All"></el-radio-button>
-            <el-radio-button label="Present"></el-radio-button>
-            <el-radio-button label="Absent"></el-radio-button>
+            <el-radio-button label="all">All</el-radio-button>
+            <el-radio-button label="present">Present</el-radio-button>
+            <el-radio-button label="absent">Absent</el-radio-button>
         </el-radio-group>
     </section>
 </template>
@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             searchInput: '',
-            radioSelected: 'All',
+            radioSelected: 'ignore',
             voiceCommands: {
                 'search *spokenFilter': this.runSpokenFilter,
                 'find *spokenFilter': this.runSpokenFilter,
@@ -32,7 +32,8 @@ export default {
             console.log('filtering!')
             this.$store.dispatch({
                 type: 'filterKids',
-                text: this.searchInput
+                text: this.searchInput,
+                radio: this.radioSelected
             })
         },
         runSpokenFilter(spokenFilter) {
@@ -42,6 +43,11 @@ export default {
         radioClicked() {
             console.log('radio clicked!')
         }
+    },
+    watch: {
+        radioSelected(val) {
+            this.filterKids();
+        },
     }
 }
 </script>

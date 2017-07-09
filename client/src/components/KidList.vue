@@ -10,7 +10,7 @@
           <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
           <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
           <i class="fa fa-th-large" aria-hidden="true"></i>
-          <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+          <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
           </ul>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">

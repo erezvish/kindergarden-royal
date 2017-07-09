@@ -28,7 +28,10 @@ const store = new Vuex.Store({
                 }
             ]
         },
-        kidsFilter: '',
+        kidsFilter: {
+            text: '',
+            radio:'ignore'
+        },
         isAdmin: false,
         token: ''
     },

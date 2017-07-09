@@ -27,8 +27,9 @@ export default {
         }
     },
 
-    filterKids(state, {text}) {
-        state.kidsFilter = text;
+    filterKids(state, { text, radio }) {
+        state.kidsFilter.text = text;
+        state.kidsFilter.radio = radio;
         console.log('state filter:', state.kidsFilter)
     },
 

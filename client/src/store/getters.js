@@ -1,17 +1,14 @@
 export default {
     filteredKids: (state) => {
         console.log('getter working!')
-        return state.kids.filter(kid =>
+        var currFilter = state.kids.filter(kid =>
             (kid.firstName.toLowerCase() + ' ' + kid.lastName.toLowerCase())
-                .includes(state.kidsFilter)
+                .includes(state.kidsFilter.text)
         )
-    },
-    radioFilter: (state) => {
-        console.log('radio getter working!')
-        return state.kids.filter(kid =>
-            (kid.firstName.toLowerCase() + ' ' + kid.lastName.toLowerCase())
-                .includes(state.kidsFilter)
-        )
+        // debugger;
+        if (state.kidsFilter.radio === "present") currFilter = currFilter.filter(kid => kid.isPresent)
+        else if (state.kidsFilter.radio === "absent") currFilter.filter(kid => !kid.isPresent)
+        return currFilter;
     }
 }
 
