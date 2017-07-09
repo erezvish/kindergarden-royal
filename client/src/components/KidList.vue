@@ -6,11 +6,11 @@
         <div class="status-bar">
           <h1> Kid list area </h1>
           <ul>
-          <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
-          <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
-          <i class="fa fa-th-large" aria-hidden="true"></i>
-          <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
+            <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
+            <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
+            <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+            <i class="fa fa-th-large" aria-hidden="true"></i>
+            <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
           </ul>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
@@ -33,14 +33,18 @@ export default {
   data() {
     return {
       thumbnailView: true,
-      showKeyPad: false,
-      triggerListView: false
+      triggerListView: false,
+      kidsToDisplay: []
     }
   },
   computed: {
     kids() {
       return this.$store.getters.filteredKids;
     }
+  },
+  created() {
+    Object.assign(this.kidsToDisplay, this.kids)
+    // console.log('kids:', this.kids, 'display:', this.kidsToDisplay )
   },
   methods: {
     setListView() {
@@ -90,9 +94,6 @@ export default {
         this.confirmImg(prevKid)
         )
     },
-    confirmToggle(kid) {
-
-    },
     confirmImg(kid) {
       console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
@@ -117,6 +118,10 @@ export default {
     },
     createKid() {
       this.$emit('createKid')
+    },
+    sortKids(reverseDirection = false) {
+      console.log('Sorting them Kids')
+      
     }
   }
 }
@@ -184,5 +189,4 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 </style>

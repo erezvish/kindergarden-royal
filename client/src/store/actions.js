@@ -51,6 +51,11 @@ export default {
         commit(payload);
     },
 
+    // sortKids({commit}, payload) {
+    //     console.log('Initiating Sort Action!')
+    //     commit(payload);
+    // },
+
     initSocket({ commit }) {
         kidService.initSocket(kid => {
             commit({

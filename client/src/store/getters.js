@@ -5,10 +5,13 @@ export default {
             (kid.firstName.toLowerCase() + ' ' + kid.lastName.toLowerCase())
                 .includes(state.kidsFilter.text)
         )
-        // debugger;
         if (state.kidsFilter.radio === "present") currFilter = currFilter.filter(kid => kid.isPresent)
         else if (state.kidsFilter.radio === "absent") currFilter = currFilter.filter(kid => !kid.isPresent)
         return currFilter;
-    }
+    },
+    // sortedKids: (state, getters) => {
+    //     console.log('Sort getter is working!');
+
+    // }
 }
 
