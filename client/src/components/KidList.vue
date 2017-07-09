@@ -3,23 +3,25 @@
     <el-col :xs="24" :sm="24" :md="23">
       <section class="kid-list">
   
-        <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <div class="status-bar">
           <h1> Kid list area </h1>
+
           <ul class="controls">
-            <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-            <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
-            <i class="fa fa-list" aria-hidden="true" @click="setListView"></i>
-            <i class="fa fa-th-large" aria-hidden="true" @click="setThumbView"></i>
-            <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+            <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
+            <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
+            <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+            <i class="fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
+            <i class="fa fa-plus-square-o" v-if="isAdmin" @click="plusClicked" aria-hidden="true" @click="createKid"></i>
+
           </ul>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :kid="kid" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-        </div>
-        <div v-else>
-          <kid-details-row></kid-details-row>
+
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView"  
+          @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" 
+          @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+
         </div>
       </section>
     </el-col>
@@ -27,29 +29,41 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import KidDetails from './KidDetails'
-import KidDetailsRow from './KidDetailsRow'
-import CodeKeypad from './CodeKeypad'
+
 import store from '../store'
 export default {
   name: 'kid-list',
   components: {
     KidDetails,
-    KidDetailsRow,
-    CodeKeypad
+
   },
   data() {
     return {
       thumbnailView: true,
-      showKeyPad: false,
-      keyPadActiveKid: {},
-      triggerListView: false
+
+      triggerListView: false,
+      isReverseSort: false,
+      isFirstSort: true
+
     }
   },
-  computed: {
+  computed: { //TODO: use map getters
+    ...mapGetters([
+    ]),
     kids() {
-      return this.$store.getters.filteredKids;
+      return this.$store.getters.filteredKids
+    },
+    isAdmin() {
+      return this.$store.state.isAdmin
+    },
+    isBasic() {
+      return this.$store.state.isBasic
     }
+  },
+
+  created() {
   },
   methods: {
     setListView() {
@@ -58,9 +72,30 @@ export default {
     setThumbView() {
       this.triggerListView = false;
     },
+    plusClicked() {
+      //PLACEHOLDER, ACCEPT MEIR'S VERSION
+    },
     toggleIsPresent(kid) {
-      this.keyPadActiveKid = kid;
-      this.showKeyPad = true;
+      console.log('toggling is present:', kid.imgUrl)
+      this.$confirm('Change Kid Status?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info'
+      }).then(() => {
+        this.$store.dispatch({
+          type: 'togglePresent',
+          kid
+        })
+        this.$message({
+          type: 'success',
+          message: 'Kid Status Updated'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'error',
+          message: 'Status Update Cancelled'
+        });
+      });
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -86,7 +121,7 @@ export default {
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
-        type: 'warning'
+        type: 'info'
       }).then(() => {
         this.$message({
           type: 'success',
@@ -103,18 +138,16 @@ export default {
         });
       });
     },
-    closeKeyPad(passCheck) {
-      this.showKeyPad = false;
-      if (passCheck) {
-        this.$store.dispatch({
-          type: 'togglePresent',
-          kid: this.keyPadActiveKid
-        })
-      }
+    createKid() {
+      this.$emit('createKid')
     },
-    plusClicked: () => {
-      console.log('plusClicked');
-
+    sortKids(reverseDirection = false) {
+      console.log('Sorting them Kids')
+      this.kids.sort(function (a, b) {
+        if (reverseDirection) return (a.firstName > b.firstName) ? -1 : 1;
+        else return (a.firstName < b.firstName) ? -1 : 1;
+      });
+      this.$forceUpdate();
     }
   }
 }
@@ -195,13 +228,6 @@ export default {
   flex-wrap: wrap;
 }
 
-.code-keypad {
-  position: fixed;
-  z-index: 100;
-  top: 25%;
-  left: 25%;
-}
-
 @media screen and (max-width: $sm) {
   .kid-list {
     
@@ -233,4 +259,5 @@ export default {
     border-top-right-radius: 0.9em;
   }
 }
+
 </style>

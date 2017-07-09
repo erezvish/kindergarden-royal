@@ -30,17 +30,29 @@
                 </el-col>-->
   
               <h4>Parents details</h4>
-              <el-form-item label="Parent name">
-                <el-input></el-input>
+              <el-form-item label="Mother name">
+                <el-input v-model="editedKid.parents[0].name"></el-input>
               </el-form-item>
-              <el-form-item label="Parent Tel.">
-                <el-input placeholder="05x-xxxxxxx"></el-input>
+              <el-form-item label="Mother Tel.">
+                <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[0].tel"></el-input>
+              </el-form-item>
+              <el-form-item label="Mother Email.">
+                <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[0].mail"></el-input>
+              </el-form-item>
+              <el-form-item label="Father name">
+                <el-input v-model="editedKid.parents[1].name"></el-input>
+              </el-form-item>
+              <el-form-item label="Father Tel.">
+                <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[1].tel"></el-input>
+              </el-form-item>
+              <el-form-item label="Father Email.">
+                <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[1].mail"></el-input>
               </el-form-item>
 
               <div class="form-controls">
-                <el-button type="success">OK</el-button>
-                <el-button type="danger"@click="cancel">Cancel</el-button>
-                <el-button type="default">Reset</el-button>
+                <el-button type="success" @click="submitForm('edit-kid')">OK</el-button>
+                <el-button type="danger" @click="cancel">Cancel</el-button>
+                <el-button type="default" @click="resetForm('edit-kid')">Reset</el-button>
               </div>
 
             </el-form>
@@ -58,19 +70,18 @@
 <script>
 export default {
   name: 'kid-edit',
+  created() {
+    document.addEventListener('keyup', (e) => {
+      if (e.keyCode === 27) this.cancel()
+      return false
+    })
+  },
   props: {
     kid: Object
   },
   data() {
     return {
-      editedKid: {
-        firstName: '',
-        lastName: '',
-        gender: '',
-        birthdate: '',
-        note: '',
-        _id: ''
-      },
+      editedKid: Object.assign({}, this.kid),
       rules: {
         firstName: [
           { required: true, message: 'Please input first name', trigger: 'submit' },
@@ -91,7 +102,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.kid) {
+          if (this.kid._id) {
             this.editedKid._id = this.kid._id
             this.$store.dispatch({
               type: 'updateKid',

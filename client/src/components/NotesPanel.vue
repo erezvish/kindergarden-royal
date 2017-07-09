@@ -6,7 +6,7 @@
             </H1>
             <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
         </div>
-        <NoteCmp v-for="note in notes" @delete-note="deleteNote(this)"></NoteCmp>
+        <NoteCmp v-for="note in notes" :key="note" @delete-note="deleteNote(this)"></NoteCmp>
     </section>
 </template>
 

@@ -10,13 +10,20 @@
           <router-link class="router-link" to="/">
             <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
         </li>
-        <li @click="slideMenu">
+
+
+        <li v-if="isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/admin">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
         </li>
-        <li @click="slideMenu">
+        <li v-if="!isAdmin" @click="slideMenu">
+
           <router-link class="router-link" to="/login">
             <i class="fa fa-user-circle" aria-hidden="true"></i>Log-in</router-link>
+        </li>
+        <li v-if="isAdmin" @click="logout">
+            <a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i>
+            Log-out</a>
         </li>
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
@@ -34,7 +41,11 @@ export default {
     return {
       menuIsClicked: false,
     }
-
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.state.isAdmin
+    }
   },
   methods: {
     iconClicked: () => {
@@ -60,6 +71,31 @@ export default {
       fixed.classList.remove('unScroll');
       this.menuIsClicked = false;
       
+    },
+    logout() {
+      this.$confirm('Are you sure?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info'
+      })
+      .then(() => {
+        this.$store.dispatch({
+          type: 'logout'
+        })
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: 'logout successful'
+          })
+          this.$router.push('/')
+        })
+        .catch(() => {
+          this.$message({
+            type: 'error',
+            message: 'log out failed :-('
+          })
+        })
+      })
     }
   }
 }

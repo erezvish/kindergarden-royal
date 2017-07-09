@@ -6,7 +6,6 @@ export default {
   commands: {
     'hello': function () { alert('Hello world!'); },
     'hey': () => {
-      debugger;
       this.$message('This is a message.')
     }
  

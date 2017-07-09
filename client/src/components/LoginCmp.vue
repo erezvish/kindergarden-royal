@@ -9,13 +9,13 @@
           <!-- form -->
           <el-form action="">
             <div>
-              <el-input type="text" placeholder="Username" required="" id="username"></el-input>
+              <el-input type="text" placeholder="Username" autofocus required v-model="user.username"></el-input>
             </div>
             <div>
-              <el-input type="password" placeholder="Password" required="" id="password"></el-input>
+              <el-input type="password" placeholder="Password" required v-model="user.pass"></el-input>
             </div>
             <div>
-              <el-button type="success" value="Login">Log-in</el-button>
+              <el-button type="success" value="Login" @click="submit">Log-in</el-button>
             </div>
             <div>
               <a href="#">Lost your password?</a>
@@ -31,7 +31,30 @@
 </template>
 
 <script>
-
+export default {
+  data() {
+    return {
+      user: {
+        username: '',
+        pass: ''
+      }
+    }
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch({
+        type: 'login',
+        user: this.user
+      })
+      .then((res) => {
+        this.$router.push('/admin')
+      })
+      .catch(() => {
+        this.$router.push('/home')
+      })
+    }
+  }
+}
 
 </script>
 
