@@ -6,7 +6,7 @@
         <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <div class="status-bar">
           <h1> Kid list area </h1>
-          <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+          <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
         </div>
         <div v-if="kids.length" class="kid-details-container">
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" @picture="updateKidPicture" :key="kid._id"></kid-details>
@@ -94,9 +94,8 @@ export default {
         })
       }
     },
-    plusClicked: () => {
-      console.log('plusClicked');
-
+    createKid() {
+      this.$emit('createKid')
     }
   }
 }

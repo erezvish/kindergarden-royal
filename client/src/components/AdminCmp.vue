@@ -7,7 +7,7 @@
         <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
-        <kid-list v-if="!isEditMode" @edit="setEditMode"></kid-list>
+        <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode"></kid-list>
       </el-col>
       <!--<el-col :md="7">-->
       <!--<h1>Notification panel</h1>-->
@@ -36,13 +36,19 @@ export default {
   data() {
     return {
       isEditMode: false,
-      kidToEdit: null
+      kidToEdit: null,
+    }
+  },
+  computed: {
+    emptyKid() {
+      return this.$store.state.emptyKid
     }
   },
   methods: {
     setEditMode(kid) {
       this.toggleEditMode()
-      this.kidToEdit = kid
+      if (kid) this.kidToEdit = kid
+      else this.kidToEdit = this.emptyKid
     },
     toggleEditMode() {
       this.isEditMode = !this.isEditMode

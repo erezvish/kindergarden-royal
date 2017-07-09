@@ -32,10 +32,6 @@ export default {
         console.log('state filter:', state.kidsFilter)
     },
 
-    toggleIsPresent() {
-
-    },
-
     login(state, payload) {
         state.isAdmin = true
         state.token = payload.token

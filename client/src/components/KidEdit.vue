@@ -38,9 +38,9 @@
               </el-form-item>
 
               <div class="form-controls">
-                <el-button type="success">OK</el-button>
-                <el-button type="danger"@click="cancel">Cancel</el-button>
-                <el-button type="default">Reset</el-button>
+                <el-button type="success" @click="submitForm('edit-kid')">OK</el-button>
+                <el-button type="danger" @click="cancel">Cancel</el-button>
+                <el-button type="default" @click="resetForm('edit-kid')">Reset</el-button>
               </div>
 
             </el-form>
@@ -64,12 +64,11 @@ export default {
   data() {
     return {
       editedKid: {
-        firstName: '',
-        lastName: '',
-        gender: '',
-        birthdate: '',
-        note: '',
-        _id: ''
+        firstName: this.kid.firstName,
+        lastName: this.kid.lastName,
+        gender: this.kid.gender,
+        // birthdate: '',
+        // note: '',
       },
       rules: {
         firstName: [
@@ -91,7 +90,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.kid) {
+          if (this.kid._id) {
             this.editedKid._id = this.kid._id
             this.$store.dispatch({
               type: 'updateKid',
