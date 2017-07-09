@@ -1,47 +1,49 @@
 <template>
   <section :class="classObject" @click="toggleIsPresent">
-    <div class="kid-img" :id="cameraId">
-      <img :src="kid.imgUrl">
-    </div>
-    <div class="properties">
-      <div class="container">
-        <div class="card-header hr">
-          <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
-  
-          <el-button @click.stop="edit">
-  
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </el-button>
-        </div>
-        <ul class="status">
-          <li>status:
-            <span class="kid-present" v-show="kid.isPresent"> In Class </span>
-            <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
-          </li>
-  
-          <li class="hr">last seen:</li>
-        </ul>
+
+      <div class="kid-img" :id="cameraId">
+        <img :src="kid.imgUrl">
       </div>
-      <div class="container-right">
-        <div class="msg-parent x-space-child">
-          <el-input placeholder="Message parent" v-model="inputMsgParent" @click.stop=""></el-input>
-          <el-button type="default">
-            <i class="fa fa-paper-plane" aria-hidden="true" @click.stop=""></i>
-          </el-button>
-        </div>
-        <div class="action-icons">
-          <div class="icons-left">
-            <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-            <i class="fa fa-cog" aria-hidden="true"></i>
+      <div class="properties">
+        <div class="container">
+          <div class="card-header hr">
+            <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
+  
+            <el-button @click.stop="edit">
+  
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </el-button>
           </div>
-          <div class="icons-right">
-            <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-            <i class="fa fa-medkit" aria-hidden="true"></i>
-            <i class="fa fa-phone-square" aria-hidden="true"></i>
+          <ul class="status">
+            <li>status:
+              <span class="kid-present" v-show="kid.isPresent"> In Class </span>
+              <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
+            </li>
+  
+            <li class="hr">last seen:</li>
+          </ul>
+        </div>
+        <div class="container-right">
+          <div class="msg-parent x-space-child">
+            <el-input placeholder="Message parent" v-model="inputMsgParent" @click.stop=""></el-input>
+            <el-button type="default">
+              <i class="fa fa-paper-plane" aria-hidden="true" @click.stop=""></i>
+            </el-button>
+          </div>
+          <div class="action-icons">
+            <div class="icons-left">
+              <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+              <i class="fa fa-cog" aria-hidden="true"></i>
+            </div>
+            <div class="icons-right">
+              <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+              <i class="fa fa-medkit" aria-hidden="true"></i>
+              <i class="fa fa-phone-square" aria-hidden="true"></i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+  
   </section>
 </template>
 
@@ -105,6 +107,9 @@ export default {
 // * {
 //   outline: 1px solid green;
 // }
+.el-row {
+  display: flex;
+}
 .properties {
   padding: 0 0.5em;
 
@@ -195,6 +200,9 @@ export default {
     color: #fff;
     transition: all, 0.4s;
   }
+  .icons-left, .icons-right {
+    display:flex;
+  }
 }
 
 .hr {
@@ -214,6 +222,7 @@ export default {
       flex-direction: row;
       width: 100%;
       padding: 10px;
+      text-align: left;
     }
     & .container-right {
       flex-direction: column;
@@ -233,6 +242,7 @@ export default {
         }
       }
     }
+
   }
   .kid-img {
     max-width: 13em;
@@ -247,8 +257,15 @@ export default {
       margin: 0;
     }
   }
+    @media screen and (max-width: $md) {
+      .msg-parent {
+        display:none;
+      }
+
+      .list-view {
+        display:none;
+      }
+      .card-header {}
+    }
 }
-
-
-
 </style>

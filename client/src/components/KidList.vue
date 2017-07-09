@@ -121,6 +121,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../sass/main.scss";
 // * {
 //   outline: 1px solid red;
 // }
@@ -151,8 +152,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0em 2em;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
+    border-top-left-radius: 0em;
+    border-top-right-radius: 0em;
     border-bottom: 0.3em solid #2C4D68;
     border-top: 0.3em solid transparent;
     background: #376283;
@@ -201,12 +202,35 @@ export default {
   left: 25%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: $sm) {
+  .kid-list {
+    
+  }
   .kid-list .status-bar {
     display: flex;
     flex-wrap: wrap;
-    font-size: small;
+    font-size: large;
     justify-content: center;
+  }
+}
+@media screen and (max-width: $xs) {
+  .kid-list .status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1em;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: $sm) {
+  .kid-list {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    // display:none;
+  }
+  .kid-list .status-bar {
+    border-top-left-radius: 0.9em;
+    border-top-right-radius: 0.9em;
   }
 }
 </style>

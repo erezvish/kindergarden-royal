@@ -1,6 +1,6 @@
 <template>
   <section class="main-panel">
-    <h1> Main Panel </h1>
+    <h1>Welcome! </h1>
     <control-panel></control-panel>
     <kid-list></kid-list>
   </section>
@@ -22,11 +22,13 @@ export default {
     }
   },
   methods: {
-    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+  @import "../sass/main.scss";
+
 .main-panel {
   display: flex;
   justify-content: flex-start;
@@ -34,5 +36,23 @@ export default {
   background: lightblue;
   padding: 2em;
   min-height: 100vh;
+}
+
+@media screen and (min-width: $xs) {
+  .main-panel {
+    padding: 0em;
+  }
+}
+
+@media screen and (min-width: $sm) {
+  .main-panel {
+    padding: 1em;
+  }
+}
+
+@media screen and (min-width: $md) {
+  .main-panel {
+    padding: 2em;
+  }
 }
 </style>
