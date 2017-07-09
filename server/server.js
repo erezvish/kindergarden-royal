@@ -110,7 +110,7 @@ app.get('/data/:objType/:id', function (req, res) {
 });
 
 // DELETE
-app.delete('/data/:objType/:id', function (req, res) {
+app.delete('/data/:objType/:id', requireLogin, function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	cl(`Requested to DELETE the ${objType} with id: ${objId}`);
@@ -161,11 +161,10 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 			db.close();
 		});
 	});
-
 });
 
 // PUT - updates
-app.put('/data/:objType/:id', function (req, res) {
+app.put('/data/:objType/:id', requireLogin, function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	const newObj = req.body;
@@ -212,6 +211,7 @@ app.get('/logout', function (req, res) {
 });
 
 function requireLogin(req, res, next) {
+	console.log(req.session)
 	if (!req.session.user) {
 		cl('Login Required');
 		res.json(403, { error: 'Please Login' })
@@ -219,10 +219,11 @@ function requireLogin(req, res, next) {
 		next();
 	}
 };
+
 app.get('/protected', requireLogin, function (req, res) {
+	console.log('I am here')
 	res.end('User is loggedin, return some data');
 });
-
 
 // Kickup our server 
 // Note: app.listen will not work with cors and the socket

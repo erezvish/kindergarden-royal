@@ -1,6 +1,6 @@
 {
     cd server;
-    npm start
+    nodemon server
 } & {
     cd client;
     npm start

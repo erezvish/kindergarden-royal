@@ -70,6 +70,12 @@
 <script>
 export default {
   name: 'kid-edit',
+  created() {
+    document.addEventListener('keyup', (e) => {
+      if (e.keyCode === 27) this.cancel()
+      return false
+    })
+  },
   props: {
     kid: Object
   },
