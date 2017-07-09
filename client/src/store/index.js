@@ -14,6 +14,7 @@ const store = new Vuex.Store({
             firstName: '',
             lastName: '',
             gender: '',
+            imgUrl: '',
             parents: [
                 {
                     firstName: '',
@@ -27,7 +28,10 @@ const store = new Vuex.Store({
                 }
             ]
         },
-        kidsFilter: '',
+        kidsFilter: {
+            text: '',
+            radio:'ignore'
+        },
         isAdmin: false,
         token: ''
     },

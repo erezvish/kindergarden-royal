@@ -5,14 +5,17 @@
   
         <div class="status-bar">
           <h1> Kid list area </h1>
-          <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
+          <ul>
+            <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
+            <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
+            <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+            <i class="fa fa-th-large" aria-hidden="true"></i>
+            <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
+          </ul>
         </div>
-        <!-- <div v-if="kids.length"  class="kid-details-container"> <!--:class="{ thumbnail: list}
-                  <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-                </div> -->
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :isListView="triggerListView" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import KidDetails from './KidDetails'
 import store from '../store'
 export default {
@@ -30,16 +34,28 @@ export default {
   data() {
     return {
       thumbnailView: true,
-      showKeyPad: false,
-      triggerListView: false
+      triggerListView: false,
+      isReverseSort: false,
+      isFirstSort: true
     }
   },
-  computed: {
+  computed: { //TODO: use map getters
+    ...mapGetters([
+    ]),
     kids() {
-      return this.$store.getters.filteredKids;
+      return this.$store.getters.filteredKids
     }
+  },
+
+  created() {
   },
   methods: {
+    setListView() {
+
+    },
+    plusClicked() {
+      //PLACEHOLDER, ACCEPT MEIR'S VERSION
+    },
     toggleIsPresent(kid) {
       console.log('toggling is present:', kid.imgUrl)
       this.$confirm('Change Kid Status?', 'Warning', {
@@ -81,9 +97,6 @@ export default {
         this.confirmImg(prevKid)
         )
     },
-    confirmToggle(kid) {
-
-    },
     confirmImg(kid) {
       console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
@@ -108,6 +121,14 @@ export default {
     },
     createKid() {
       this.$emit('createKid')
+    },
+    sortKids(reverseDirection = false) {
+      console.log('Sorting them Kids')
+      this.kids.sort(function (a, b) {
+        if(reverseDirection) return (a.firstName > b.firstName) ? -1 : 1;
+        else return (a.firstName < b.firstName) ? -1 : 1;
+      });
+      this.$forceUpdate();
     }
   }
 }
@@ -175,5 +196,4 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 </style>
