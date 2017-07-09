@@ -206,6 +206,7 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
+	console.log('logged out')
 	req.session.reset();
 	res.end('Loggedout');
 });
