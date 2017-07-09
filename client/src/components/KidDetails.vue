@@ -6,9 +6,9 @@
     <div class="properties">
       <div class="card-header hr">
         <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
-
-        <el-button @click.stop="edit">
-
+  
+        <el-button v-if="isAdmin" @click.stop="edit">
+  
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </el-button>
       </div>
@@ -21,12 +21,12 @@
         <li class="hr">last seen:</li>
       </ul>
       <div class="msg-parent x-space-child">
-        <el-input placeholder="Message parent" v-model="inputMsgParent"></el-input>
+        <el-input placeholder="Send Message" v-model="inputMsgParent"></el-input>
         <el-button type="default">
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
         </el-button>
       </div>
-      <div class="action-icons">
+      <div v-if="isAdmin" class="action-icons">
         <div class="icons-left">
           <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
           <i class="fa fa-cog" aria-hidden="true"></i>
@@ -45,7 +45,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic'],
   data() {
     return {
       inputMsgParent: '',
@@ -61,11 +61,15 @@ export default {
         'mark-absent': !this.kid.isPresent,
         'list-view': this.isListView
       }
-    }
+    },
   },
   methods: {
     toggleIsPresent() {
-      this.$emit('toggle')
+      if (this.isAdmin || this.isBasic) this.$emit('toggle');
+      else this.$message({
+        type: 'error',
+        message: 'Sorry, status may only be changed at the Kindergarden'
+      });
     },
     deleteKidCard() {
       this.$emit('delete')
@@ -100,6 +104,7 @@ export default {
 * {
   outline: 1px solid green;
 }
+
 .properties {
   padding: 0 0.5em;
 
@@ -163,7 +168,7 @@ export default {
 .mark-absent {
   border: none;
   background: white; // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
-  background: linear-gradient(to bottom,rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
+  background: linear-gradient(to bottom, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
   color: white;
 }
 
@@ -197,6 +202,5 @@ export default {
   display: flex;
   flex-direction: row;
   background: yellow;
-  
 }
 </style>
