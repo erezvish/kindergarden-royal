@@ -3,16 +3,16 @@
     <el-col :xs="24" :sm="24" :md="23">
       <section class="kid-list">
   
-        <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <div class="status-bar">
           <h1> Kid list area </h1>
           <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
         </div>
-       <!-- <div v-if="kids.length"  class="kid-details-container"> <!--:class="{ thumbnail: list}
-          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-        </div> -->
-        <div v-if="thumbnailView"  class="kid-details-container"> <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :isListView="triggerListView" :kid="kid"   @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+        <!-- <div v-if="kids.length"  class="kid-details-container"> <!--:class="{ thumbnail: list}
+                  <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+                </div> -->
+        <div v-if="thumbnailView" class="kid-details-container">
+          <!--:class="{ thumbnail: list}-->
+          <kid-details v-for="kid in kids" :isListView="triggerListView" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -21,19 +21,16 @@
 
 <script>
 import KidDetails from './KidDetails'
-import CodeKeypad from './CodeKeypad'
 import store from '../store'
 export default {
   name: 'kid-list',
   components: {
     KidDetails,
-    CodeKeypad
   },
   data() {
     return {
       thumbnailView: true,
       showKeyPad: false,
-      keyPadActiveKid: {},
       triggerListView: false
     }
   },
@@ -44,8 +41,26 @@ export default {
   },
   methods: {
     toggleIsPresent(kid) {
-      this.keyPadActiveKid = kid;
-      this.showKeyPad = true;
+      console.log('toggling is present:', kid.imgUrl)
+      this.$confirm('Change Kid Status?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info'
+      }).then(() => {
+        this.$store.dispatch({
+          type: 'togglePresent',
+          kid
+        })
+        this.$message({
+          type: 'success',
+          message: 'Kid Status Updated'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'error',
+          message: 'Status Update Cancelled'
+        });
+      });
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -66,12 +81,15 @@ export default {
         this.confirmImg(prevKid)
         )
     },
+    confirmToggle(kid) {
+
+    },
     confirmImg(kid) {
       console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
-        type: 'warning'
+        type: 'info'
       }).then(() => {
         this.$message({
           type: 'success',
@@ -88,15 +106,6 @@ export default {
         });
       });
     },
-    closeKeyPad(passCheck) {
-      this.showKeyPad = false;
-      if (passCheck) {
-        this.$store.dispatch({
-          type: 'togglePresent',
-          kid: this.keyPadActiveKid
-        })
-      }
-    },
     createKid() {
       this.$emit('createKid')
     }
@@ -108,6 +117,7 @@ export default {
 * {
   outline: 1px solid red;
 }
+
 .el-row {
   display: flex;
   justify-content: center;
@@ -118,9 +128,11 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 .thumbnail {
   background: pink;
 }
+
 .kid-list {
   display: flex;
   flex-direction: column;
@@ -129,9 +141,7 @@ export default {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   border-radius: 1em;
   margin-bottom: 1em;
-  padding-bottom: 3em;
-  // height: 100%;
-
+  padding-bottom: 3em; // height: 100%;
   & .status-bar {
     display: flex;
     justify-content: space-between;
@@ -166,10 +176,4 @@ export default {
   flex-wrap: wrap;
 }
 
-.code-keypad {
-  position: fixed;
-  z-index: 100;
-  top: 25%;
-  left: 25%;
-}
 </style>
