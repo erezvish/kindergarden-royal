@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :xs="24" :sm="24" :md="23" :lg="20">
+    <el-col :xs="24" :sm="24" :md="24" :lg="20">
       <section class="control-panel">
         <i class="fa fa-cogs" aria-hidden="true"></i>
         <filter-cmp class="filter-cmp"> </filter-cmp>
@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       searchInput: '',
-      triggerListView: false
     }
   },
   methods: {
@@ -74,8 +73,6 @@ export default {
     margin: 0 1em;
   }
 }
-
-.control-panel::after {}
 
 .control-panel {
   // display: flex;

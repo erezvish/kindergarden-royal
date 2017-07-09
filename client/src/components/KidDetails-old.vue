@@ -4,41 +4,36 @@
       <img :src="kid.imgUrl">
     </div>
     <div class="properties">
-      <div class="container">
-        <div class="card-header hr">
-          <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
+      <ul>
+        <h2 class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </h2>
+        <li>status:
+          <span class="kid-present" v-show="kid.isPresent"> In Class </span>
+          <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
+        </li>
   
-          <el-button @click.stop="edit">
+        <li class="hr">last seen:</li>
+      </ul>
+      <div class="card-header hr">
   
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </el-button>
-        </div>
-        <ul class="status">
-          <li>status:
-            <span class="kid-present" v-show="kid.isPresent"> In Class </span>
-            <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
-          </li>
-  
-          <li class="hr">last seen:</li>
-        </ul>
       </div>
-      <div class="container-right">
-        <div class="msg-parent x-space-child">
-          <el-input placeholder="Message parent" v-model="inputMsgParent" @click.stop=""></el-input>
-          <el-button type="default">
-            <i class="fa fa-paper-plane" aria-hidden="true" @click.stop=""></i>
-          </el-button>
+      <div class="msg-parent x-space-child">
+        <el-input placeholder="Message parent" v-model="inputMsgParent" @click.stop=""></el-input>
+        <el-button type="default">
+          <i class="fa fa-paper-plane" aria-hidden="true" @click.stop=""></i>
+        </el-button>
+        <el-button @click.stop="edit">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </el-button>
+      </div>
+      <div class="action-icons">
+        <div class="icons-left">
+          <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+          <i class="fa fa-cog" aria-hidden="true"></i>
         </div>
-        <div class="action-icons">
-          <div class="icons-left">
-            <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-            <i class="fa fa-cog" aria-hidden="true"></i>
-          </div>
-          <div class="icons-right">
-            <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-            <i class="fa fa-medkit" aria-hidden="true"></i>
-            <i class="fa fa-phone-square" aria-hidden="true"></i>
-          </div>
+        <div class="icons-right">
+          <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+          <i class="fa fa-medkit" aria-hidden="true"></i>
+          <i class="fa fa-phone-square" aria-hidden="true"></i>
         </div>
       </div>
     </div>
@@ -102,9 +97,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid green;
-// }
+* {
+  outline: 1px solid green;
+}
+
 .properties {
   padding: 0 0.5em;
 
@@ -172,7 +168,7 @@ export default {
 .mark-absent {
   border: none;
   background: white; // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
-  background: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
+  background: linear-gradient(to bottom, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
   color: white;
 }
 
@@ -207,30 +203,17 @@ export default {
   display: flex;
   flex-direction: row; // background: yellow;
   .properties {
-    display: flex;
+    display: flex; // flex-direction: column;
     flex: 1;
-    flex-direction: row;
-    & .container {
-      flex-direction: row;
-      width: 100%;
-      padding: 10px;
+    .kid-name {
+      margin-top: 0;
     }
-    & .container-right {
+    .msg-parent {
       flex-direction: column;
-      width: 100%;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-
-      .msg-parent {
-        margin-top: 8px;
-      }
-
-      .action-icons {
-        align-self: flex-end;
-        >* {
-          margin-left: 0.4em;
-        }
+      align-self: flex-start;
+      margin: 0 1em;
+      &>* {
+        margin-top: 1em;
       }
     }
   }
@@ -238,17 +221,6 @@ export default {
     max-width: 13em;
     display: inline; // flex: 1;
   }
-  .card-header {
-    display: flex;
-    h2 {
-      margin: 0;
-    }
-    .status {
-      margin: 0;
-    }
-  }
+  .card-header {}
 }
-
-
-
 </style>
