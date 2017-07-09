@@ -6,13 +6,6 @@
         <filter-cmp class="filter-cmp"> </filter-cmp>
         <!--<el-input placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>-->
         <!--</el-input>-->
-        
-          <el-radio-group  class="controls">
-            <el-radio-button name="list-options" label="All"></el-radio-button>
-            <el-radio-button name="list-options" label="Present"></el-radio-button>
-            <el-radio-button name="list-options" label="Absent"></el-radio-button>
-          </el-radio-group>
-        
       </section>
     </el-col>
   </el-row>

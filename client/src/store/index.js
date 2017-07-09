@@ -14,6 +14,7 @@ const store = new Vuex.Store({
             firstName: '',
             lastName: '',
             gender: '',
+            imgUrl: '',
             parents: [
                 {
                     firstName: '',
