@@ -9,7 +9,7 @@
           <!-- form -->
           <el-form action="">
             <div>
-              <el-input type="text" placeholder="Username" required v-model="user.username"></el-input>
+              <el-input type="text" placeholder="Username" autofocus required v-model="user.username"></el-input>
             </div>
             <div>
               <el-input type="password" placeholder="Password" required v-model="user.pass"></el-input>
@@ -45,7 +45,13 @@ export default {
       this.$store.dispatch({
         type: 'login',
         user: this.user
-      }).then(console.log('i am here'))
+      })
+      .then((res) => {
+        this.$router.push('/admin')
+      })
+      .catch(() => {
+        this.$router.push('/home')
+      })
     }
   }
 }

@@ -12,7 +12,7 @@ const express = require('express'),
 	cors = require('cors'),
 	mongodb = require('mongodb')
 
-const clientSessions = require("client-sessions");
+const sessions = require("client-sessions");
 const upload = require('./uploads');
 const app = express();
 
@@ -30,11 +30,11 @@ app.use(express.static('uploads'));
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(clientSessions({
-	cookieName: 'session',
-	secret: 'C0d1ng 1s fun 1f y0u kn0w h0w', // set this to a long random string!
-	duration: 30 * 60 * 1000,
-	activeDuration: 5 * 60 * 1000,
+app.use(sessions({
+  cookieName: 'mySession', // cookie name dictates the key name added to the request object 
+  secret: 'pukiwwwnttothemountains', // should be a large unguessable string 
+  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms 
+  activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds 
 }));
 
 const http = require('http').Server(app);
@@ -105,12 +105,11 @@ app.get('/data/:objType/:id', function (req, res) {
 					res.json(404, { error: 'not found' })
 					db.close();
 				})
-
 		});
 });
 
 // DELETE
-app.delete('/data/:objType/:id', function (req, res) {
+app.delete('/data/:objType/:id', requireLogin, function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	cl(`Requested to DELETE the ${objType} with id: ${objId}`);
@@ -126,14 +125,11 @@ app.delete('/data/:objType/:id', function (req, res) {
 			}
 			db.close();
 		});
-
 	});
-
-
 });
 
 // POST - adds 
-app.post('/data/:objType', upload.single('file'), function (req, res) {
+app.post('/data/:objType', requireLogin, upload.single('file'), function (req, res) {
 	//console.log('req.file', req.file);
 	// console.log('req.body', req.body);
 
@@ -161,11 +157,10 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 			db.close();
 		});
 	});
-
 });
 
 // PUT - updates
-app.put('/data/:objType/:id', function (req, res) {
+app.put('/data/:objType/:id', requireLogin, function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	const newObj = req.body;
@@ -194,11 +189,11 @@ app.post('/login', function (req, res) {
 			if (user) {
 				cl('Login Succesful');
 				delete user.pass;
-				req.session.user = user;  //refresh the session value
-				res.json({ token: 'Beareloginr: puk115th@b@5t', user });
+				req.mySession.user = user;  //refresh the session value
+				res.end()
 			} else {
 				cl('Login NOT Succesful');
-				req.session.user = null;
+				req.mySession.user = null;
 				res.status(403).json({ error: 'Login failed' })
 			}
 		});
@@ -206,22 +201,28 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-	req.session.reset();
+	console.log('logged out')
+	req.mySession.reset();
 	res.end('Loggedout');
 });
 
 function requireLogin(req, res, next) {
-	if (!req.session.user) {
-		cl('Login Required');
-		res.json(403, { error: 'Please Login' })
-	} else {
-		next();
-	}
-};
-app.get('/protected', requireLogin, function (req, res) {
-	res.end('User is loggedin, return some data');
-});
+  console.log('Midddleware!!!!');
+  if (!req.mySession.user) {
+    res.status(403).end('Un Authenticated!')
+  } else {
+    next();
+  }
+}
 
+// app.get('/protected', requireLogin, function (req, res) {
+// 	console.log('I am here')
+// 	res.end('User is loggedin, return some data');
+// });
+app.get('/protected', requireLogin, function (req, res) {
+  console.log('req.mySession.user', req.mySession.user);
+  res.send('<h1>Hello Admin</h1>');
+});
 
 // Kickup our server 
 // Note: app.listen will not work with cors and the socket
