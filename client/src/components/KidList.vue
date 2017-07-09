@@ -10,12 +10,14 @@
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
             <i class="fa fa-th-large" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" aria-hidden="true" @click="createKid"></i>
+            <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
           </ul>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" 
+          @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" 
+          @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -44,6 +46,12 @@ export default {
     ]),
     kids() {
       return this.$store.getters.filteredKids
+    },
+    isAdmin() {
+      return this.$store.state.isAdmin
+    },
+    isBasic() {
+      return this.$store.state.isBasic
     }
   },
 
@@ -125,7 +133,7 @@ export default {
     sortKids(reverseDirection = false) {
       console.log('Sorting them Kids')
       this.kids.sort(function (a, b) {
-        if(reverseDirection) return (a.firstName > b.firstName) ? -1 : 1;
+        if (reverseDirection) return (a.firstName > b.firstName) ? -1 : 1;
         else return (a.firstName < b.firstName) ? -1 : 1;
       });
       this.$forceUpdate();

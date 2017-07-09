@@ -33,6 +33,7 @@ const store = new Vuex.Store({
             radio:'ignore'
         },
         isAdmin: false,
+        isBasic: false,
         token: ''
     },
     getters,
