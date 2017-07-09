@@ -5,19 +5,23 @@
   
         <div class="status-bar">
           <h1> Kid list area </h1>
-          <ul>
+
+          <ul class="controls">
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
-            <i class="fa fa-th-large" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
+            <i class="fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
+            <i class="fa fa-plus-square-o" v-if="isAdmin" @click="plusClicked" aria-hidden="true" @click="createKid"></i>
+
           </ul>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" 
+
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView"  
           @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" 
           @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+
         </div>
       </section>
     </el-col>
@@ -27,18 +31,22 @@
 <script>
 import { mapGetters } from 'vuex'
 import KidDetails from './KidDetails'
+
 import store from '../store'
 export default {
   name: 'kid-list',
   components: {
     KidDetails,
+
   },
   data() {
     return {
       thumbnailView: true,
+
       triggerListView: false,
       isReverseSort: false,
       isFirstSort: true
+
     }
   },
   computed: { //TODO: use map getters
@@ -59,7 +67,10 @@ export default {
   },
   methods: {
     setListView() {
-
+      this.triggerListView = true;
+    },
+    setThumbView() {
+      this.triggerListView = false;
     },
     plusClicked() {
       //PLACEHOLDER, ACCEPT MEIR'S VERSION
@@ -143,10 +154,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  outline: 1px solid red;
-}
-
+@import "../sass/main.scss";
+// * {
+//   outline: 1px solid red;
+// }
 .el-row {
   display: flex;
   justify-content: center;
@@ -168,16 +179,14 @@ export default {
   background: white;
   background: linear-gradient(to top, #95C1D2 1%, white 25%);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
-  border-radius: 1em;
-  margin-bottom: 1em;
-  padding-bottom: 3em; // height: 100%;
-  & .status-bar {
+  border-radius: 1em; // padding-bottom: 0em;
+  .status-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0em 2em;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
+    border-top-left-radius: 0em;
+    border-top-right-radius: 0em;
     border-bottom: 0.3em solid #2C4D68;
     border-top: 0.3em solid transparent;
     background: #376283;
@@ -193,8 +202,22 @@ export default {
 
     & .fa {
       font-size: 2em;
-      padding: 0.3em 0 0.3em 0.3em;
+      padding: 0.2em 0.4em;
+      margin: 0 0.4;
       cursor: pointer;
+      color: #ADD8E6;
+      transition: all, 0.5s;
+    }
+    & .fa:hover {
+      color: white;
+      transition: all, 0.5s;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      text-align: center;
     }
   }
 }
@@ -204,4 +227,37 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: $sm) {
+  .kid-list {
+    
+  }
+  .kid-list .status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: large;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: $xs) {
+  .kid-list .status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1em;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: $sm) {
+  .kid-list {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    // display:none;
+  }
+  .kid-list .status-bar {
+    border-top-left-radius: 0.9em;
+    border-top-right-radius: 0.9em;
+  }
+}
+
 </style>

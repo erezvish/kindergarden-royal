@@ -69,9 +69,9 @@ export default {
 }
 
 .admin-panel {
-  // display: flex;
-  // justify-content: flex-start;
-  // flex-direction: column;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
   background: lightblue;
   padding: 2em;
   min-height: 100vh;
