@@ -45,11 +45,10 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid'],
+  props: ['kid', 'isListView'],
   data() {
     return {
       inputMsgParent: '',
-
       isCameraOn: false,
       cameraId: 'K' + this.kid._id
 
@@ -60,7 +59,8 @@ export default {
       return {
         'kid-details': true,
         'mark-present': this.kid.isPresent,
-        'mark-absent': !this.kid.isPresent
+        'mark-absent': !this.kid.isPresent,
+        'list-view': this.isListView
       }
     }
   },
@@ -109,6 +109,8 @@ export default {
   }
 }
 
+
+
 .kid-details {
   background: white;
   border-radius: 1em;
@@ -154,16 +156,14 @@ export default {
 
 .mark-present {
   border: none;
-  background: rgba(0, 155, 2, 0.7);
-  // background: linear-gradient(to bottom, rgba(0, 155, 2, 0.7), lightgreen 2em, rgba(0, 155, 2, 0.7) 17em);
+  background: rgba(0, 155, 2, 0.7); // background: linear-gradient(to bottom, rgba(0, 155, 2, 0.7), lightgreen 2em, rgba(0, 155, 2, 0.7) 17em);
   background: linear-gradient(to top, rgba(0, 155, 2, 0.7) 1%, lightgreen 0.5em, rgba(0, 155, 2, 0.7) 50%);
   color: white;
 }
 
 .mark-absent {
   border: none;
-  background: rgba(230, 0, 0, 0.9);
-  // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
+  background: rgba(230, 0, 0, 0.9); // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
   background: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
   color: white;
 }
@@ -192,5 +192,12 @@ export default {
 .hr {
   margin: 0.5em 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.list-view {
+  display: flex;
+  flex-direction: row;
+  background: yellow;
+  outline: 12px solid BLUE;
 }
 </style>
