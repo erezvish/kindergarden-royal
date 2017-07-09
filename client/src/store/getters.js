@@ -7,7 +7,7 @@ export default {
         )
         // debugger;
         if (state.kidsFilter.radio === "present") currFilter = currFilter.filter(kid => kid.isPresent)
-        else if (state.kidsFilter.radio === "absent") currFilter.filter(kid => !kid.isPresent)
+        else if (state.kidsFilter.radio === "absent") currFilter = currFilter.filter(kid => !kid.isPresent)
         return currFilter;
     }
 }
