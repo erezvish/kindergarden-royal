@@ -6,12 +6,13 @@
         <filter-cmp class="filter-cmp"> </filter-cmp>
         <!--<el-input placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>-->
         <!--</el-input>-->
-        <div class="controls">
-          <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
-          <i class="fa fa-list" aria-hidden="true"></i>
-          <i class="fa fa-th-large" aria-hidden="true"></i>
-        </div>
+        
+          <el-radio-group  class="controls">
+            <el-radio-button name="list-options" label="All"></el-radio-button>
+            <el-radio-button name="list-options" label="Present"></el-radio-button>
+            <el-radio-button name="list-options" label="Absent"></el-radio-button>
+          </el-radio-group>
+        
       </section>
     </el-col>
   </el-row>
@@ -26,12 +27,17 @@ export default {
   },
   data() {
     return {
-      searchInput: ''
+      searchInput: '',
+      triggerListView: false
     }
   },
   methods: {
     filterKids() {
       console.log('filtering!')
+    },
+    setListView() {
+      console.log('list-view activated...');
+
     }
   }
 }
@@ -69,13 +75,13 @@ export default {
   }
 }
 
-
 .control-panel::after {}
 
 .control-panel {
   // display: flex;
-  & .controls {
+   .controls {
     display: flex;
+    padding: 2em!important;
   }
 
   & .fa {

@@ -51,7 +51,6 @@ export default {
       inputMsgParent: '',
       isCameraOn: false,
       cameraId: 'K' + this.kid._id
-
     }
   },
   computed: {
@@ -98,9 +97,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid green;
-// }
+* {
+  outline: 1px solid green;
+}
 .properties {
   padding: 0 0.5em;
 
@@ -163,8 +162,8 @@ export default {
 
 .mark-absent {
   border: none;
-  background: rgba(230, 0, 0, 0.9); // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
-  background: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
+  background: white; // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
+  background: linear-gradient(to bottom,rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
   color: white;
 }
 
@@ -198,6 +197,6 @@ export default {
   display: flex;
   flex-direction: row;
   background: yellow;
-  outline: 12px solid BLUE;
+  
 }
 </style>

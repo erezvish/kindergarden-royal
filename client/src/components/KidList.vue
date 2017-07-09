@@ -6,13 +6,17 @@
         <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <div class="status-bar">
           <h1> Kid list area </h1>
+          <ul>
+          <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+          <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+          <i class="fa fa-th-large" aria-hidden="true"></i>
           <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+          </ul>
         </div>
-       <!-- <div v-if="kids.length"  class="kid-details-container"> <!--:class="{ thumbnail: list}
-          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-        </div> -->
-        <div v-if="thumbnailView"  class="kid-details-container"> <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :isListView="triggerListView" :kid="kid"   @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+        <div v-if="thumbnailView" class="kid-details-container">
+          <!--:class="{ thumbnail: list}-->
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -34,7 +38,7 @@ export default {
       thumbnailView: true,
       showKeyPad: false,
       keyPadActiveKid: {},
-      triggerListView: false
+      triggerListView: true
     }
   },
   computed: {
@@ -43,6 +47,9 @@ export default {
     }
   },
   methods: {
+    setListView() {
+
+    },
     toggleIsPresent(kid) {
       this.keyPadActiveKid = kid;
       this.showKeyPad = true;
@@ -109,6 +116,7 @@ export default {
 * {
   outline: 1px solid red;
 }
+
 .el-row {
   display: flex;
   justify-content: center;
@@ -119,9 +127,11 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 .thumbnail {
   background: pink;
 }
+
 .kid-list {
   display: flex;
   flex-direction: column;
@@ -130,9 +140,7 @@ export default {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   border-radius: 1em;
   margin-bottom: 1em;
-  padding-bottom: 3em;
-  // height: 100%;
-
+  padding-bottom: 3em; // height: 100%;
   & .status-bar {
     display: flex;
     justify-content: space-between;
