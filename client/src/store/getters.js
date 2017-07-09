@@ -9,9 +9,5 @@ export default {
         else if (state.kidsFilter.radio === "absent") currFilter = currFilter.filter(kid => !kid.isPresent)
         return currFilter;
     },
-    // sortedKids: (state, getters) => {
-    //     console.log('Sort getter is working!');
-
-    // }
 }
 

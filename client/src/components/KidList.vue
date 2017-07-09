@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import KidDetails from './KidDetails'
 import store from '../store'
 export default {
@@ -34,17 +35,19 @@ export default {
     return {
       thumbnailView: true,
       triggerListView: false,
-      kidsToDisplay: []
+      isReverseSort: false,
+      isFirstSort: true
     }
   },
-  computed: {
+  computed: { //TODO: use map getters
+    ...mapGetters([
+    ]),
     kids() {
-      return this.$store.getters.filteredKids;
+      return this.$store.getters.filteredKids
     }
   },
+
   created() {
-    Object.assign(this.kidsToDisplay, this.kids)
-    // console.log('kids:', this.kids, 'display:', this.kidsToDisplay )
   },
   methods: {
     setListView() {
@@ -121,7 +124,11 @@ export default {
     },
     sortKids(reverseDirection = false) {
       console.log('Sorting them Kids')
-      
+      this.kids.sort(function (a, b) {
+        if(reverseDirection) return (a.firstName > b.firstName) ? -1 : 1;
+        else return (a.firstName < b.firstName) ? -1 : 1;
+      });
+      this.$forceUpdate();
     }
   }
 }
