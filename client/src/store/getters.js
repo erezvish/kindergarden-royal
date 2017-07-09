@@ -1,8 +1,9 @@
 export default {
     filteredKids: (state) => {
         console.log('getter working!')
-        return state.kids.filter(kid => 
-        kid.firstName.includes(state.kidsFilter) ||  kid.lastName.includes(state.kidsFilter)
+        return state.kids.filter(kid =>
+            (kid.firstName.toLowerCase() + ' ' + kid.lastName.toLowerCase())
+                .includes(state.kidsFilter)
         )
     }
 }

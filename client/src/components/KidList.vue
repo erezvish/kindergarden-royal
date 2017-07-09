@@ -2,6 +2,8 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23">
       <section class="kid-list">
+  
+        <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <div class="status-bar">
           <h1> Kid list area </h1>
           <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
@@ -10,10 +12,7 @@
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div> -->
         <div v-if="thumbnailView"  class="kid-details-container"> <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :list-view="false" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-        </div>
-        <div v-else  class="list-view"> <!--:class="{ thumbnail: list}-->
-          <kid-details v-for="kid in kids" :list-view="true" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :isListView="triggerListView" :kid="kid"   @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -22,15 +21,20 @@
 
 <script>
 import KidDetails from './KidDetails'
+import CodeKeypad from './CodeKeypad'
 import store from '../store'
 export default {
   name: 'kid-list',
   components: {
-    KidDetails
+    KidDetails,
+    CodeKeypad
   },
   data() {
     return {
-      thumbnailView: true
+      thumbnailView: true,
+      showKeyPad: false,
+      keyPadActiveKid: {},
+      triggerListView: false
     }
   },
   computed: {
@@ -40,10 +44,8 @@ export default {
   },
   methods: {
     toggleIsPresent(kid) {
-      this.$store.dispatch({
-        type: 'togglePresent',
-        kid
-      })
+      this.keyPadActiveKid = kid;
+      this.showKeyPad = true;
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -54,8 +56,50 @@ export default {
     edit(kid) {
       this.$emit('edit', kid)
     },
+
+    updateKidPicture(kid, prevKid) {
+      console.log('recieved picture update request', prevKid)
+      this.$store.dispatch({
+        type: 'updateKid',
+        kid
+      }).then(
+        this.confirmImg(prevKid)
+        )
+    },
+    confirmImg(kid) {
+      console.log('current kid url:', kid.imgUrl)
+      this.$confirm('Accpet new Image?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: 'Image Saved!'
+        });
+      }).catch(() => {
+        this.$store.dispatch({
+          type: 'updateKid',
+          kid
+        })
+        this.$message({
+          type: 'info',
+          message: 'Image Discarded'
+        });
+      });
+    },
+    closeKeyPad(passCheck) {
+      this.showKeyPad = false;
+      if (passCheck) {
+        this.$store.dispatch({
+          type: 'togglePresent',
+          kid: this.keyPadActiveKid
+        })
+      }
+    },
     plusClicked: () => {
       console.log('plusClicked');
+
     }
   }
 }
@@ -121,5 +165,12 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.code-keypad {
+  position: fixed;
+  z-index: 100;
+  top: 25%;
+  left: 25%;
 }
 </style>

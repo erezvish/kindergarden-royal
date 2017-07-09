@@ -11,8 +11,14 @@ export default {
     name: 'filter-cmp',
     data() {
         return {
-            searchInput: ''
+            searchInput: '',
+            voiceCommands: {
+                'search *spokenFilter': this.runSpokenFilter
+            }
         }
+    },
+    created() {
+        annyang.addCommands(this.voiceCommands)
     },
     methods: {
         filterKids() {
@@ -21,6 +27,10 @@ export default {
                 type: 'filterKids',
                 text: this.searchInput
             })
+        },
+        runSpokenFilter(spokenFilter) {
+            this.searchInput = spokenFilter;
+            this.filterKids()
         }
     }
 }
