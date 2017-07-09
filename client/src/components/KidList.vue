@@ -3,7 +3,6 @@
     <el-col :xs="24" :sm="24" :md="23">
       <section class="kid-list">
   
-        <code-keypad class="code-keypad" v-if="showKeyPad" :kidPass="keyPadActiveKid.pincode" @close-keypad="closeKeyPad"></code-keypad>
         <div class="status-bar">
           <h1> Kid list area </h1>
           <ul>
@@ -25,20 +24,17 @@
 
 <script>
 import KidDetails from './KidDetails'
-import CodeKeypad from './CodeKeypad'
 import store from '../store'
 export default {
   name: 'kid-list',
   components: {
     KidDetails,
-    CodeKeypad
   },
   data() {
     return {
       thumbnailView: true,
       showKeyPad: false,
-      keyPadActiveKid: {},
-      triggerListView: true
+      triggerListView: false
     }
   },
   computed: {
@@ -50,9 +46,30 @@ export default {
     setListView() {
 
     },
+    plusClicked() {
+      //PLACEHOLDER, ACCEPT MEIR'S VERSION
+    },
     toggleIsPresent(kid) {
-      this.keyPadActiveKid = kid;
-      this.showKeyPad = true;
+      console.log('toggling is present:', kid.imgUrl)
+      this.$confirm('Change Kid Status?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info'
+      }).then(() => {
+        this.$store.dispatch({
+          type: 'togglePresent',
+          kid
+        })
+        this.$message({
+          type: 'success',
+          message: 'Kid Status Updated'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'error',
+          message: 'Status Update Cancelled'
+        });
+      });
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -73,12 +90,15 @@ export default {
         this.confirmImg(prevKid)
         )
     },
+    confirmToggle(kid) {
+
+    },
     confirmImg(kid) {
       console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
-        type: 'warning'
+        type: 'info'
       }).then(() => {
         this.$message({
           type: 'success',
@@ -95,18 +115,8 @@ export default {
         });
       });
     },
-    closeKeyPad(passCheck) {
-      this.showKeyPad = false;
-      if (passCheck) {
-        this.$store.dispatch({
-          type: 'togglePresent',
-          kid: this.keyPadActiveKid
-        })
-      }
-    },
-    plusClicked: () => {
-      console.log('plusClicked');
-
+    createKid() {
+      this.$emit('createKid')
     }
   }
 }
@@ -175,10 +185,4 @@ export default {
   flex-wrap: wrap;
 }
 
-.code-keypad {
-  position: fixed;
-  z-index: 100;
-  top: 25%;
-  left: 25%;
-}
 </style>
