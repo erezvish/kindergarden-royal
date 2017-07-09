@@ -41,11 +41,10 @@
 <script>
 export default {
   name: 'kid-details',
-  props: ['kid'],
+  props: ['kid', 'list-view'],
   data() {
     return {
       inputMsgParent: '',
-
     }
   },
 
@@ -57,7 +56,7 @@ export default {
       return {
         'kid-details': true,
         'mark-present': this.kid.isPresent,
-        'mark-absent': !this.kid.isPresent
+        'mark-absent': !this.kid.isPresent,
       }
     }
   },
@@ -132,16 +131,14 @@ export default {
 
 .mark-present {
   border: none;
-  background: rgba(0, 155, 2, 0.7);
-  // background: linear-gradient(to bottom, rgba(0, 155, 2, 0.7), lightgreen 2em, rgba(0, 155, 2, 0.7) 17em);
+  background: rgba(0, 155, 2, 0.7); // background: linear-gradient(to bottom, rgba(0, 155, 2, 0.7), lightgreen 2em, rgba(0, 155, 2, 0.7) 17em);
   background: linear-gradient(to top, rgba(0, 155, 2, 0.7) 1%, lightgreen 0.5em, rgba(0, 155, 2, 0.7) 50%);
   color: white;
 }
 
 .mark-absent {
   border: none;
-  background: rgba(230, 0, 0, 0.9);
-  // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
+  background: rgba(230, 0, 0, 0.9); // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
   background: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
   color: white;
 }

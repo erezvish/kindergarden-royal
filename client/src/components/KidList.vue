@@ -6,8 +6,14 @@
           <h1> Kid list area </h1>
           <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
         </div>
-        <div v-if="kids.length" class="kid-details-container">
+       <!-- <div v-if="kids.length"  class="kid-details-container"> <!--:class="{ thumbnail: list}
           <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+        </div> -->
+        <div v-if="thumbnailView"  class="kid-details-container"> <!--:class="{ thumbnail: list}-->
+          <kid-details v-for="kid in kids" :list-view="false" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+        </div>
+        <div v-else  class="list-view"> <!--:class="{ thumbnail: list}-->
+          <kid-details v-for="kid in kids" :list-view="true" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
@@ -24,7 +30,7 @@ export default {
   },
   data() {
     return {
-
+      thumbnailView: true
     }
   },
   computed: {
@@ -56,14 +62,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   outline: 1px solid red;
-// }
+* {
+  outline: 1px solid red;
+}
 .el-row {
   display: flex;
   justify-content: center;
 }
 
+.list-view {
+  background: yellow;
+  display: flex;
+  flex-direction: column;
+}
+.thumbnail {
+  background: pink;
+}
 .kid-list {
   display: flex;
   flex-direction: column;
@@ -73,7 +87,7 @@ export default {
   border-radius: 1em;
   margin-bottom: 1em;
   padding-bottom: 3em;
-  height: 100%;
+  // height: 100%;
 
   & .status-bar {
     display: flex;
