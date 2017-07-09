@@ -40,7 +40,6 @@ export default {
         kidService.delete(payload._id)
             .then(() => commit(payload))
             .catch(err => {
-                console.error('cannot delete kid on server', kid.firstName, kid.lastName, err)
             })
     },
 
@@ -70,19 +69,19 @@ export default {
     },
 
     login({ commit }, payload) {
-        userService.login(payload.user)
+        return userService.login(payload.user)
             .then(res => {
-                console.log('login success', res.data)
                 payload.token = res.data.token
                 commit(payload)
+                return res
             })
             .catch(res => console.log(res.data))
     },
 
-    logout({ commit }, payload) {
-        userService.logout()
+    logout({ commit }, { type }) {
+        return userService.logout()
         .then(() => {
-            commit(payload)
+            commit(type)
         })
     }
 }

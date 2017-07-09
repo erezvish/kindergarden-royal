@@ -1,5 +1,5 @@
 <template>
-  <section class="admin-panel">
+  <section class="admin-panel" v-if="isAdmin">
     <h1> Admin Panel </h1>
     <el-row>
       
@@ -42,6 +42,9 @@ export default {
   computed: {
     emptyKid() {
       return this.$store.state.emptyKid
+    },
+    isAdmin() {
+      return this.$store.state.isAdmin
     }
   },
   methods: {

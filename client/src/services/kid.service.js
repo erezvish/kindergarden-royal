@@ -25,7 +25,7 @@ export default {
             .catch(err => {
                 console.log('list request failed:', err)
                 return err;
-            })
+        })
     },
 
     getOne(kidId) {
@@ -39,7 +39,6 @@ export default {
                 console.log('find kid failed');
                 return err;
             })
-
     },
 
     //for CRUD actions, user has to be sent to the server in order for the server to 
@@ -87,5 +86,12 @@ export default {
     }
 }
 
+function configRequest(data) {
+    const configObj = {
+        auth: {
 
+        }
+    }
+    return 
+}
 
