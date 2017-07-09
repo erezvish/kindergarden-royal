@@ -1,7 +1,12 @@
 <template>
-    <section>
-        <el-input placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
+    <section class="filter-controls">
+        <el-input class="filter-text" placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
         </el-input>
+        <el-radio-group class="controls" v-model="radioSelected">
+            <el-radio-button label="all">All</el-radio-button>
+            <el-radio-button label="present">Present</el-radio-button>
+            <el-radio-button label="absent">Absent</el-radio-button>
+        </el-radio-group>
     </section>
 </template>
 
@@ -12,8 +17,10 @@ export default {
     data() {
         return {
             searchInput: '',
+            radioSelected: 'ignore',
             voiceCommands: {
-                'search *spokenFilter': this.runSpokenFilter
+                'search *spokenFilter': this.runSpokenFilter,
+                'find *spokenFilter': this.runSpokenFilter,
             }
         }
     },
@@ -25,18 +32,39 @@ export default {
             console.log('filtering!')
             this.$store.dispatch({
                 type: 'filterKids',
-                text: this.searchInput
+                text: this.searchInput,
+                radio: this.radioSelected
             })
         },
         runSpokenFilter(spokenFilter) {
             this.searchInput = spokenFilter;
             this.filterKids()
+        },
+        radioClicked() {
+            console.log('radio clicked!')
         }
+    },
+    watch: {
+        radioSelected(val) {
+            this.filterKids();
+        },
     }
 }
 </script>
 
 
 <style lang="scss" scoped>
+* {
+    // outline: 1px solid red;
+}
 
+.filter-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .controls {
+        display: flex;
+        padding: 2em!important;
+    }
+}
 </style>
