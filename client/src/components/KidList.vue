@@ -9,8 +9,7 @@
           <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
         </div>
         <div v-if="kids.length" class="kid-details-container">
-          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-  
+          <kid-details v-for="kid in kids" :kid="kid" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @delete="deleteKidCard(kid)" @picture="updateKidPicture" :key="kid._id"></kid-details>
         </div>
       </section>
     </el-col>
