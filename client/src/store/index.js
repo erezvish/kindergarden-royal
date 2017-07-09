@@ -10,6 +10,23 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         kids: [],
+        emptyKid: {
+            firstName: '',
+            lastName: '',
+            gender: '',
+            parents: [
+                {
+                    firstName: '',
+                    lastName: '',
+                    phone: ''
+                },
+                {
+                    firstName: '',
+                    lastName: '',
+                    phone: ''
+                }
+            ]
+        },
         kidsFilter: '',
         isAdmin: false,
         token: ''
