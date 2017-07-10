@@ -1,6 +1,6 @@
 <template>
     <section class="filter-controls">
-        <el-input class="filter-text" placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
+        <el-input class="filter-text" :placeholder="search" icon="search" v-model="searchInput" @input=filterKids>
         </el-input>
         <el-radio-group class="controls" v-model="radioSelected">
             <el-radio-button label="all">All</el-radio-button>
@@ -21,7 +21,12 @@ export default {
             voiceCommands: {
                 'search *spokenFilter': this.runSpokenFilter,
                 'find *spokenFilter': this.runSpokenFilter,
-            }
+            },
+        }
+    },
+    computed: {
+        search() {
+            return this.$translate.lang === 'heb' ? 'חפש' : 'Search'
         }
     },
     created() {

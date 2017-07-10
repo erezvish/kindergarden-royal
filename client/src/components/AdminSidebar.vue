@@ -1,6 +1,6 @@
 <template>
   <section class="admin-sidebar">
-    <h1> Admin Side Bar </h1>
+    <h1> {{ t('Admin Side Bar') }} </h1>
   </section>
 </template>
 
