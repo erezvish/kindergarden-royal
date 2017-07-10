@@ -6,7 +6,7 @@
             </H1>
             <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
         </div>
-        <NoteCmp v-for="note in notes" :key="note" @delete-note="deleteNote(this)"></NoteCmp>
+        <NoteCmp v-for="note in notes" :note="note" :key="note._id" @delete-note="deleteNote(this)"></NoteCmp>
     </section>
 </template>
 
@@ -17,16 +17,22 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-            notes: ['lorede sdsdf', 'sdf a ds dd','dewr asda vvdsd', 'edasdas']
         }
+    },
+    computed: {
+        notes() {
+            return this.$store.state.messages
+        }
+    },
+    created() {
     },
     methods: {
         plusClicked: () => {
             console.log('plusClicked');
-            
+
         },
-        deleteNote: function(e) {
-            console.log('deleting note: ',);
+        deleteNote: function (e) {
+            console.log('deleting note: ', );
         }
     },
     components: {

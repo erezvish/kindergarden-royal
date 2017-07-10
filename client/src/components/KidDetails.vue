@@ -1,13 +1,13 @@
 <template>
-  <section :class="classObject" @click="toggleIsPresent">
+  <section :class="classObject" @click.self="toggleIsPresent">
   
-    <div class="kid-img" :id="cameraId">
+    <div class="kid-img" :id="cameraId" @click.stop="toggleIsPresent">
       <img :src="kid.imgUrl">
   
     </div>
     <div class="properties">
       <div class="container">
-        <div class="card-header hr">
+        <div class="card-header hr" @click.stop="toggleIsPresent">
           <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
   
           <el-button v-if="isAdmin" @click.stop="edit">
@@ -15,7 +15,7 @@
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </el-button>
         </div>
-        <ul class="status">
+        <ul class="status" @click.stop="toggleIsPresent">
           <li>status:
             <span class="kid-present" v-show="kid.isPresent"> In Class </span>
             <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
@@ -25,14 +25,14 @@
         </ul>
   
       </div>
-      <div class="container-right">
+      <div class="container-right" @click.self="toggleIsPresent">
         <div class="msg-parent x-space-child">
-          <el-input placeholder="Send Message" v-model="inputMsgParent" @click.stop=""></el-input>
+          <el-input placeholder="Send Message" v-model="inputMsgParent"></el-input>
           <el-button type="default">
-            <i class="fa fa-paper-plane" aria-hidden="true" @click.stop=""></i>
+            <i class="fa fa-paper-plane" aria-hidden="true" @click.stop="sendMessage"></i>
           </el-button>
         </div>
-        <div v-if="isAdmin" class="action-icons">
+        <div v-if="isAdmin" class="action-icons" @click.self="toggleIsPresent">
           <div class="icons-left">
             <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
             <i class="fa fa-cog" aria-hidden="true"></i>
@@ -103,7 +103,12 @@ export default {
 
       this.isCameraOn = !this.isCameraOn;
 
-    }
+    },
+    sendMessage() {
+      console.log('message sent')
+      this.inputMsgParent = '';
+      this.$emit('message', this.inputMsgParent)
+    },
   }
 }
 </script>
