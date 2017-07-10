@@ -6,10 +6,10 @@
         </el-input>
         <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
-        <el-radio-group class="controls" v-model="radioSelected" >
-          <el-radio-button label="all">All</el-radio-button>
-          <el-radio-button label="present">Present</el-radio-button>
-          <el-radio-button label="absent">Absent</el-radio-button>
+        <el-radio-group dir="ltr" class="controls" v-model="radioSelected" >
+          <el-radio-button label="all" v-translate>All</el-radio-button>
+          <el-radio-button label="present" v-translate>Present</el-radio-button>
+          <el-radio-button label="absent" v-translate>Absent</el-radio-button>
         </el-radio-group>
         </div> 
       </section>
@@ -18,12 +18,8 @@
 </template>
 
 <script>
-import FilterCmp from './FilterCmp'
 export default {
   name: 'control-panel',
-  components: {
-    FilterCmp
-  },
   data() {
     return {
       searchInput: '',
