@@ -19,8 +19,6 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-            notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas'],
-            isClosed: true
         }
     },
     computed: {
@@ -33,7 +31,6 @@ export default {
     methods: {
         plusClicked: () => {
             console.log('plusClicked');
-
         },
         deleteNote: function (note) {
             console.log('deleting note: ', );

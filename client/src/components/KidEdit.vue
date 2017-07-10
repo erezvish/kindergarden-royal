@@ -5,7 +5,7 @@
         <h2> {{ t('Kid properties') }} </h2>
         <div class="editor-header">
           <div class="kid-img"></div>
-          <el-col  :lg="14" class="info-form">
+          <el-col :lg="14" class="info-form">
             <el-form :model="editedKid" :rules="rules" ref="edit-kid">
               <el-form-item label="First name" prop="firstName">
                 <el-input v-model="editedKid.firstName"></el-input>
@@ -22,31 +22,31 @@
               </el-form-item>
   
               <!--<h4> {{ t('Parents details') }} </h4>
-              <el-form-item label="Mother name">
-                <el-input v-model="editedKid.parents[0].name"></el-input>
-              </el-form-item>
-              <el-form-item label="Mother Tel.">
-                <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[0].tel"></el-input>
-              </el-form-item>
-              <el-form-item label="Mother Email.">
-                <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[0].mail"></el-input>
-              </el-form-item>
-              <el-form-item label="Father name">
-                <el-input v-model="editedKid.parents[1].name"></el-input>
-              </el-form-item>
-              <el-form-item label="Father Tel.">
-                <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[1].tel"></el-input>
-              </el-form-item>
-              <el-form-item label="Father Email.">
-                <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[1].mail"></el-input>
-              </el-form-item>-->
-
+                <el-form-item label="Mother name">
+                  <el-input v-model="editedKid.parents[0].name"></el-input>
+                </el-form-item>
+                <el-form-item label="Mother Tel.">
+                  <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[0].tel"></el-input>
+                </el-form-item>
+                <el-form-item label="Mother Email.">
+                  <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[0].mail"></el-input>
+                </el-form-item>
+                <el-form-item label="Father name">
+                  <el-input v-model="editedKid.parents[1].name"></el-input>
+                </el-form-item>
+                <el-form-item label="Father Tel.">
+                  <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[1].tel"></el-input>
+                </el-form-item>
+                <el-form-item label="Father Email.">
+                  <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[1].mail"></el-input>
+                </el-form-item>-->
+  
               <div class="form-controls">
                 <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
                 <el-button type="danger" @click="cancel">Cancel</el-button>
                 <el-button type="default" @click="resetForm('edit-kid')">Reset</el-button>
               </div>
-
+  
             </el-form>
           </el-col>
         </div>
@@ -142,7 +142,8 @@ export default {
   text-align: start;
   & .el-form-item {
     width: 100%;
-  };
+  }
+  ;
   & .form-controls {
     display: flex;
     flex-direction: row;
@@ -150,7 +151,6 @@ export default {
     align-self: center;
     margin: 1em 0;
   }
-
 }
 
 .info-form {
@@ -228,7 +228,8 @@ export default {
       width: 10.4em;
       height: 14em;
     }
-  };
+  }
+  ;
   .form-controls {
     flex-direction: column;
     margin: 1em 0;
