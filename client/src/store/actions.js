@@ -113,4 +113,10 @@ export default {
             message
         })
     },
+    deleteMessage({ commit }, payload) {
+        msgService.delete(payload._id)
+            .then(() => commit(payload))
+            .catch(err => {
+            })
+    },
 }

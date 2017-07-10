@@ -10,7 +10,7 @@ console.log('msg socket:', appSocket.socket)
 
 export default {
     initSocket(actionFunc) {
-        appSocket.socket.on('chat message', (message) => {
+        appSocket.socket.on('parent message', (message) => {
             console.log('emit received!')
             if (typeof actionFunc === 'function') {
                 actionFunc(message)
@@ -19,7 +19,7 @@ export default {
     },
     send(message) {
         console.log('message has left the service')
-        appSocket.socket.emit('chat message', message)
+        appSocket.socket.emit('parent message', message)
     },
 
     getList() {
@@ -30,43 +30,26 @@ export default {
             })
     },
 
-    getOne(kidId) {
-        const kidUrl = url + `/${kidId}`
-        return axios.get(kidUrl)
-            .then(kid => {
-                console.log('server responded to find kid request');
-                return kid;
+    getOne(messageId) {
+        const messageUrl = url + `/${messageId}`
+        return axios.get(messageUrl)
+            .then(message => {
+                console.log('server responded to find message request');
+                return message;
             })
             .catch(err => {
-                console.log('find kid failed');
+                console.log('find message failed');
                 return err;
             })
     },
 
-    //for CRUD actions, user has to be sent to the server in order for the server to 
-    //authenticate that the request is allowable
-    create(kid, user = null) {
-        return axios.post(url, kid)
-            .catch(err => {
-                console.log('post kid object failed:', err)
-                return err;
-            })
-    },
+    create(message) {}, //done via WebSockets
 
-    update(kid, user = null) {
-        const kidUrl = url + `/${kid._id}`
-        return axios.put(kidUrl, kid)
+    delete(messageId) {
+        const messageUrl = url + `/${messageId}`
+        return axios.delete(messageUrl)
             .catch(err => {
-                console.log('updating kid object failed:', err)
-                return err;
-            })
-    },
-
-    delete(kidId, user = null) {
-        const kidUrl = url + `/${kidId}`
-        return axios.delete(kidUrl)
-            .catch(err => {
-                console.log('deleting kid object failed:', err)
+                console.log('deleting message object failed:', err)
                 return err;
             })
     },

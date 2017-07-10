@@ -37,8 +37,12 @@ export default {
             console.log('plusClicked');
 
         },
-        deleteNote: function (e) {
+        deleteNote: function (note) {
             console.log('deleting note: ', );
+            this.$store.dispatch({
+                type: 'deleteMessage',
+                _id: note._id
+            })
         }
     },
     components: {
