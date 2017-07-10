@@ -21,7 +21,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -84,7 +84,7 @@ export default {
       //PLACEHOLDER, ACCEPT MEIR'S VERSION
     },
     toggleIsPresent(kid) {
-      console.log('toggling is present:', kid.imgUrl)
+      console.log('toggling is present:')
       this.$confirm('Change Kid Status?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -156,6 +156,15 @@ export default {
         else return (a.firstName < b.firstName) ? -1 : 1;
       });
       this.$forceUpdate();
+    },
+    sendParentMessage(message) {
+      console.log('There is a message from the parents of:', message.kidFullName)
+      console.log('message:', message)
+      this.$store.dispatch({
+        type: 'sendParentMessage',
+        message
+      })
+
     }
   }
 }

@@ -9,7 +9,7 @@
                 <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
             </div>-->
         </div>
-        <NoteCmp v-for="note in notes" :key="note" @delete-note="deleteNote(this)"></NoteCmp>
+        <NoteCmp v-for="note in notes" :note="note" :key="note._id" @delete-note="deleteNote(note)"></NoteCmp>
     </section>
 </template>
 
@@ -19,21 +19,38 @@ export default {
     name: 'notes-panel',
     data() {
         return {
+<<<<<<< HEAD
+=======
             notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas'],
             isClosed: true
+>>>>>>> master
         }
+    },
+    computed: {
+        notes() {
+            return this.$store.state.messages
+        }
+    },
+    created() {
     },
     methods: {
         plusClicked: () => {
             console.log('plusClicked');
 
         },
-        deleteNote: function (e) {
+        deleteNote: function (note) {
             console.log('deleting note: ', );
+<<<<<<< HEAD
+            this.$store.dispatch({
+                type: 'deleteMessage',
+                _id: note._id
+            })
+=======
         },
         closeClicked() {
             console.log('closing notes...');
 
+>>>>>>> master
         }
     },
     components: {
