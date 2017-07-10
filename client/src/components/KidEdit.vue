@@ -2,7 +2,7 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="20">
       <section class="kid-edit">
-        <h2> {{ t('Kid properties') }} </h2>
+        <h2> Kid properties </h2>
         <div class="editor-header">
           <div class="kid-img"></div>
           <el-col  :lg="14" class="info-form">
@@ -21,7 +21,7 @@
                 </el-select>
               </el-form-item>
   
-              <!--<h4> {{ t('Parents details') }} </h4>
+              <h4>Parents details</h4>
               <el-form-item label="Mother name">
                 <el-input v-model="editedKid.parents[0].name"></el-input>
               </el-form-item>
@@ -39,7 +39,7 @@
               </el-form-item>
               <el-form-item label="Father Email.">
                 <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[1].mail"></el-input>
-              </el-form-item>-->
+              </el-form-item>
 
               <div class="form-controls">
                 <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>

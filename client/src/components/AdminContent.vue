@@ -1,6 +1,6 @@
 <template>
   <section class="admin-content">
-    <h1> {{ t('Admin Main Content Area') }} </h1>
+    <h1> Admin Main Content Area </h1>
     <kid-list> </kid-list>
   </section>
 </template>

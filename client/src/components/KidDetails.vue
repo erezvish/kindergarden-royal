@@ -1,37 +1,38 @@
 <template>
-  <section :class="classObject" @click.self="toggleIsPresent">
+  <section :class="classObject" @click="toggleIsPresent">
   
-    <div class="kid-img" :id="cameraId" @click.stop="toggleIsPresent">
+    <div class="kid-img" :id="cameraId">
       <img :src="kid.imgUrl">
   
     </div>
     <div class="properties">
       <div class="container">
-        <div class="card-header hr" @click.stop="toggleIsPresent">
+        <div class="card-header hr">
           <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
   
           <el-button v-if="isAdmin" @click.stop="edit">
+  
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </el-button>
         </div>
-        <ul class="status" @click.stop="toggleIsPresent">
-          <li> {{ t('Status') }}:
-            <span class="kid-present" v-show="kid.isPresent"> {{ t('In class') }} </span>
-            <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
+        <ul class="status">
+          <li>status:
+            <span class="kid-present" v-show="kid.isPresent"> In Class </span>
+            <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
           </li>
   
-          <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
+          <li class="hr">last seen:</li>
         </ul>
   
       </div>
-      <div class="container-right" @click.self="toggleIsPresent">
+      <div class="container-right">
         <div class="msg-parent x-space-child">
-          <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
-          <el-button type="default" @click="sendMessage">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          <el-input placeholder="Send Message" v-model="inputMsgParent" @click.stop=""></el-input>
+          <el-button type="default">
+            <i class="fa fa-paper-plane" aria-hidden="true" @click.stop=""></i>
           </el-button>
         </div>
-        <div v-if="isAdmin" class="action-icons" @click.self="toggleIsPresent">
+        <div v-if="isAdmin" class="action-icons">
           <div class="icons-left">
             <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
             <i class="fa fa-cog" aria-hidden="true"></i>
@@ -102,27 +103,7 @@ export default {
 
       this.isCameraOn = !this.isCameraOn;
 
-    },
-    createEmptyMessage() {
-      const kidFullName = this.kid.firstName + ' ' + this.kid.lastName;
-      return {
-        _id: null,
-        to: null,
-        from: this.kid._id,
-        kidFullName,
-        title: `Message from ${kidFullName} Parents`,
-        text: null,
-        timestamp: null
-      }
-    },
-    sendMessage() {
-      console.log('message sent to KidList')
-      let newMessage = this.createEmptyMessage();
-      newMessage. text = this.inputMsgParent;
-      newMessage.timestamp = Date.now();
-      this.$emit('parent-message', newMessage)
-      this.inputMsgParent = '';
-    },
+    }
   }
 }
 </script>

@@ -32,6 +32,7 @@
             <img @click="lang='eng'" src="../../static/img/eng.png">
             <img @click="lang='heb'" src="../../static/img/heb.png">
           </div>
+
         </li>
 
       </ul>
@@ -51,6 +52,9 @@ export default {
       menuIsClicked: false,
       lang: 'eng'
     }
+  },
+  mounted() {
+    this.$el.classList.add('root-comp')
   },
   watch: {
     lang: function(val) {
