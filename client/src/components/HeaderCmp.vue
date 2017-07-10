@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row class="header-section">
     <header>
       <div class="brand">
         <h1>KinderYA!</h1>
@@ -10,11 +10,14 @@
           <router-link class="router-link" to="/">
             <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
         </li>
-        <li v-if="isAdmin">
+
+
+        <li v-if="isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/admin">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
         </li>
-        <li v-if="!isAdmin">
+        <li v-if="!isAdmin" @click="slideMenu">
+
           <router-link class="router-link" to="/login">
             <i class="fa fa-user-circle" aria-hidden="true"></i>Log-in</router-link>
         </li>
@@ -36,8 +39,7 @@ export default {
   name: 'header-cmp',
   data() {
     return {
-      menuIsClicked: true,
-      a: true
+      menuIsClicked: false,
     }
   },
   computed: {
@@ -63,9 +65,11 @@ export default {
     },
     slideMenu: function() {
       console.log('slide menu...');
+      var fixed = document.querySelector('body');
       var nav = document.querySelector('.nav-items');
       nav.classList.remove('menu-on');
-      this.menuIsClicked = !this.menuIsClicked;
+      fixed.classList.remove('unScroll');
+      this.menuIsClicked = false;
       
     },
     logout() {
@@ -123,7 +127,7 @@ a:hover {
   color: white;
 }
 
-.el-row::after {
+.header-section::after {
   content: '';
   position: absolute;
   width: 100%;
