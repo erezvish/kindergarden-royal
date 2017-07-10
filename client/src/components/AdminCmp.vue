@@ -6,9 +6,9 @@
       <el-col :xs="24" :sm="24" :md="24">
         <control-panel></control-panel>
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
-        <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode"></kid-list>
+        <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode" @toggle-sidebar="toggleSidebar"></kid-list>
       </el-col>
-      <side-bar></side-bar>
+      <side-bar :bellProp="sidebarOn" @toggle-sidebar="toggleSidebar"></side-bar>
     </el-row>
   </section>
 </template>
@@ -31,6 +31,7 @@ export default {
     return {
       isEditMode: false,
       kidToEdit: null,
+      sidebarOn: false
     }
   },
   computed: {
@@ -42,6 +43,9 @@ export default {
     }
   },
   methods: {
+    toggleSidebar() {
+    this.sidebarOn = !this.sidebarOn;
+    },
     setEditMode(kid) {
       this.toggleEditMode()
       if (kid) this.kidToEdit = kid
@@ -58,6 +62,9 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/vars.scss";
 
+// * {
+//   outline: 1px solid red;
+// }
 .el-row {
   display: flex;
 }
