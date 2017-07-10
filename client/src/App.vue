@@ -30,7 +30,7 @@ export default {
   created() {
     this.$store.dispatch({
       type: 'initSocket',
-    })
+    }),
     console.log('fetching kids from state!')
     this.$store.dispatch({
       type: 'getKids'
@@ -38,7 +38,7 @@ export default {
 
     // Add our commands to annyang
     annyang.addCommands(this.voiceCommands);
-    annyang.start();
+    // annyang.start();
   },
   destroyed() {
     annyang.abort()

@@ -2,21 +2,11 @@ import axios from 'axios-es6'
 
 import moment from 'moment';
 import ioClient from 'socket.io-client'
+import appSocket from './socket'
 
 const port = '3003';
 const url = `http://localhost:${port}/data/kid`
-const socket = ioClient(`http://localhost:${port}`);
-
-
-// const tempKid = {
-//     _id: 1,
-//     firstName: 'Erez',
-//     lastName: 'the great',
-//     isPresent: 'false',
-//     isApproved: 'false',
-//     imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/31/1438173668-cute-success-kid.jpg',
-//     parents: '[{_id:100, firstName: "moshe", phoneNum: 555, email: "Iamhere@here.com" }]'
-// }
+console.log('appSocket:', appSocket)
 
 export default {
 
@@ -25,7 +15,7 @@ export default {
             .catch(err => {
                 console.log('list request failed:', err)
                 return err;
-        })
+            })
     },
 
     getOne(kidId) {
@@ -73,17 +63,17 @@ export default {
     togglePresent(kid, kidPinCode) {
         let kidCopy = Object.assign({}, kid)
         kidCopy.isPresent = !kid.isPresent
-        socket.emit('toggle present', kidCopy)
+        appSocket.socket.emit('toggle present', kidCopy)
     },
 
     initSocket(actionFunc) {
-        socket.on('toggle notice', (kid) => {
+        appSocket.socket.on('toggle notice', (kid) => {
             console.log('emit received!')
             if (typeof actionFunc === 'function') {
                 actionFunc(kid)
             }
         })
-    }
+    },
 }
 
 function configRequest(data) {
@@ -92,6 +82,6 @@ function configRequest(data) {
 
         }
     }
-    return 
+    return
 }
 

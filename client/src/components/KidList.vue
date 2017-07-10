@@ -150,7 +150,6 @@ export default {
     sendParentMessage(message) {
       console.log('There is a message from the parents of:', message.kidFullName)
       console.log('message:', message)
-      message.from = kid._id;
       this.$store.dispatch({
         type: 'sendParentMessage',
         message

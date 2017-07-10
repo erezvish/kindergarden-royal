@@ -43,10 +43,8 @@ export default {
         state.token = ''
     },
     //mutations that refer to Messages
-    sendParentMessage(state, payload) {
-        state.messages.push(payload)
-    },
-    receiveParentMessage(state, payload) {
-      
+    receiveParentMessage(state, {message}) {
+        // console.log('Message reached the mutation!!!')
+        state.messages.push(message)
     },
 }

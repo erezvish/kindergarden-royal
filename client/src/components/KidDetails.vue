@@ -105,19 +105,20 @@ export default {
 
     },
     createEmptyMessage() {
+      const kidFullName = this.kid.firstName + ' ' + this.kid.lastName;
       return {
         _id: null,
         to: null,
         from: this.kid._id,
-        kidFullName: this.kid.firstName + ' ' + this.kid.lastName,
-        title: `Message from ${this.kidFullName}'s Parents`,
+        kidFullName,
+        title: `Message from ${kidFullName} Parents`,
         text: null,
         timestamp: null
       }
     },
     sendMessage() {
       console.log('message sent to KidList')
-      let newMessage = createEmptyMessage();
+      let newMessage = this.createEmptyMessage();
       newMessage.timestamp = Date.now();
       this.$emit('parent-message', newMessage)
       this.inputMsgParent = '';

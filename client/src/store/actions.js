@@ -62,6 +62,12 @@ export default {
                 type: 'updateKid',
                 kid
             })
+        }),
+        msgService.initSocket(message => {
+            commit({
+                type: 'receiveParentMessage',
+                message
+            })
         })
     },
 
@@ -87,15 +93,12 @@ export default {
     },
     //actions that refer to Messages
     sendParentMessage({ commit }, payload) {
-         msgService.send(payload.message)
-        .then(
-            commit(payload)
-        )
-        .catch(
-            console.log('failed to send message to socket')
-        )
+        msgService.send(payload.message)
     },
-    receiveParentMessage({ commit }, payload) {
-        // msgService
+    receiveParentMessage({ commit }, { message }) {
+        commit({
+            type: 'receiveParentMessage',
+            message
+        })
     },
 }
