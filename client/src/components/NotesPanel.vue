@@ -19,11 +19,8 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-<<<<<<< HEAD
-=======
             notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas'],
             isClosed: true
->>>>>>> master
         }
     },
     computed: {
@@ -40,17 +37,10 @@ export default {
         },
         deleteNote: function (note) {
             console.log('deleting note: ', );
-<<<<<<< HEAD
             this.$store.dispatch({
                 type: 'deleteMessage',
                 _id: note._id
             })
-=======
-        },
-        closeClicked() {
-            console.log('closing notes...');
-
->>>>>>> master
         }
     },
     components: {
