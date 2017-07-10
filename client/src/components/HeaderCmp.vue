@@ -2,7 +2,9 @@
   <el-row class="header-section">
     <header>
       <div class="brand">
+
         <h1>{{ t('KinderYA') }}!</h1>
+
       </div>
   
       <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }" :dir="direction">
@@ -11,25 +13,28 @@
             <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
         </li>
 
+  
+        <li v-if="isAdmin" @click="slideMenu">
 
-        <li class="nav-item" v-if="isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/admin">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
         </li>
-        <li class="nav-item" v-if="!isAdmin" @click="slideMenu">
+
+        <li v-if="!isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/login">
             <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
         </li>
-        <li class="nav-item" v-if="isAdmin" @click="logout">
-            <a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i>
-            {{ t('Logout') }}</a>
+        <li v-if="isAdmin" @click="logout">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Logout') }}</router-link>
         </li>
-        <li class="nav-item">
+        <li>
           <div class="lang-icons">
             <img @click="lang='eng'" src="../../static/img/eng.png">
             <img @click="lang='heb'" src="../../static/img/heb.png">
           </div>
+
         </li>
+
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -81,14 +86,14 @@ export default {
         fixed.classList.remove('unScroll');
       }
     },
-    slideMenu: function() {
+    slideMenu: function () {
       console.log('slide menu...');
       var fixed = document.querySelector('body');
       var nav = document.querySelector('.nav-items');
       nav.classList.remove('menu-on');
       fixed.classList.remove('unScroll');
       this.menuIsClicked = false;
-      
+
     },
     logout() {
       this.$confirm('Are you sure?', 'Warning', {
@@ -96,24 +101,24 @@ export default {
         cancelButtonText: 'Cancel',
         type: 'info'
       })
-      .then(() => {
-        this.$store.dispatch({
-          type: 'logout'
-        })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: 'logout successful'
+          this.$store.dispatch({
+            type: 'logout'
           })
-          this.$router.push('/')
+            .then(() => {
+              this.$message({
+                type: 'success',
+                message: 'logout successful'
+              })
+              this.$router.push('/')
+            })
+            .catch(() => {
+              this.$message({
+                type: 'error',
+                message: 'log out failed :-('
+              })
+            })
         })
-        .catch(() => {
-          this.$message({
-            type: 'error',
-            message: 'log out failed :-('
-          })
-        })
-      })
     }
   }
 }
@@ -122,7 +127,7 @@ export default {
 <style lang="scss" scoped>
 // * {
 //   outline: 1px solid #333;
-// }    
+// }
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
 
@@ -177,13 +182,23 @@ header {
   }
 
   & .fa {
-    margin: 0 0.6em;
+    margin-right: 0.6em;
     font-size: 1.2em;
     cursor: pointer;
+  }
+  .bell-icon {
+    // position: absolute;
+    // top: 4em;
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.8);
   }
 }
 
 .brand {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
   position: relative;
   z-index: 3;
 }

@@ -4,9 +4,12 @@
       <section class="kid-list">
   
         <div class="status-bar">
-          <h1> Kid list area </h1>
-  
+          <div class="title">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            <h1> Kid list area </h1>
+          </div>
           <ul class="controls">
+            <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -58,12 +61,19 @@ export default {
     },
     isBasic() {
       return this.$store.state.isBasic
+    },
+    hasMessages() {
+      return this.$store.state.messages.length > 0
     }
   },
 
   created() {
   },
   methods: {
+    bellClicked() {
+      console.log('click on KidList');
+      this.$emit('toggle-sidebar');
+    },
     setListView() {
       this.triggerListView = true;
     },
@@ -156,6 +166,20 @@ export default {
 // * {
 //   outline: 1px solid red;
 // }
+.bell-is-on {
+  color: orange!important;
+  animation-name: bell-flash;
+  animation-duration: 2s;
+  animation-iteration-count: 10;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes bell-flash {
+    0% {color: orange;}
+    50% {color: #B8D5E1;}
+    100% {color: orange;}
+}
+
 .el-row {
   display: flex;
   justify-content: center;
@@ -217,6 +241,9 @@ export default {
       padding: 0;
       text-align: center;
     }
+    .title {
+      display: flex;
+    }
   }
 }
 
@@ -264,6 +291,11 @@ export default {
 // ---- MD queries ---------
 //
 @media screen and (max-width: $sm) {
-  
+  .view {
+    display: none;
+  }
+  .fa-address-card-o {
+    display: none;
+  }
 }
 </style>

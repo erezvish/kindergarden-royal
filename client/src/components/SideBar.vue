@@ -1,31 +1,48 @@
 <template>
-<el-col  :md="7">
-    <section class="sidebar-container">
-        <div>
-            <notes-panel></notes-panel>
-            <!--<note-cmp></note-cmp>-->
-        </div>
-    </section>
-
-</el-col>
+    <el-col class="el-col-sidebar" :md="7" :class="{ 'hidden': !bellProp }">
+        <section class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa fa-times" aria-hidden="true" @click="closeClicked"></i>
+            </div>
+            <div>
+                <notes-panel></notes-panel>
+                <!--<note-cmp></note-cmp>-->
+            </div>
+        </section>
+    
+    </el-col>
 </template>
 
 <script>
 import NotesPanel from './NotesPanel'
 export default {
     name: 'side-bar',
+    props: ['bellProp'],
+    data() {
+        return {
+        }
+    },
+    computed: {
+
+    },
     components: {
         NotesPanel
+    },
+    methods: {
+        closeClicked() {
+            console.log('closeClicked');
+            this.$emit('toggle-sidebar');
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../sass/vars.scss";
+@import "../sass/main.scss";
 // * {
 //     outline: 1px solid #333;
 // }
-.sidebar-container {
+.sidebar {
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -35,7 +52,7 @@ export default {
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
     min-height: 100%;
-    & .fa {
+    .fa {
         font-size: 2em;
         margin: 0 0.5em;
     }
@@ -65,9 +82,22 @@ export default {
     }
 }
 
-@media screen and (max-width: $lg) {
-    .el-col {
-        display: none;
+@media screen and (max-width: $md) {
+    .el-col-sidebar {
+        position: absolute;
+        left: 0;
+    }
+
+    .sidebar {
+        border-radius: 0em;
+    }
+    .sidebar-header {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        background: rgba(149, 193, 210, 0.2);
+        color: rgba(55, 98, 131, 0.5);
+        box-shadow: $box-shadow-default;
     }
 }
 </style>

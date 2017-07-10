@@ -20,14 +20,6 @@
                   <el-option label="Undefined" value="Undefined"></el-option>
                 </el-select>
               </el-form-item>
-              <!--<el-col :span="11">
-                  <el-form-item prop="birthdate">
-                    <el-date-picker type="date" placeholder="Pick a date" v-model="editedKid.birthdate"></el-date-picker>
-                  </el-form-item>
-                  <el-form-item label="Note" prop="note">
-                    <el-input type="textarea" v-model="editedKid.note"></el-input>
-                  </el-form-item>
-                </el-col>-->
   
               <h4>Parents details</h4>
               <el-form-item label="Mother name">
@@ -50,7 +42,7 @@
               </el-form-item>
 
               <div class="form-controls">
-                <el-button type="success" @click="submitForm('edit-kid')">OK</el-button>
+                <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
                 <el-button type="danger" @click="cancel">Cancel</el-button>
                 <el-button type="default" @click="resetForm('edit-kid')">Reset</el-button>
               </div>
