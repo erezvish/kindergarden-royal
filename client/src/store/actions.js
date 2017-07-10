@@ -1,5 +1,6 @@
 import kidService from '../services/kid.service.js'
 import userService from '../services/user.service.js'
+import msgService from '../services/msg.service.js'
 
 export default {
 
@@ -44,7 +45,7 @@ export default {
     },
 
 
-    filterKids({commit}, payload) {
+    filterKids({ commit }, payload) {
         console.log('Firing filter Action!')
         payload.text = payload.text.toLowerCase()
         commit(payload);
@@ -80,8 +81,21 @@ export default {
 
     logout({ commit }, { type }) {
         return userService.logout()
-        .then(() => {
-            commit(type)
-        })
-    }
+            .then(() => {
+                commit(type)
+            })
+    },
+    //actions that refer to Messages
+    sendParentMessage({ commit }, payload) {
+         msgService.send(payload.message)
+        .then(
+            commit(payload)
+        )
+        .catch(
+            console.log('failed to send message to socket')
+        )
+    },
+    receiveParentMessage({ commit }, payload) {
+        // msgService
+    },
 }

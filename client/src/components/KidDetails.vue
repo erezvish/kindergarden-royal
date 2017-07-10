@@ -27,9 +27,9 @@
       </div>
       <div class="container-right" @click.self="toggleIsPresent">
         <div class="msg-parent x-space-child">
-          <el-input placeholder="Send Message" v-model="inputMsgParent"></el-input>
-          <el-button type="default">
-            <i class="fa fa-paper-plane" aria-hidden="true" @click.stop="sendMessage"></i>
+          <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
+          <el-button type="default" @click="sendMessage">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </el-button>
         </div>
         <div v-if="isAdmin" class="action-icons" @click.self="toggleIsPresent">
@@ -104,10 +104,23 @@ export default {
       this.isCameraOn = !this.isCameraOn;
 
     },
+    createEmptyMessage() {
+      return {
+        _id: null,
+        to: null,
+        from: this.kid._id,
+        kidFullName: this.kid.firstName + ' ' + this.kid.lastName,
+        title: `Message from ${this.kidFullName}'s Parents`,
+        text: null,
+        timestamp: null
+      }
+    },
     sendMessage() {
-      console.log('message sent')
+      console.log('message sent to KidList')
+      let newMessage = createEmptyMessage();
+      newMessage.timestamp = Date.now();
+      this.$emit('parent-message', newMessage)
       this.inputMsgParent = '';
-      this.$emit('message', this.inputMsgParent)
     },
   }
 }

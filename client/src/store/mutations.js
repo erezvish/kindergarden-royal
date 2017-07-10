@@ -41,5 +41,12 @@ export default {
     logout(state) {
         state.isAdmin = false
         state.token = ''
-    }
+    },
+    //mutations that refer to Messages
+    sendParentMessage(state, payload) {
+        state.messages.push(payload)
+    },
+    receiveParentMessage(state, payload) {
+      
+    },
 }
