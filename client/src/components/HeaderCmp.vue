@@ -2,28 +2,37 @@
   <el-row class="header-section">
     <header>
       <div class="brand">
-        <h1>KinderYA!</h1>
-  
+
+        <h1>{{ t('KinderYA') }}!</h1>
+
       </div>
   
-      <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }">
-        <li @click="slideMenu">
+      <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }" :dir="direction">
+        <li class="nav-item" @click="slideMenu">
           <router-link class="router-link" to="/">
-            <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
+            <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
         </li>
+
   
         <li v-if="isAdmin" @click="slideMenu">
+
           <router-link class="router-link" to="/admin">
-            <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
         </li>
+
         <li v-if="!isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/login">
-            <i class="fa fa-user-circle" aria-hidden="true"></i>Login </router-link>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
         </li>
         <li v-if="isAdmin" @click="logout">
-          <router-link class="router-link" to="/">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</router-link>
-          
+        <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Logout') }}</router-link>
+        </li>
+        <li>
+          <div class="lang-icons">
+            <img @click="lang='eng'" src="../../static/img/eng.png">
+            <img @click="lang='heb'" src="../../static/img/heb.png">
+          </div>
+
         </li>
 
       </ul>
@@ -41,11 +50,25 @@ export default {
   data() {
     return {
       menuIsClicked: false,
+      lang: 'eng'
+    }
+  },
+  mounted() {
+    this.$el.classList.add('root-comp')
+  },
+  watch: {
+    lang: function(val) {
+        this.$translate.setLang(val)
+        this.$root.$el.setAttribute('dir', this.direction)
     }
   },
   computed: {
     isAdmin() {
       return this.$store.state.isAdmin
+    },
+    direction() {
+      let direction = this.lang === 'eng' ? 'ltr' : 'rtl'
+      return direction
     }
   },
   methods: {
@@ -59,7 +82,6 @@ export default {
       var fixed = document.querySelector('body');
       if (this.menuIsClicked) {
         fixed.classList.add('unScroll');
-        console.log(fixed);
       } else {
         fixed.classList.remove('unScroll');
       }
@@ -146,7 +168,7 @@ header {
   border-bottom: 0.5em solid rgba(0, 0, 0, 0.2);
 }
 
-.router-link {
+.nav-item {
   margin: 1em;
 }
 
@@ -191,6 +213,16 @@ header {
   }
 }
 
+.lang-icons {
+  display: flex;
+  img {
+    height: 1em;
+    width: 1em;
+    cursor: pointer;
+    margin: 0.3em;
+  }
+}
+
 
 // -------------------------------
 @media screen and (max-width: $sm) {
@@ -226,10 +258,8 @@ header {
   right: 0;
   transition: all, 0.7s;
 }
+
 </style>
-
-
-// unscoped style
 
 <style>
 .unScroll {

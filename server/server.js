@@ -109,7 +109,7 @@ app.get('/data/:objType/:id', function (req, res) {
 });
 
 // DELETE
-app.delete('/data/:objType/:id', requireLogin, function (req, res) {
+app.delete('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	cl(`Requested to DELETE the ${objType} with id: ${objId}`);
@@ -129,7 +129,7 @@ app.delete('/data/:objType/:id', requireLogin, function (req, res) {
 });
 
 // POST - adds 
-app.post('/data/:objType', requireLogin, upload.single('file'), function (req, res) {
+app.post('/data/:objType', upload.single('file'), function (req, res) {
 	//console.log('req.file', req.file);
 	// console.log('req.body', req.body);
 
@@ -160,7 +160,7 @@ app.post('/data/:objType', requireLogin, upload.single('file'), function (req, r
 });
 
 // PUT - updates
-app.put('/data/:objType/:id', requireLogin, function (req, res) {
+app.put('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	const newObj = req.body;
@@ -207,8 +207,8 @@ app.get('/logout', function (req, res) {
 });
 
 function requireLogin(req, res, next) {
-  console.log('Midddleware!!!!');
   if (!req.mySession.user) {
+	console.log('permission denied')
     res.status(403).end('Un Authenticated!')
   } else {
     next();

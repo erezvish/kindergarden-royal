@@ -5976,6 +5976,12 @@ vue-loader@^12.1.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
+vue-material@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/vue-material/-/vue-material-0.7.4.tgz#51ac621a3fceeba3ea49ffe0858c0b45785efe10"
+  dependencies:
+    vue "^2.3.3"
+
 vue-router@^2.3.1:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.7.0.tgz#16d424493aa51c3c8cce8b7c7210ea4c3a89aff1"
@@ -5997,6 +6003,10 @@ vue-template-compiler@^2.3.3:
 vue-template-es2015-compiler@^1.2.2:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.3.tgz#22787de4e37ebd9339b74223bc467d1adee30545"
+
+vue-translate-plugin@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-translate-plugin/-/vue-translate-plugin-1.2.0.tgz#11dd2ccf881196beac18929b59c6d3e9393daa40"
 
 vue@^2.3.3:
   version "2.3.4"
