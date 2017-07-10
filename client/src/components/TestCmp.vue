@@ -1,7 +1,20 @@
 <template>
     <section class="test">
         <h1> for test purposes only! </h1>
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <h2> {{ t('Home') }} </h2>
+        <h2 v-translate>Admin</h2>
+        <el-select v-model="value" placeholder="Lang">
+            <el-option value="eng" label="Eng">
+            </el-option>
+            <el-option value="heb" label="Heb">
+            </el-option>
+        </el-select>
+
+
+
+
+
+        <!--<el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="username">
                 <el-select v-model="formInline.username" placeholder="Enter username">
                 <el-option label="Puki" value="Puki"></el-option>
@@ -23,7 +36,7 @@
         <span v-show="kid.isPresent">PRESENT!</span>
         <span v-show="!kid.isPresent">NOT PRESENT!</span>
         </li>
-            </ul>
+            </ul>-->
         <!--<el-table :data="kids" style="width: 100%">
             <el-table-column prop="firstName" label="first name" width="180">
             </el-table-column>
@@ -46,14 +59,20 @@ export default {
     data() {
         return {
             formInline: {
-            username: '',
-            pass: ''
-            }
-        };
+                username: '',
+                pass: ''
+            },
+            value: 'eng'
+        }
     },
     computed: {
         kids() {
             return this.$store.state.kids
+        }
+    },
+    watch: {
+        value: function(val) {
+            this.$translate.setLang(val)
         }
     },
     methods: {
