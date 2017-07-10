@@ -1,10 +1,9 @@
 <template>
   <section class="admin-panel" v-if="isAdmin">
-    <h1> Admin Panel </h1>
+    <h1> {{ t('Admin Panel') }} </h1>
     <el-row>
       
       <el-col :xs="24" :sm="24" :md="24">
-        <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
         <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode"></kid-list>

@@ -35,6 +35,7 @@ const store = new Vuex.Store({
         isAdmin: true,
         isBasic: false,
         token: '',
+<<<<<<< HEAD
         messages: [
             {
                 _id: 1,
@@ -64,6 +65,8 @@ const store = new Vuex.Store({
                 timestamp: null
             }
         ]
+=======
+>>>>>>> translation
     },
     getters,
     actions,

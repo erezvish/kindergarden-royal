@@ -1,10 +1,16 @@
 <template>
     <section class="notes-panel">
         <div class="title">
+            <div class="sidebar-header">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
             <H1>
                 Notes panel
             </H1>
-            <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+            <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+            <div>
+                <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+            </div>
         </div>
         <NoteCmp v-for="note in notes" :note="note" :key="note._id" @delete-note="deleteNote(note)"></NoteCmp>
     </section>
@@ -17,6 +23,10 @@ export default {
     name: 'notes-panel',
     data() {
         return {
+<<<<<<< HEAD
+=======
+            notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas']
+>>>>>>> translation
         }
     },
     computed: {
@@ -43,6 +53,7 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "../sass/main.scss";
 // * {
 //     outline: 1px solid #333;
 // }
@@ -51,7 +62,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1em; //design rules
+    padding: 1em;
     & .title {
         display: flex;
         justify-content: space-between;
@@ -65,6 +76,14 @@ export default {
             padding: 0.3em 0 0.3em 0.3em;
             cursor: pointer;
         }
+    }
+}
+
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
+@media screen and (max-width: $sm) {
+    .notes-panel {
+        padding-top: 0;
     }
 }
 </style>

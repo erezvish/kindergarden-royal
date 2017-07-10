@@ -42,9 +42,12 @@ export default {
         state.isAdmin = false
         state.token = ''
     },
+<<<<<<< HEAD
     //mutations that refer to Messages
     receiveParentMessage(state, {message}) {
         // console.log('Message reached the mutation!!!')
         state.messages.push(message)
     },
+=======
+>>>>>>> translation
 }

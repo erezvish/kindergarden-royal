@@ -207,8 +207,8 @@ app.get('/logout', function (req, res) {
 });
 
 function requireLogin(req, res, next) {
-  console.log('Midddleware!!!!');
   if (!req.mySession.user) {
+	console.log('permission denied')
     res.status(403).end('Un Authenticated!')
   } else {
     next();

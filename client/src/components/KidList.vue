@@ -4,9 +4,12 @@
       <section class="kid-list">
   
         <div class="status-bar">
-          <h1> Kid list area </h1>
-  
+          <div class="title">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            <h1> Kid list area </h1>
+          </div>
           <ul class="controls">
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -226,6 +229,9 @@ export default {
       padding: 0;
       text-align: center;
     }
+    .title {
+      display: flex;
+    }
   }
 }
 
@@ -272,5 +278,16 @@ export default {
 
 // ---- MD queries ---------
 //
+<<<<<<< HEAD
 @media screen and (max-width: $sm) {}
+=======
+@media screen and (max-width: $sm) {
+  .view {
+    display: none;
+  }
+  .fa-address-card-o{
+    display: none;
+  }
+}
+>>>>>>> translation
 </style>

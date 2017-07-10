@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" ref="app">
     <header-cmp> </header-cmp>
     <main>
       <router-view></router-view>
@@ -37,7 +37,11 @@ export default {
     })
 
     // Add our commands to annyang
+<<<<<<< HEAD
     annyang.addCommands(this.voiceCommands);
+=======
+    // annyang.addCommands(this.voiceCommands);
+>>>>>>> translation
     // annyang.start();
   },
   destroyed() {

@@ -2,29 +2,38 @@
   <el-row class="header-section">
     <header>
       <div class="brand">
-        <h1>KinderYA!</h1>
+        <h1>{{ t('KinderYA') }}!</h1>
       </div>
   
-      <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }">
-        <li @click="slideMenu">
+      <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }" :dir="direction">
+        <li class="nav-item" @click="slideMenu">
           <router-link class="router-link" to="/">
-            <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
+            <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
         </li>
 
 
-        <li v-if="isAdmin" @click="slideMenu">
+        <li class="nav-item" v-if="isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/admin">
-            <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
         </li>
-        <li v-if="!isAdmin" @click="slideMenu">
-
+        <li class="nav-item" v-if="!isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/login">
-            <i class="fa fa-user-circle" aria-hidden="true"></i>Log-in</router-link>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
         </li>
-        <li v-if="isAdmin" @click="logout">
+        <li class="nav-item" v-if="isAdmin" @click="logout">
             <a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i>
-            Log-out</a>
+            {{ t('Logout') }}</a>
         </li>
+        <li class="nav-item">
+          <div class="lang-icons">
+            <img @click="lang='eng'" src="../../static/img/eng.png">
+            <img @click="lang='heb'" src="../../static/img/heb.png">
+          </div>
+        </li>
+        <!--<li v-if="isAdmin" @click="logout" class="">
+            <router-link class="router-link" to="/">
+            <i class="fa fa-user-circle " aria-hidden="true"></i>Logout</router-link>
+          </li>-->
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -40,11 +49,22 @@ export default {
   data() {
     return {
       menuIsClicked: false,
+      lang: 'eng'
+    }
+  },
+  watch: {
+    lang: function(val) {
+        this.$translate.setLang(val)
+        this.$root.$el.setAttribute('dir', this.direction)
     }
   },
   computed: {
     isAdmin() {
       return this.$store.state.isAdmin
+    },
+    direction() {
+      let direction = this.lang === 'eng' ? 'ltr' : 'rtl'
+      return direction
     }
   },
   methods: {
@@ -58,19 +78,18 @@ export default {
       var fixed = document.querySelector('body');
       if (this.menuIsClicked) {
         fixed.classList.add('unScroll');
-        console.log(fixed);
       } else {
         fixed.classList.remove('unScroll');
       }
     },
-    slideMenu: function() {
+    slideMenu: function () {
       console.log('slide menu...');
       var fixed = document.querySelector('body');
       var nav = document.querySelector('.nav-items');
       nav.classList.remove('menu-on');
       fixed.classList.remove('unScroll');
       this.menuIsClicked = false;
-      
+
     },
     logout() {
       this.$confirm('Are you sure?', 'Warning', {
@@ -78,24 +97,24 @@ export default {
         cancelButtonText: 'Cancel',
         type: 'info'
       })
-      .then(() => {
-        this.$store.dispatch({
-          type: 'logout'
-        })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: 'logout successful'
+          this.$store.dispatch({
+            type: 'logout'
           })
-          this.$router.push('/')
+            .then(() => {
+              this.$message({
+                type: 'success',
+                message: 'logout successful'
+              })
+              this.$router.push('/')
+            })
+            .catch(() => {
+              this.$message({
+                type: 'error',
+                message: 'log out failed :-('
+              })
+            })
         })
-        .catch(() => {
-          this.$message({
-            type: 'error',
-            message: 'log out failed :-('
-          })
-        })
-      })
     }
   }
 }
@@ -104,7 +123,8 @@ export default {
 <style lang="scss" scoped>
 // * {
 //   outline: 1px solid #333;
-// }    
+// }
+
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
 
@@ -145,7 +165,7 @@ header {
   border-bottom: 0.5em solid rgba(0, 0, 0, 0.2);
 }
 
-.router-link {
+.nav-item {
   margin: 1em;
 }
 
@@ -159,7 +179,7 @@ header {
   }
 
   & .fa {
-    margin: 0 0.6em;
+    margin-right: 0.6em;
     font-size: 1.2em;
     cursor: pointer;
   }
@@ -177,6 +197,16 @@ header {
   & .fa {
     margin: 0 0.6em;
     font-size: 2.2em;
+  }
+}
+
+.lang-icons {
+  display: flex;
+  img {
+    height: 1em;
+    width: 1em;
+    cursor: pointer;
+    margin: 0.3em;
   }
 }
 
@@ -215,10 +245,8 @@ header {
   right: 0;
   transition: all, 0.7s;
 }
+
 </style>
-
-
-// unscoped style
 
 <style>
 .unScroll {

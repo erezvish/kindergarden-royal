@@ -5,15 +5,18 @@ import Vuex from 'vuex'
 import annyang from 'annyang'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import locale from 'element-ui/lib/locale/lang/en'
 import 'font-awesome/css/font-awesome.css'
+import VueTranslate from 'vue-translate-plugin'
 import App from './App'
 import router from './router'
 import store from './store'
+import translationLocales from './services/translate.service.js'
 
+Vue.use(VueTranslate)
 
+Vue.locales(translationLocales)
 
-Vue.use(Element, { locale })
+Vue.use(Element)
 
 Vue.use(Vuex)
 
