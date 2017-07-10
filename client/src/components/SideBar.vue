@@ -1,13 +1,14 @@
 <template>
-<el-col  class="el-col-sidebar" :md="7" >
-    <section class="sidebar">
-        <div>
-            <notes-panel></notes-panel>
-            <!--<note-cmp></note-cmp>-->
-        </div>
-    </section>
+    <el-col class="el-col-sidebar" :md="7">
+        <section class="sidebar">
 
-</el-col>
+            <div>
+                <notes-panel></notes-panel>
+                <!--<note-cmp></note-cmp>-->
+            </div>
+        </section>
+    
+    </el-col>
 </template>
 
 <script>
@@ -21,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../sass/vars.scss";
+@import "../sass/main.scss";
 // * {
 //     outline: 1px solid #333;
 // }
@@ -67,8 +68,19 @@ export default {
 
 @media screen and (max-width: $md) {
     .el-col-sidebar {
-    position: absolute;
-    // top: 15em;
+        position: absolute; // top: 15em;
+    }
+
+    .sidebar {
+        border-radius: 0em;
+    }
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; // background: rgba(55, 98, 131,0.1);
+        background: rgba(149, 193, 210, 0.2);
+        color: rgba(55, 98, 131, 0.5);
+        box-shadow: $box-shadow-default;
     }
 }
 </style>

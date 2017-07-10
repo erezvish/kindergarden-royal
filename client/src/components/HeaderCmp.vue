@@ -24,9 +24,9 @@
             <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</router-link>
         </li>
         <!--<li v-if="isAdmin" @click="logout" class="">
-          <router-link class="router-link" to="/">
-          <i class="fa fa-user-circle " aria-hidden="true"></i>Logout</router-link>
-        </li>-->
+            <router-link class="router-link" to="/">
+            <i class="fa fa-user-circle " aria-hidden="true"></i>Logout</router-link>
+          </li>-->
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -106,7 +106,8 @@ export default {
 <style lang="scss" scoped>
 // * {
 //   outline: 1px solid #333;
-// }    
+// }
+
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
 
@@ -203,7 +204,6 @@ header {
     transition: all, 0.8s;
 
     & li {
-
       font-size: 1.5em;
       margin: 0.6em 0;
     }
