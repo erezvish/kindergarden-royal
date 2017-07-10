@@ -2,18 +2,16 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
-  
+        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
+        </el-input>
         <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
-        <filter-cmp class="filter-cmp" :class="{showSearchBar: isSearchBarClicked}"> </filter-cmp>
-        <!--<el-input placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>-->
-        <!--</el-input>-->
-  
-        <!--<el-radio-group class="controls">
-                <el-radio-button name="list-options" label="All"></el-radio-button>
-                <el-radio-button name="list-options" label="Present"></el-radio-button>
-                <el-radio-button name="list-options" label="Absent"></el-radio-button>
-              </el-radio-group>-->
-  
+        <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
+        <el-radio-group class="controls" v-model="radioSelected" >
+          <el-radio-button label="all">All</el-radio-button>
+          <el-radio-button label="present">Present</el-radio-button>
+          <el-radio-button label="absent">Absent</el-radio-button>
+        </el-radio-group>
+        </div> 
       </section>
     </el-col>
   </el-row>
@@ -29,20 +27,49 @@ export default {
   data() {
     return {
       searchInput: '',
-      isSearchBarClicked: true
+      isSearchBarHidden: true,
+      radioSelected: 'ignore',
+
+      voiceCommands: {
+        'search *spokenFilter': this.runSpokenFilter,
+        'find *spokenFilter': this.runSpokenFilter,
+      }
     }
+  },
+  computed: {
+
+  },
+  created() {
+    annyang.addCommands(this.voiceCommands)
   },
   methods: {
     filterKids() {
       console.log('filtering!')
+      this.$store.dispatch({
+        type: 'filterKids',
+        text: this.searchInput,
+        radio: this.radioSelected
+      })
     },
     setListView() {
       console.log('list-view activated...');
     },
     toggleSearchBar() {
-      this.isSearchBarClicked = !this.isSearchBarClicked;
-      console.log('toggle search bar...', this.isSearchBarClicked);
+      this.isSearchBarHidden = !this.isSearchBarHidden;
+      console.log('toggle search bar...', this.isSearchBarHidden);
+    },
+    runSpokenFilter(spokenFilter) {
+      this.searchInput = spokenFilter;
+      this.filterKids()
+    },
+    radioClicked() {
+      console.log('radio clicked!')
     }
+  },
+  watch: {
+    radioSelected(val) {
+      this.filterKids();
+    },
   }
 }
 </script>
@@ -122,6 +149,7 @@ export default {
       font-size: 2.6em;
       color: rgba(55, 98, 131, 0.6);
     }
+    
   }
   .control-panel .filter-cmp {
     display: none;
@@ -129,25 +157,24 @@ export default {
 }
 
 @media screen and (max-width: $sm) {
-  // .control-panel .filter-cmp {
-  //   // display: none;
-  //   position: absolute;
-  //   top: 7em;
-  //   // left: 0;
-  //   margin: 0 auto;
-  //   padding: 0 0em;
-  //   z-index: 1;
-  //   width: 80%;
-  // }
-  .showSearchbar {
-    border: 4px solid yellow!important;
-    display: none;
+  .control-panel {
+    .controls-wraper {
+      margin:0;
+    }
+  }
+  .search-bar {
     position: absolute;
-    top: 7em; // left: 0;
-    margin: 0 auto;
-    padding: 0 0em;
+    margin: 0 18%;
+    width: 66%;
     z-index: 1;
-    width: 80%;
+    visibility: visible;
+    opacity: 1;
+    transition: all, 1s;
+  }
+  .hideSearchBar {
+    transition: all, 1s;
+    visibility: hidden;
+    opacity: 0;
   }
 }
 
@@ -161,9 +188,8 @@ export default {
   .control-panel {
     .fa-search {
       display: none;
-    } // .filter-cmp {
-    //   display: initial;
-    // }
+      border: 14px solid red;
+    }
   }
 }
 </style>

@@ -37,6 +37,7 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "../sass/main.scss";
 // * {
 //     outline: 1px solid #333;
 // }
@@ -45,7 +46,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1em; //design rules
+    padding: 1em; 
     & .title {
         display: flex;
         justify-content: space-between;
@@ -59,6 +60,14 @@ export default {
             padding: 0.3em 0 0.3em 0.3em;
             cursor: pointer;
         }
+    }
+}
+
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
+@media screen and (max-width: $sm) {
+    .notes-panel {
+  
     }
 }
 </style>
