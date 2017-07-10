@@ -1,10 +1,16 @@
 <template>
     <section class="notes-panel">
         <div class="title">
+            <div class="sidebar-header">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
             <H1>
                 Notes panel
             </H1>
-            <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+            <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+            <div>
+                <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+            </div>
         </div>
         <NoteCmp v-for="note in notes" :key="note" @delete-note="deleteNote(this)"></NoteCmp>
     </section>
@@ -17,16 +23,16 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-            notes: ['lorede sdsdf', 'sdf a ds dd','dewr asda vvdsd', 'edasdas']
+            notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas']
         }
     },
     methods: {
         plusClicked: () => {
             console.log('plusClicked');
-            
+
         },
-        deleteNote: function(e) {
-            console.log('deleting note: ',);
+        deleteNote: function (e) {
+            console.log('deleting note: ', );
         }
     },
     components: {
@@ -46,7 +52,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1em; 
+    padding: 1em;
     & .title {
         display: flex;
         justify-content: space-between;
@@ -67,7 +73,7 @@ export default {
 //
 @media screen and (max-width: $sm) {
     .notes-panel {
-  
+        padding-top: 0;
     }
 }
 </style>
