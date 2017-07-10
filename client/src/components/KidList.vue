@@ -77,7 +77,7 @@ export default {
       //PLACEHOLDER, ACCEPT MEIR'S VERSION
     },
     toggleIsPresent(kid) {
-      console.log('toggling is present:', kid.imgUrl)
+      console.log('toggling is present:')
       this.$confirm('Change Kid Status?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -278,9 +278,6 @@ export default {
 
 // ---- MD queries ---------
 //
-<<<<<<< HEAD
-@media screen and (max-width: $sm) {}
-=======
 @media screen and (max-width: $sm) {
   .view {
     display: none;
@@ -289,5 +286,4 @@ export default {
     display: none;
   }
 }
->>>>>>> translation
 </style>

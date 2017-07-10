@@ -63,12 +63,12 @@ export default {
                 kid
             })
         }),
-        msgService.initSocket(message => {
-            commit({
-                type: 'receiveParentMessage',
-                message
+            msgService.initSocket(message => {
+                commit({
+                    type: 'receiveParentMessage',
+                    message
+                })
             })
-        })
     },
 
     togglePresent({ commit }, payload) {
@@ -92,6 +92,18 @@ export default {
             })
     },
     //actions that refer to Messages
+
+    getMessages({ commit }, payload) {
+        msgService.getList()
+            .then(res => {
+                payload.messages = res.data
+                commit(payload)
+            })
+            .catch(err => {
+                console.error('cannot get messages from server', err)
+            })
+    },
+
     sendParentMessage({ commit }, payload) {
         msgService.send(payload.message)
     },

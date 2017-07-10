@@ -1,7 +1,6 @@
 <template>
   <section :class="classObject" @click.self="toggleIsPresent">
   
-<<<<<<< HEAD
     <div class="kid-img" :id="cameraId" @click.stop="toggleIsPresent">
       <img :src="kid.imgUrl">
   
@@ -11,30 +10,14 @@
         <div class="card-header hr" @click.stop="toggleIsPresent">
           <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
   
-=======
-    <div class="kid-img" :id="cameraId">
-      <img :src="kid.imgUrl" alt="Kid image">
-    </div>
-    <div class="properties">
-      <div class="container">
-        <div class="card-header hr">
-          <h2 dir="auto">{{`${kid.firstName} ${kid.lastName}`}} </h2>
->>>>>>> translation
           <el-button v-if="isAdmin" @click.stop="edit">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </el-button>
         </div>
-<<<<<<< HEAD
         <ul class="status" @click.stop="toggleIsPresent">
-          <li>status:
-            <span class="kid-present" v-show="kid.isPresent"> In Class </span>
-            <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
-=======
-        <ul class="status">
           <li> {{ t('Status') }}:
             <span class="kid-present" v-show="kid.isPresent"> {{ t('In class') }} </span>
             <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
->>>>>>> translation
           </li>
   
           <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
@@ -135,6 +118,7 @@ export default {
     sendMessage() {
       console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
+      newMessage. text = this.inputMsgParent;
       newMessage.timestamp = Date.now();
       this.$emit('parent-message', newMessage)
       this.inputMsgParent = '';

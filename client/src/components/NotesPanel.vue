@@ -23,10 +23,6 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-<<<<<<< HEAD
-=======
-            notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas']
->>>>>>> translation
         }
     },
     computed: {
