@@ -175,7 +175,7 @@ export default {
   display: flex;
   flex-direction: column;
   background: white;
-  background: linear-gradient(to top, #95C1D2 1%, rgba(255,255,255,0.8) 25%);
+  background: linear-gradient(to top, #95C1D2 1%, rgba(255, 255, 255, 0.8) 25%);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   border-radius: 1em; // padding-bottom: 0em;
   .status-bar {
@@ -228,6 +228,7 @@ export default {
 
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
+// ---- XS queries ---------
 @media screen and (max-width: $xs) {
   .kid-list .status-bar {
     display: flex;
@@ -237,6 +238,8 @@ export default {
   }
 }
 
+// ---- SM queries ---------
+//
 @media screen and (max-width: $sm) {
 
   .kid-list .status-bar {
@@ -256,5 +259,11 @@ export default {
     border-top-left-radius: 0.9em;
     border-top-right-radius: 0.9em;
   }
+}
+
+// ---- MD queries ---------
+//
+@media screen and (max-width: $sm) {
+  
 }
 </style>
