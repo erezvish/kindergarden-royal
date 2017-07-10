@@ -7,15 +7,13 @@
         <filter-cmp class="filter-cmp" :class="{showSearchBar: isSearchBarClicked}"> </filter-cmp>
         <!--<el-input placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>-->
         <!--</el-input>-->
-
   
-        <el-radio-group class="controls">
-          <el-radio-button name="list-options" label="All"></el-radio-button>
-          <el-radio-button name="list-options" label="Present"></el-radio-button>
-          <el-radio-button name="list-options" label="Absent"></el-radio-button>
-        </el-radio-group>
+        <!--<el-radio-group class="controls">
+                <el-radio-button name="list-options" label="All"></el-radio-button>
+                <el-radio-button name="list-options" label="Present"></el-radio-button>
+                <el-radio-button name="list-options" label="Absent"></el-radio-button>
+              </el-radio-group>-->
   
-
       </section>
     </el-col>
   </el-row>
@@ -50,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../sass/vars.scss";
+@import "../sass/main.scss";
 
 // * {
 //   outline: 1px solid #333;
@@ -107,8 +105,11 @@ export default {
   }
 }
 
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
 @media screen and (min-width: $xs) {
   .control-panel {
+    // display: none;
     justify-content: space-between;
     border-radius: 0em;
     padding: 0 2em;
@@ -122,25 +123,27 @@ export default {
       color: rgba(55, 98, 131, 0.6);
     }
   }
+  .control-panel .filter-cmp {
+    display: none;
+  }
 }
 
 @media screen and (max-width: $sm) {
-  .control-panel .filter-cmp {
-    // display: none;
-    position: absolute;
-    top: 7em;
-    // left: 0;
-    margin: 0 auto;
-    padding: 0 0em;
-    z-index: 1;
-    width: 80%;
-  }
+  // .control-panel .filter-cmp {
+  //   // display: none;
+  //   position: absolute;
+  //   top: 7em;
+  //   // left: 0;
+  //   margin: 0 auto;
+  //   padding: 0 0em;
+  //   z-index: 1;
+  //   width: 80%;
+  // }
   .showSearchbar {
     border: 4px solid yellow!important;
     display: none;
     position: absolute;
-    top: 7em;
-    // left: 0;
+    top: 7em; // left: 0;
     margin: 0 auto;
     padding: 0 0em;
     z-index: 1;
@@ -158,10 +161,9 @@ export default {
   .control-panel {
     .fa-search {
       display: none;
-    }
-    .filter-cmp {
-      display: initial;
-    }
+    } // .filter-cmp {
+    //   display: initial;
+    // }
   }
 }
 </style>

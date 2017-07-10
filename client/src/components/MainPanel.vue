@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../sass/main.scss";
+@import "../sass/main.scss";
 
 .main-panel {
   display: flex;
@@ -38,6 +38,9 @@ export default {
   min-height: 100vh;
 }
 
+
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
 @media screen and (min-width: $xs) {
   .main-panel {
     padding: 0em;

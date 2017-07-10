@@ -9,10 +9,7 @@
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
         <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode"></kid-list>
       </el-col>
-      <!--<el-col :md="7">-->
-      <!--<h1>Notification panel</h1>-->
       <side-bar></side-bar>
-      <!--</el-col>-->
     </el-row>
   </section>
 </template>
@@ -30,8 +27,6 @@ export default {
     KidEdit,
     ControlPanel,
     SideBar
-    // AdminContent,
-    // AdminSidebar
   },
   data() {
     return {
@@ -77,4 +72,13 @@ export default {
   min-height: 100vh;
 }
 
+
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
+
+@media screen and (max-width: $sm) {
+  .admin-panel {
+    padding: 0;
+  }
+}
 </style>

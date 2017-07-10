@@ -5,23 +5,21 @@
   
         <div class="status-bar">
           <h1> Kid list area </h1>
-
+  
           <ul class="controls">
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
-            <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
-            <i class="fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" v-if="isAdmin" @click="plusClicked" aria-hidden="true" @click="createKid"></i>
-
+            <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+            <i class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
+            <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
+  
           </ul>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
-
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView"  
-          @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" 
-          @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
-
+  
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+  
         </div>
       </section>
     </el-col>
@@ -177,7 +175,7 @@ export default {
   display: flex;
   flex-direction: column;
   background: white;
-  background: linear-gradient(to top, #95C1D2 1%, white 25%);
+  background: linear-gradient(to top, #95C1D2 1%, rgba(255,255,255,0.8) 25%);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   border-radius: 1em; // padding-bottom: 0em;
   .status-bar {
@@ -228,17 +226,8 @@ export default {
   flex-wrap: wrap;
 }
 
-@media screen and (max-width: $sm) {
-  .kid-list {
-    
-  }
-  .kid-list .status-bar {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: large;
-    justify-content: center;
-  }
-}
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
 @media screen and (max-width: $xs) {
   .kid-list .status-bar {
     display: flex;
@@ -248,16 +237,24 @@ export default {
   }
 }
 
+@media screen and (max-width: $sm) {
+
+  .kid-list .status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: large;
+    justify-content: center;
+  }
+}
+
 @media screen and (min-width: $sm) {
   .kid-list {
     border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    // display:none;
+    border-top-right-radius: 1em; // display:none;
   }
   .kid-list .status-bar {
     border-top-left-radius: 0.9em;
     border-top-right-radius: 0.9em;
   }
 }
-
 </style>
