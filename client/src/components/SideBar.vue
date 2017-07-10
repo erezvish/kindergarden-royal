@@ -1,7 +1,9 @@
 <template>
-    <el-col class="el-col-sidebar" :md="7">
+    <el-col class="el-col-sidebar" :md="7" :class="{ 'hidden': !bellProp }">
         <section class="sidebar">
-
+            <div class="sidebar-header">
+                <i class="fa fa-times" aria-hidden="true" @click="closeClicked"></i>
+            </div>
             <div>
                 <notes-panel></notes-panel>
                 <!--<note-cmp></note-cmp>-->
@@ -15,8 +17,22 @@
 import NotesPanel from './NotesPanel'
 export default {
     name: 'side-bar',
+    props: ['bellProp'],
+    data() {
+        return {
+        }
+    },
+    computed: {
+
+    },
     components: {
         NotesPanel
+    },
+    methods: {
+        closeClicked() {
+            console.log('closeClicked');
+            this.$emit('toggle-sidebar');
+        }
     }
 }
 </script>
@@ -36,7 +52,7 @@ export default {
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
     min-height: 100%;
-    & .fa {
+    .fa {
         font-size: 2em;
         margin: 0 0.5em;
     }
@@ -68,7 +84,8 @@ export default {
 
 @media screen and (max-width: $md) {
     .el-col-sidebar {
-        position: absolute; // top: 15em;
+        position: absolute;
+        left: 0;
     }
 
     .sidebar {
@@ -76,8 +93,8 @@ export default {
     }
     .sidebar-header {
         display: flex;
-        justify-content: space-between;
-        align-items: center; // background: rgba(55, 98, 131,0.1);
+        justify-content: flex-end;
+        align-items: center;
         background: rgba(149, 193, 210, 0.2);
         color: rgba(55, 98, 131, 0.5);
         box-shadow: $box-shadow-default;

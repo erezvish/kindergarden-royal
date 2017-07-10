@@ -3,6 +3,7 @@
     <header>
       <div class="brand">
         <h1>KinderYA!</h1>
+  
       </div>
   
       <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }">
@@ -22,11 +23,9 @@
         <li v-if="isAdmin" @click="logout">
           <router-link class="router-link" to="/">
             <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</router-link>
+          
         </li>
-        <!--<li v-if="isAdmin" @click="logout" class="">
-            <router-link class="router-link" to="/">
-            <i class="fa fa-user-circle " aria-hidden="true"></i>Logout</router-link>
-          </li>-->
+
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -107,7 +106,6 @@ export default {
 // * {
 //   outline: 1px solid #333;
 // }
-
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
 
@@ -166,9 +164,19 @@ header {
     font-size: 1.2em;
     cursor: pointer;
   }
+  .bell-icon {
+    // position: absolute;
+    // top: 4em;
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.8);
+  }
 }
 
 .brand {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
   position: relative;
   z-index: 3;
 }

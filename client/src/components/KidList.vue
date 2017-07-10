@@ -9,7 +9,7 @@
             <h1> Kid list area </h1>
           </div>
           <ul class="controls">
-            <i class="fa fa-bell-o" aria-hidden="true"></i>
+            <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -61,12 +61,19 @@ export default {
     },
     isBasic() {
       return this.$store.state.isBasic
+    },
+    hasMessages() {
+      return this.$store.state.messages.length > 0
     }
   },
 
   created() {
   },
   methods: {
+    bellClicked() {
+      console.log('click on KidList');
+      this.$emit('toggle-sidebar');
+    },
     setListView() {
       this.triggerListView = true;
     },
@@ -159,6 +166,10 @@ export default {
 // * {
 //   outline: 1px solid red;
 // }
+
+.bell-is-on {
+  color:red!important;
+}
 .el-row {
   display: flex;
   justify-content: center;
