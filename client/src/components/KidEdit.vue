@@ -42,7 +42,7 @@
               </el-form-item>
 
               <div class="form-controls">
-                <el-button type="success" @click="submitForm('edit-kid')">OK</el-button>
+                <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
                 <el-button type="danger" @click="cancel">Cancel</el-button>
                 <el-button type="default" @click="resetForm('edit-kid')">Reset</el-button>
               </div>

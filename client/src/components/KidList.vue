@@ -166,10 +166,20 @@ export default {
 // * {
 //   outline: 1px solid red;
 // }
-
 .bell-is-on {
-  color:red!important;
+  color: orange!important;
+  animation-name: bell-flash;
+  animation-duration: 2s;
+  animation-iteration-count: 10;
+  animation-timing-function: ease-in-out;
 }
+
+@keyframes bell-flash {
+    0% {color: orange;}
+    50% {color: #B8D5E1;}
+    100% {color: orange;}
+}
+
 .el-row {
   display: flex;
   justify-content: center;
@@ -284,7 +294,7 @@ export default {
   .view {
     display: none;
   }
-  .fa-address-card-o{
+  .fa-address-card-o {
     display: none;
   }
 }
