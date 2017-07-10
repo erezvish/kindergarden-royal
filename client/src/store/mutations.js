@@ -41,5 +41,5 @@ export default {
     logout(state) {
         state.isAdmin = false
         state.token = ''
-    }
+    },
 }
