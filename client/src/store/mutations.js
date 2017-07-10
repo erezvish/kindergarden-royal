@@ -45,7 +45,7 @@ export default {
     //mutations that refer to Messages
     receiveParentMessage(state, { message }) {
         // console.log('Message reached the mutation!!!')
-        state.messages.push(message)
+        state.messages.unshift(message)
     },
     getMessages(state, { messages }) {
         const len = state.messages.length

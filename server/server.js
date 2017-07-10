@@ -256,7 +256,6 @@ io.on('connection', function (socket) {
 
 		const obj = msg;
 		delete obj._id;
-
 		dbConnect().then((db) => {
 			const collection = db.collection(objType);
 
