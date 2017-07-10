@@ -52,9 +52,6 @@ export default {
       lang: 'eng'
     }
   },
-  mounted() {
-    this.$el.classList.add('root-comp')
-  },
   watch: {
     lang: function(val) {
         this.$translate.setLang(val)

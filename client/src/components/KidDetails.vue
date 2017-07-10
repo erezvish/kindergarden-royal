@@ -2,26 +2,23 @@
   <section :class="classObject" @click="toggleIsPresent">
   
     <div class="kid-img" :id="cameraId">
-      <img :src="kid.imgUrl">
-  
+      <img :src="kid.imgUrl" alt="Kid image">
     </div>
     <div class="properties">
       <div class="container">
         <div class="card-header hr">
-          <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
-  
+          <h2 dir="auto">{{`${kid.firstName} ${kid.lastName}`}} </h2>
           <el-button v-if="isAdmin" @click.stop="edit">
-  
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </el-button>
         </div>
         <ul class="status">
-          <li>status:
-            <span class="kid-present" v-show="kid.isPresent"> In Class </span>
-            <span class="kid-away" v-show="!kid.isPresent"> NOT IN CLASS </span>
+          <li> {{ t('Status') }}:
+            <span class="kid-present" v-show="kid.isPresent"> {{ t('In class') }} </span>
+            <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
           </li>
   
-          <li class="hr">last seen:</li>
+          <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
         </ul>
   
       </div>
