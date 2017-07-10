@@ -10,21 +10,23 @@
           <router-link class="router-link" to="/">
             <i class="fa fa-home" aria-hidden="true"></i>Home</router-link>
         </li>
-
-
+  
         <li v-if="isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/admin">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>Admin </router-link>
         </li>
         <li v-if="!isAdmin" @click="slideMenu">
-
           <router-link class="router-link" to="/login">
-            <i class="fa fa-user-circle" aria-hidden="true"></i>Log-in</router-link>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>Login </router-link>
         </li>
         <li v-if="isAdmin" @click="logout">
-            <a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i>
-            Log-out</a>
+          <router-link class="router-link" to="/">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</router-link>
         </li>
+        <!--<li v-if="isAdmin" @click="logout" class="">
+          <router-link class="router-link" to="/">
+          <i class="fa fa-user-circle " aria-hidden="true"></i>Logout</router-link>
+        </li>-->
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -63,14 +65,14 @@ export default {
         fixed.classList.remove('unScroll');
       }
     },
-    slideMenu: function() {
+    slideMenu: function () {
       console.log('slide menu...');
       var fixed = document.querySelector('body');
       var nav = document.querySelector('.nav-items');
       nav.classList.remove('menu-on');
       fixed.classList.remove('unScroll');
       this.menuIsClicked = false;
-      
+
     },
     logout() {
       this.$confirm('Are you sure?', 'Warning', {
@@ -78,24 +80,24 @@ export default {
         cancelButtonText: 'Cancel',
         type: 'info'
       })
-      .then(() => {
-        this.$store.dispatch({
-          type: 'logout'
-        })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: 'logout successful'
+          this.$store.dispatch({
+            type: 'logout'
           })
-          this.$router.push('/')
+            .then(() => {
+              this.$message({
+                type: 'success',
+                message: 'logout successful'
+              })
+              this.$router.push('/')
+            })
+            .catch(() => {
+              this.$message({
+                type: 'error',
+                message: 'log out failed :-('
+              })
+            })
         })
-        .catch(() => {
-          this.$message({
-            type: 'error',
-            message: 'log out failed :-('
-          })
-        })
-      })
     }
   }
 }
@@ -159,7 +161,7 @@ header {
   }
 
   & .fa {
-    margin: 0 0.6em;
+    margin-right: 0.6em;
     font-size: 1.2em;
     cursor: pointer;
   }
@@ -201,6 +203,7 @@ header {
     transition: all, 0.8s;
 
     & li {
+
       font-size: 1.5em;
       margin: 0.6em 0;
     }
