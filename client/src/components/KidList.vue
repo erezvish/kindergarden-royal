@@ -11,7 +11,7 @@
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
             <i class="fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" v-if="isAdmin" @click="plusClicked" aria-hidden="true" @click="createKid"></i>
+            <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
 
           </ul>
         </div>
