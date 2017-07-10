@@ -29,31 +29,31 @@ export default {
             return this.$translate.lang === 'heb' ? 'חפש' : 'Search'
         }
     },
-    created() {
-        annyang.addCommands(this.voiceCommands)
-    },
+    // created() {
+    //     annyang.addCommands(this.voiceCommands)
+    // },
     methods: {
-        filterKids() {
-            console.log('filtering!')
-            this.$store.dispatch({
-                type: 'filterKids',
-                text: this.searchInput,
-                radio: this.radioSelected
-            })
-        },
-        runSpokenFilter(spokenFilter) {
-            this.searchInput = spokenFilter;
-            this.filterKids()
-        },
-        radioClicked() {
-            console.log('radio clicked!')
-        }
+        // filterKids() {
+        //     console.log('filtering!')
+        //     this.$store.dispatch({
+        //         type: 'filterKids',
+        //         text: this.searchInput,
+        //         radio: this.radioSelected
+        //     })
+        // },
+        // runSpokenFilter(spokenFilter) {
+        //     this.searchInput = spokenFilter;
+        //     this.filterKids()
+        // },
+        // radioClicked() {
+        //     console.log('radio clicked!')
+        // }
     },
-    watch: {
-        radioSelected(val) {
-            this.filterKids();
-        },
-    }
+    // watch: {
+    //     radioSelected(val) {
+    //         this.filterKids();
+    //     },
+    // }
 }
 </script>
 

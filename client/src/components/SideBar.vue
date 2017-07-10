@@ -1,6 +1,6 @@
 <template>
-<el-col  :md="7">
-    <section class="sidebar-container">
+<el-col  class="el-col-sidebar" :md="7" >
+    <section class="sidebar">
         <div>
             <notes-panel></notes-panel>
             <!--<note-cmp></note-cmp>-->
@@ -25,7 +25,7 @@ export default {
 // * {
 //     outline: 1px solid #333;
 // }
-.sidebar-container {
+.sidebar {
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -65,9 +65,10 @@ export default {
     }
 }
 
-@media screen and (max-width: $lg) {
-    .el-col {
-        display: none;
+@media screen and (max-width: $md) {
+    .el-col-sidebar {
+    position: absolute;
+    // top: 15em;
     }
 }
 </style>

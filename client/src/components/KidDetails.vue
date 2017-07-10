@@ -175,17 +175,14 @@ export default {
 }
 
 .mark-present {
-  border: none;
-  background: rgba(0, 155, 2, 0.7); // background: linear-gradient(to bottom, rgba(0, 155, 2, 0.7), lightgreen 2em, rgba(0, 155, 2, 0.7) 17em);
-  background: linear-gradient(to top, rgba(0, 155, 2, 0.7) 1%, lightgreen 0.5em, rgba(0, 155, 2, 0.7) 50%);
+  background: rgba(0, 155, 2, 0.7); 
+  background: $bg-present;
   color: white;
 }
 
 .mark-absent {
-  border: none;
-  background: white; // background: linear-gradient(to bottom, rgba(200, 0, 0, 1), lightcoral 1em, rgba(230, 0, 0, 0.9) 18em);
-  background: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
-
+  background: lightcoral; 
+  background: $bg-absent;
   color: white;
 }
 

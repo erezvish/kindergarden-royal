@@ -13,17 +13,18 @@ $lg: 1024px;
 // Font-Colors
 $color-default: red;
 
-
-// Background-colors
+// ----------------------  BACKGROUND-COLORS ----------------------
+//
 $bg-default: white;
 $bg-linear-gradient: linear-gradient(to top, #95C1D2 1%, white 25%);
+// kid-detailes background
+$bg-present: linear-gradient(to top, rgba(0, 155, 2, 0.7) 1%, lightgreen 0.5em, rgba(0, 155, 2, 0.7) 50%);
+$bg-absent: linear-gradient(to top, rgba(200, 0, 0, 1) 1%, lightcoral 0.5em, rgba(230, 0, 0, 0.9) 18em);
 
 // Box shadow
 $box-shadow-default: 0 0 11px rgba(0, 0, 0, 0.2);
 
-
 // Borders
-
 $border-alpha-wide: 5px solid rgba(0,0,0,0.051);
 $border-alpha-narrow: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -43,4 +44,33 @@ $transition-default: all, 0.5s;
     & > * {
     margin: 0 0.2em;
     }
+}
+
+
+// -------------------------- VISIBILITY SETTINGS --------------------------
+//  
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: initial;
+}
+
+// -------------------------- DISPLAY SETTINGS -----------------------------
+
+.flex {
+    display: flex;
+}
+
+.flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-col-spaced {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
