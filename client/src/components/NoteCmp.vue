@@ -1,19 +1,13 @@
 <template>
-    <section class="note">
+    <section class="note" >
         <ul class="title clear-style" @click="noteClicked">
             <li>
                 <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
             </li>
-            <li>
-                <h4>{{note.title}}</h4>
-                <h5>{{note.text}}</h5>
-            </li>
+            <li>Note Title</li>
         </ul>
         <ul class="add-note clear-style" @click="trashClicked">
-            <li>
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </i>
-            </li>
+            <li><i class="fa fa-trash-o" aria-hidden="true"></i></i></li>
         </ul>
     </section>
 </template>
@@ -21,15 +15,11 @@
 <script>
 export default {
     name: 'note-cmp',
-    props: ['note'],
-    created() {
-        // console.log('this note:', this.noteClicked)
-    },
     methods: {
-        noteClicked: function () {
+        noteClicked: function() {
             console.log('note clicked!');
         },
-        trashClicked: function (e) {
+        trashClicked: function(e) {
             console.log('Trash clicked!');
             this.$emit('delete-note');
         }
@@ -44,10 +34,11 @@ export default {
 // * {
 //     outline: 1px solid #333;
 // }
+
 .note {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(53, 53, 53, 0.2);
+    border-bottom: 1px solid rgba(53,53,53,0.2);
     & .title {
         flex: 1;
     }
@@ -73,11 +64,14 @@ export default {
         cursor: pointer;
         & .fa {
             font-size: 1.7em;
+            
         }
         &:hover {
-            color: lightcoral;
-            transition: all, 0.2s;
-        }
+        color: lightcoral;
+        transition: all, 0.2s;
+    }
+
     }
 }
+
 </style>
