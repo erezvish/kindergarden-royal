@@ -262,10 +262,10 @@ io.on('connection', function (socket) {
 			collection.insert(obj, (err, result) => {
 				if (err) {
 					cl(`Couldnt insert a new ${objType}`, err)
-					res.json(500, { error: 'Failed to add' })
+					// TODO: send some response with emit and wait at client side
 				} else {
 					cl(objType + " added");
-					res.json(obj);
+					// TODO: send some response with emit and wait at client side
 				}
 				db.close();
 			});
