@@ -1,58 +1,41 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Gist
- @erezvish
- Sign out
- Unwatch 3
-  Unstar 1  Fork 0 erezvish/kindergarden-royal
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Settings Insights 
-Tree: 3496d162f8 Find file Copy pathkindergarden-royal/client/src/components/HeaderCmp.vue
-3496d16  3 hours ago
-@erezvish erezvish trying to merge
-3 contributors @tamiross @MeirP-3 @erezvish
-RawBlameHistory      
-264 lines (233 sloc)  5.33 KB
 <template>
   <el-row class="header-section">
     <header>
       <div class="brand">
-
+  
         <h1>{{ t('KinderYA') }}!</h1>
-
+  
       </div>
   
-      <ul id="nav-items" class="nav-items" :class="{ 'menu-on': menuIsClicked }" :dir="direction">
-        <li class="nav-item" @click="slideMenu">
-          <router-link class="router-link" to="/">
-            <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
-        </li>
-
-  
-        <li v-if="isAdmin" @click="slideMenu">
-
-          <router-link class="router-link" to="/admin">
-            <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
-        </li>
-
-        <li v-if="!isAdmin" @click="slideMenu">
-          <router-link class="router-link" to="/login">
-            <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
-        </li>
-        <li v-if="isAdmin" @click="logout">
-        <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Logout') }}</router-link>
-        </li>
+      <ul id="nav-items" class="nav-items clear-style" :class="{ 'menu-on': menuIsClicked }" :dir="direction">
         <li>
           <div class="lang-icons">
             <img @click="lang='eng'" src="../../static/img/eng.png">
             <img @click="lang='heb'" src="../../static/img/heb.png">
           </div>
-
         </li>
-
+        <li>
+          <ul class="navbar clear-style-nav">
+            <li class="nav-item" @click="slideMenu">
+              <router-link class="router-link single-item" to="/">
+                <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
+            </li>
+            <li v-if="isAdmin" @click="slideMenu">
+              <router-link class="router-link single-item" to="/admin">
+                <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
+            </li>
+            <li v-if="!isAdmin" @click="slideMenu">
+              <router-link class="router-link single-item" to="/login">
+                <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
+            </li>
+            <li v-if="isAdmin" @click="logout">
+              <div class="single-item">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Logout') }}</router-link>
+              </div>
+            </li>
+          </ul>
+        </li>
+  
       </ul>
       <div class="nav-menu-btn" @click="menuClicked">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -75,9 +58,9 @@ export default {
     this.$el.classList.add('root-comp')
   },
   watch: {
-    lang: function(val) {
-        this.$translate.setLang(val)
-        this.$root.$el.setAttribute('dir', this.direction)
+    lang: function (val) {
+      this.$translate.setLang(val)
+      this.$root.$el.setAttribute('dir', this.direction)
     }
   },
   computed: {
@@ -141,26 +124,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   outline: 1px solid #333;
-// }
-@import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
+
+// * {
+//   outline: 1px solid red;
+// }
+
 h1 {
   margin: 0;
   font-family: 'Boogaloo', cursive; // font-family: 'Fredoka One', cursive;
   font-size: 3em;
 }
+
 a {
   color: white;
   text-decoration: none;
 }
+
 a:active {
   color: pink;
 }
+
 a:hover {
   color: white;
 }
+
 .header-section::after {
   content: '';
   position: absolute;
@@ -169,6 +157,7 @@ a:hover {
   background: rgba(55, 98, 131, 0.2);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
+
 header {
   display: flex;
   justify-content: space-between;
@@ -177,37 +166,48 @@ header {
   height: 5em;
   border-bottom: 0.5em solid rgba(0, 0, 0, 0.2);
 }
+
 .nav-item {
   margin: 1em;
 }
+
 .nav-items {
-  list-style-type: none;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font: {
-    size: 1.5em;
+  width: 100%;
+  .navbar {
+    font-size: 1.7em;
+    .fa {
+      margin: 0 0.2em;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .single-item {
+      // display: none;
+      margin: 0 0.8em;
+      padding: 0;
+    }
   }
-  & .fa {
-    margin-right: 0.6em;
-    font-size: 1.2em;
-    cursor: pointer;
-  }
-  .bell-icon {
-    // position: absolute;
-    // top: 4em;
+  .lang-icons {
+    margin: 0 1.2em;
     font-size: 1.5em;
-    color: rgba(255,255,255,0.8);
+    & img {
+      width: 1.6em;
+      height: 1.6em;
+    }
   }
 }
+
 .brand {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
-  position: relative;
+  position: relative; // margin-right: 1.5em;
   z-index: 3;
 }
+
 .nav-menu-btn {
   position: relative;
   z-index: 3;
@@ -217,6 +217,7 @@ header {
     font-size: 2.2em;
   }
 }
+
 .lang-icons {
   display: flex;
   img {
@@ -226,14 +227,16 @@ header {
     margin: 0.3em;
   }
 }
-// -------------------------------
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+//
 @media screen and (max-width: $sm) {
   .nav-items {
     display: flex;
     position: fixed;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: column-reverse;
     top: 0;
     height: 100vh;
     right: -20em;
@@ -245,14 +248,44 @@ header {
     width: 100%;
     transition: all, 0.8s;
     & li {
-      font-size: 1.5em;
+      // font-size: 1.5em;
       margin: 0.6em 0;
     }
   }
   .nav-menu-btn {
     display: initial;
   }
+  .nav-items .navbar {
+    position: relative;
+    top: 1em;
+    flex-direction: column;
+    li {
+      // text-align: center;
+      .single-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1em;
+        .fa {
+          margin: 0.2em 0em;
+          font-size: 170%;
+        }
+      }
+    }
+  }
+
+  .nav-items .lang-icons {
+    position: relative;
+    top: 1em;
+    & img {
+      width: 1.7em;
+      height: 1.7em;
+    }
+  }
 }
+
+// this class must be after the media query!
 .menu-on {
   right: 0;
   transition: all, 0.7s;

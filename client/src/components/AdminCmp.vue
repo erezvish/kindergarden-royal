@@ -58,9 +58,8 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
-@import "../sass/vars.scss";
+@import "../sass/main.scss";
 // * {
 //   outline: 1px solid red;
 // }
