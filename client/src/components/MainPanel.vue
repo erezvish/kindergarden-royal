@@ -2,7 +2,7 @@
   <section class="main-panel">
     <h1>Welcome! </h1>
     <control-panel></control-panel>
-    <kid-list></kid-list>
+    <kid-list :isAdmArea="false"></kid-list>
   </section>
 </template>
 
