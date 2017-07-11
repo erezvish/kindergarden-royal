@@ -25,10 +25,10 @@ const serverRoot = 'http://localhost:3003/';
 const baseUrl = serverRoot + 'data';
 
 app.use(sessions({
-  cookieName: 'mySession', // cookie name dictates the key name added to the request object 
-  secret: 'pukiwwwnttothemountains', // should be a large unguessable string 
-  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms 
-  activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds 
+	cookieName: 'mySession', // cookie name dictates the key name added to the request object 
+	secret: 'pukiwwwnttothemountains', // should be a large unguessable string 
+	duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms 
+	activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds 
 }))
 
 app.use(express.static('uploads'));
@@ -63,7 +63,7 @@ function dbConnect() {
 // GETs a list
 app.get('/data/:objType', function (req, res) {
 	const objType = req.params.objType;
-	if(objType === 'user') {
+	if (objType === 'user') {
 		res.status(403).json({ error: 'Un Authorized!' })
 		return
 	}
@@ -86,7 +86,7 @@ app.get('/data/:objType', function (req, res) {
 // GETs a single
 app.get('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
-	if(objType === 'user') {
+	if (objType === 'user') {
 		res.status(403).json({ error: 'Un Authorized!' })
 		return
 	}
@@ -215,11 +215,11 @@ app.get('/logout', function (req, res) {
 });
 
 function requireLogin(req, res, next) {
-  if (!req.mySession.user) {
-    res.status(403).end('Un Authenticated!')
-  } else {
-    next();
-  }
+	if (!req.mySession.user) {
+		res.status(403).end('Un Authenticated!')
+	} else {
+		next();
+	}
 }
 
 // app.get('/protected', function (req, res) {
@@ -227,8 +227,8 @@ function requireLogin(req, res, next) {
 // 	res.end('User is loggedin, return some data');
 // });
 app.get('/protected', function (req, res) {
-  console.log('req.mySession.user', req.mySession.user);
-  res.send('<h1>Hello Admin</h1>');
+	console.log('req.mySession.user', req.mySession.user);
+	res.send('<h1>Hello Admin</h1>');
 })
 
 // Kickup our server 
@@ -253,6 +253,33 @@ io.on('connection', function (socket) {
 	socket.on('chat message', function (msg) {
 		// console.log('message: ' + msg);
 		io.emit('chat message', msg);
+	});
+	socket.on('emjoi message', function (emoji) {
+		io.emit('emoji message', emoji);
+	})
+	socket.on('parent message', function (msg) {//duplicating some code instead of a dedicated function,
+		// because there might be a single server for demonstration and people may need the original code
+		console.log('message: ' + msg);
+		io.emit('parent message', msg);
+		const objType = 'msg';
+		cl("POST for " + objType);
+
+		const obj = msg;
+		delete obj._id;
+		dbConnect().then((db) => {
+			const collection = db.collection(objType);
+
+			collection.insert(obj, (err, result) => {
+				if (err) {
+					cl(`Couldnt insert a new ${objType}`, err)
+					// TODO: send some response with emit and wait at client side
+				} else {
+					cl(objType + " added");
+					// TODO: send some response with emit and wait at client side
+				}
+				db.close();
+			});
+		});
 	});
 	socket.on('toggle present', function (kid) {
 		kid._id = new mongodb.ObjectID(kid._id);

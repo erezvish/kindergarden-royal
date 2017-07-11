@@ -18,8 +18,12 @@ export default {
         })
     },
     send(message) {
-        console.log('message has left the service')
+        // console.log('message has left the service')
         appSocket.socket.emit('parent message', message)
+    },
+    sendEmoji(emoji) {
+        console.log('sending emoji')
+        appSocket.socket.emit('emoji message', emoji)        
     },
 
     getList() {
@@ -43,7 +47,7 @@ export default {
             })
     },
 
-    create(message) {}, //done via WebSockets
+    create(message) { }, //done via WebSockets
 
     delete(messageId) {
         const messageUrl = url + `/${messageId}`

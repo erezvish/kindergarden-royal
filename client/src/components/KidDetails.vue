@@ -3,64 +3,64 @@
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
-    </div>
-    <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid2.jpg">
-    </div>
-    <div class="properties">
-      <div class="container">
-        <div class="" @click.stop="toggleIsPresent">
-          <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-  
-          <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </el-button>
-        </div>
-        <ul class="status clear-style" @click.stop="toggleIsPresent">
-          <li class="kid-status">
-            <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-            <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
-          </li>
-          <li>
-            <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/heart.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/star.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/blink.png">
-              </li>
-            </ul>
-          </li>
-          <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
-        </ul>
-  
+      <img class="heart-emoji" src="../assets/msg-icon/heart.png"> </div>
+      <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
+        <img class="img-circle" src="../assets/img-kid/kid2.jpg">
       </div>
-      <div class="container-right" @click.self="toggleIsPresent">
-        <div v-if="isAdmArea" class="msg-parent x-space-child">
-          <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
-          <el-button type="default" @click="sendMessage">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-          </el-button>
-        </div>
-        <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
-          <div class="icons-left">
-            <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-            <i v-if="false" class="fa fa-cog" aria-hidden="true"></i>
+      <div class="properties">
+        <div class="container">
+          <div class="" @click.stop="toggleIsPresent">
+            <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+  
+            <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </el-button>
           </div>
-          <div class="icons-right">
-            <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-            <i v-if="false" class="fa fa-medkit" aria-hidden="true"></i>
-            <i v-if="false" class="fa fa-phone-square" aria-hidden="true"></i>
+          <ul class="status clear-style" @click.stop="toggleIsPresent">
+            <li class="kid-status">
+              <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+              <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
+            </li>
+            <li>
+              <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+                <li>
+                  <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="emojiClicked('heart')">
+                </li>
+                <li>
+                  <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="emojiClicked('heartEyes')">
+                </li>
+                <li>
+                  <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="emojiClicked('star')">
+                </li>
+                <li>
+                  <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="emojiClicked('wink')">
+                </li>
+              </ul>
+            </li>
+            <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
+          </ul>
+  
+        </div>
+        <div class="container-right" @click.self="toggleIsPresent">
+          <div v-if="isAdmArea" class="msg-parent x-space-child">
+            <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
+            <el-button type="default" @click="sendMessage">
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            </el-button>
+          </div>
+          <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
+            <div class="icons-left">
+              <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+              <i v-if="false" class="fa fa-cog" aria-hidden="true"></i>
+            </div>
+            <div class="icons-right">
+              <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+              <i v-if="false" class="fa fa-medkit" aria-hidden="true"></i>
+              <i v-if="false" class="fa fa-phone-square" aria-hidden="true"></i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 </template>
 
@@ -84,7 +84,16 @@ export default {
       inputMsgParent: '',
       isCameraOn: false,
       cameraId: 'K' + this.kid._id,
-      localKid: Object.assign({}, this.kid)
+      localKid: Object.assign({}, this.kid),
+      activeEmoji: 'heart',
+      dataClassObject: {
+        heart: 'heart-emoji',
+        heartEyes: 'heart-eyes-emoji',
+        star: 'star-emoji',
+        wink: 'wink-emoji',
+      },
+      currSrc: '../assets/msg-icon/heart.png',
+      currClass: 'heart-emoji'
     }
   },
   computed: {
@@ -94,7 +103,7 @@ export default {
         'mark-present': this.kid.isPresent,
         'mark-absent': !this.kid.isPresent,
         'list-view': this.isListView,
-        // 'kid-details-container': this.isListView
+        'kid-details-container': this.isListView
       }
     }
   },
@@ -111,6 +120,9 @@ export default {
     },
     edit() {
       this.$emit('edit')
+    },
+    emojiClicked(emojiType) {
+      this.$emit('emoji', this.kid, emojiType)
     },
     cameraClicked() {
       if (this.isCameraOn) {
@@ -156,7 +168,10 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-* {outline: 1px solid green;}
+* {
+  outline: 1px solid green;
+}
+
 //
 .main-section {
   margin: 1em 0;
@@ -230,38 +245,56 @@ export default {
 //
 @media screen and (max-width: $md) {
 
-.kid-img {
-  width: 25vw;
-  height: 25vw;
-  max-width: 23vw;
-  max-height: 23vw;
-  margin: 0 1em;
-  border-radius: 50%;
-  box-shadow: 0 0 11px #333;
-  cursor: pointer;
-
-  .img-circle {
-    width: 20vw;
-    height: 20vw;
+  .kid-img {
+    width: 25vw;
+    height: 25vw;
+    max-width: 23vw;
+    max-height: 23vw;
+    margin: 0 1em;
     border-radius: 50%;
-  }
-}
+    box-shadow: 0 0 11px #333;
+    cursor: pointer;
 
-.status {
-  .icon-list {
-    margin: 1em 0;
-    li {
-      margin: 0 0.5em;
-      img {
-        width: 3.6vw;
-        height: 3.6vw;
+    .img-circle {
+      width: 20vw;
+      height: 20vw;
+      border-radius: 50%;
+    }
+  }
+
+  .status {
+    .icon-list {
+      margin: 1em 0;
+      li {
+        margin: 0 0.5em;
+        img {
+          width: 3.6vw;
+          height: 3.6vw;
+        }
       }
     }
   }
-}
 
   .kid-name {
     font-size: 2.8vw;
+  }
+}
+
+.heart-emoji {
+  position: absolute;
+  width: 100px;
+  animation: 1s blink-anim infinite;
+}
+
+@keyframes blink-anim {
+  0% {
+    width: 30px;
+  }
+  50% {
+    width: 50px;
+  }
+  100% {
+    width: 30px;
   }
 }
 </style>

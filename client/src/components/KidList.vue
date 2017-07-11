@@ -22,7 +22,10 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic"
+           :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)"
+            @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)"
+             @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -86,7 +89,6 @@ export default {
       //PLACEHOLDER, ACCEPT MEIR'S VERSION
     },
     toggleIsPresent(kid) {
-      console.log('toggling is present:', kid.imgUrl)
       this.$confirm('Change Kid Status?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -180,6 +182,9 @@ export default {
           message: 'Good Morning New Day!'
         });
       })
+    },
+    setEmoji(kid, emojiType) {
+      console.log('kid', kid, 'shold get the emoji', emojiType)
     }
   }
 }
