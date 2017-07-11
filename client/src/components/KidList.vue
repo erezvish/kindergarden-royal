@@ -22,10 +22,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic"
-           :isListView="triggerListView" :isAdmArea="isAdmArea" :emojis="emojisObject" @toggle="toggleIsPresent(kid)"
-            @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)"
-             @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" :isAdmArea="isAdmArea" :emojis="emojisObject" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -190,6 +187,11 @@ export default {
     },
     setEmoji(kid, emojiType) {
       console.log('kid', kid, 'should get the emoji', emojiType)
+      this.$store.dispatch({
+        type: 'sendEmoji',
+        _id: kid._id,
+        emojiType
+      })
     }
   }
 }

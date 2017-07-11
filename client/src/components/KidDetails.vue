@@ -122,8 +122,8 @@ export default {
       this.$emit('edit')
     },
     setEmoji(kid, emojiType) {
-      // this.$emit('emoji', this.kid, emojiType)
-      console.log('emoji clicked')
+      this.$emit('emoji', this.kid, emojiType)
+      // console.log('emoji clicked')
     },
     cameraClicked() {
       if (this.isCameraOn) {
