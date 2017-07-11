@@ -1,48 +1,30 @@
 <template>
-  <section class="main-section" :class="classObject" @click.self="toggleIsPresent">
+  <section :class="classObject" @click.self="toggleIsPresent">
   
-    <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid.jpg">
-    </div>
-    <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid2.jpg">
+    <div class="kid-img" :id="cameraId" @click.stop="toggleIsPresent">
+      <img :src="localKid.imgUrl">
     </div>
     <div class="properties">
       <div class="container">
-        <div class="" @click.stop="toggleIsPresent">
-          <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+        <div class="card-header hr" @click.stop="toggleIsPresent">
+          <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
   
           <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </el-button>
         </div>
-        <ul class="status clear-style" @click.stop="toggleIsPresent">
-          <li class="kid-status">
-            <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+        <ul class="status" @click.stop="toggleIsPresent">
+          <li> {{ t('Status') }}:
+            <span class="kid-present" v-show="kid.isPresent"> {{ t('In class') }} </span>
             <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
           </li>
-          <li>
-            <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/heart.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/star.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/blink.png">
-              </li>
-            </ul>
-          </li>
+  
           <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
         </ul>
   
       </div>
       <div class="container-right" @click.self="toggleIsPresent">
-        <div v-if="isAdmArea" class="msg-parent x-space-child">
+        <div class="msg-parent x-space-child">
           <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
           <el-button type="default" @click="sendMessage">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
@@ -155,113 +137,165 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-
-* {outline: 1px solid green;}
-//
-.main-section {
-  margin: 1em 0;
+// * {
+//   outline: 1px solid green;
+// }
+.el-row {
+  display: flex;
 }
 
-.kid-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: orange;
-  width: 23vw;
-  height: 23vw;
-  max-width: 23vw;
-  max-height: 23vw;
-  margin: 0 1em;
-  border-radius: 50%;
-  box-shadow: 0 0 11px #333;
-  cursor: pointer;
-
-  .img-circle {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 50%;
+.properties {
+  padding: 0 0.5em;
+  & .fa {
+    // font-size: 1.8em;
   }
 }
 
-.kid-present {
+.kid-details-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kid-details {
+  background: white;
+  border-radius: 1em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1em;
+  width: 250px; // height: 350px;
+  margin: 1em;
+  border: 0.2em solid rgba(51, 51, 51, 0.2);
+  cursor: pointer;
+  box-shadow: 0 0 8 px #333;
+  & ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left; // align-self: flex-start
+    & li {
+      padding: 0.5em 0;
+    }
+  }
+  & .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.kid-img {
+  position: relative;
+  border: {
+    top-left-radius: 0.1em;
+    top-right-radius: 0.1em;
+    bottom: 0.1em solid rgba(0, 0, 0, 0.07);
+  }
+  background: lightgray;
+  height: 150px;
+  width: 100%;
+  & img {
+    max-width: 100%;
+  }
+}
+
+.mark-present {
   background: rgba(0, 155, 2, 0.7);
   background: $bg-present;
   color: white;
 }
 
-.kid-away {
+.mark-absent {
   background: lightcoral;
   background: $bg-absent;
-  box-shadow: $box-shadow-default;
   color: white;
 }
 
-.status {
-  .kid-status {
-    & span {
-      padding: 0.2em 0.5em;
-      border-radius: 0.5em;
-    }
+.msg-parent {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.2em 0;
+}
+
+.action-icons {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2em;
+  .fa {
+    margin: 0.1em;
+    color: rgba(0, 0, 0, 0.4);
+    transition: all, 0.4s;
   }
-  .icon-list {
+  .fa:hover {
+    color: #fff;
+    transition: all, 0.4s;
+  }
+  .icons-left,
+  .icons-right {
     display: flex;
-    justify-content: center;
-    margin: 1em 0;
-    li {
-      margin: 0 0.5em;
-      img {
-        width: 3vw;
-        height: 3vw;
+  }
+}
+
+.hr {
+  margin: 0.5em 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.list-view {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  .properties {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    & .container {
+      flex-direction: row;
+      width: 100%;
+      padding: 10px;
+      text-align: left;
+    }
+    & .container-right {
+      flex-direction: column;
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      .msg-parent {
+        margin-top: 8px;
+      }
+      .action-icons {
+        align-self: flex-end;
+        >* {
+          margin-left: 0.4em;
+        }
       }
     }
   }
-}
-
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.kid-name {
-  font-size: 2.4vw;
+  .kid-img {
+    max-width: 13em;
+    display: inline;
+  }
+  .card-header {
+    display: flex;
+    h2 {
+      margin: 0;
+    }
+    .status {
+      margin: 0;
+    }
+  }
+  @media screen and (max-width: $md) {
+    .msg-parent {
+      display: none;
+    }
+    .list-view {
+      display: none;
+    }
+    .card-header {}
+  }
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
-@media screen and (max-width: $md) {
-
-.kid-img {
-  width: 25vw;
-  height: 25vw;
-  max-width: 23vw;
-  max-height: 23vw;
-  margin: 0 1em;
-  border-radius: 50%;
-  box-shadow: 0 0 11px #333;
-  cursor: pointer;
-
-  .img-circle {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 50%;
-  }
-}
-
-.status {
-  .icon-list {
-    margin: 1em 0;
-    li {
-      margin: 0 0.5em;
-      img {
-        width: 3.6vw;
-        height: 3.6vw;
-      }
-    }
-  }
-}
-
-  .kid-name {
-    font-size: 2.8vw;
-  }
-}
 </style>

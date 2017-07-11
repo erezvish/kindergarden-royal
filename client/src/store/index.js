@@ -32,7 +32,7 @@ const store = new Vuex.Store({
             text: '',
             radio:'ignore'
         },
-        isAdmin: false,
+        isAdmin: true,
         isBasic: false,
         token: '',
         messages: []
