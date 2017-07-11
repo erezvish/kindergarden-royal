@@ -30,7 +30,7 @@ export default {
         plusClicked: () => {
             console.log('plusClicked');
         },
-        deleteNote: function (e) {
+        deleteNote: function (note) {
             console.log('deleting note: ', );
 
             this.$store.dispatch({
