@@ -23,7 +23,7 @@
           <!--:class="{ thumbnail: list}-->
   
           <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic"
-           :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)"
+           :isListView="triggerListView" :isAdmArea="isAdmArea" :emojis="emojisObject" @toggle="toggleIsPresent(kid)"
             @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)"
              @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
@@ -48,10 +48,15 @@ export default {
   data() {
     return {
       thumbnailView: true,
-
       triggerListView: false,
       isReverseSort: false,
-      isFirstSort: true
+      isFirstSort: true,
+      emojisObject: {
+        heart: true,
+        heartEyes: false,
+        star: false,
+        wink: false
+      }
 
     }
   },
@@ -184,7 +189,7 @@ export default {
       })
     },
     setEmoji(kid, emojiType) {
-      console.log('kid', kid, 'shold get the emoji', emojiType)
+      console.log('kid', kid, 'should get the emoji', emojiType)
     }
   }
 }
