@@ -30,8 +30,11 @@ export default {
   created() {
     this.$store.dispatch({
       type: 'initSocket',
-    })
-    console.log('fetching kids from state!')
+    }),
+      this.$store.dispatch({
+        type: 'getMessages',
+      }),
+      console.log('fetching kids from state!')
     this.$store.dispatch({
       type: 'getKids'
     })
