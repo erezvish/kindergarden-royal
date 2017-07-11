@@ -24,6 +24,7 @@ export default {
         'Erez': () => { this.$message('Google him, you may be surprised!'); },
         'Alon': () => { this.$message('He is VP R&D'); },
         'Yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
+        
       }
     }
   },
@@ -55,14 +56,14 @@ body {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', 'Varela Round',Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
 
 main {
-  text-align: center; // margin-top: 40px;
+  text-align: center;
 }
 
 header {

@@ -19,6 +19,7 @@ export default {
     name: 'notes-panel',
     data() {
         return {
+            isClosed: true
         }
     },
     computed: {
@@ -32,7 +33,6 @@ export default {
         },
         deleteNote: function (note) {
             console.log('deleting note: ', );
-
             this.$store.dispatch({
                 type: 'deleteMessage',
                 _id: note._id
@@ -76,7 +76,7 @@ export default {
     display: none;
 }
 
-// ------------------------- MEDIA QUERIES ------------------------- //
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 //
 @media screen and (max-width: $sm) {
     .notes-panel {
