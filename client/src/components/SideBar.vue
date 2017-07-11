@@ -23,7 +23,6 @@ export default {
         }
     },
     computed: {
-
     },
     components: {
         NotesPanel
@@ -57,12 +56,10 @@ export default {
         margin: 0 0.5em;
     }
 }
-
 .hr-bottom {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 0.5em;
 }
-
 .notes-header {
     display: flex;
     justify-content: space-between;
@@ -75,19 +72,16 @@ export default {
         align-items: center;
         list-style-type: none;
         padding: 0;
-
         & .fa {
             font-size: 2.4em;
         }
     }
 }
-
 @media screen and (max-width: $md) {
     .el-col-sidebar {
         position: absolute;
         left: 0;
     }
-
     .sidebar {
         border-radius: 0em;
     }

@@ -19,18 +19,22 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-            notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas'],
-            isClosed: true
         }
     },
     methods: {
         plusClicked: () => {
             console.log('plusClicked');
-
         },
         deleteNote: function (e) {
             console.log('deleting note: ', );
-        },
+
+            this.$store.dispatch({
+                type: 'deleteMessage',
+                _id: note._id
+            })
+
+       
+       },
         closeClicked() {
             console.log('closing notes...');
 

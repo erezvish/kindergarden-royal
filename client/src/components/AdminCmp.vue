@@ -19,7 +19,6 @@ import KidList from './KidList'
 import KidEdit from './KidEdit'
 import ControlPanel from './ControlPanel'
 import SideBar from './SideBar'
-
 export default {
   name: 'admin-cmp',
   components: {
@@ -62,14 +61,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/vars.scss";
-
 // * {
 //   outline: 1px solid red;
 // }
 .el-row {
   display: flex;
 }
-
 .admin-panel {
   display: flex;
   justify-content: flex-start;
@@ -78,11 +75,8 @@ export default {
   padding: 2em;
   min-height: 100vh;
 }
-
-
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
-
 @media screen and (max-width: $sm) {
   .admin-panel {
     padding: 0;
