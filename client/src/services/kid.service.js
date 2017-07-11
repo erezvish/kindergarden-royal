@@ -63,10 +63,6 @@ export default {
     delete(kidId, user = null) {
         const kidUrl = url + `/${kidId}`
         return axios.delete(kidUrl)
-            .catch(err => {
-                console.log('deleting kid object failed:', err)
-                return err;
-            })
     },
 
     //TODO: design-goal: add a feature that only allows changing with pincode

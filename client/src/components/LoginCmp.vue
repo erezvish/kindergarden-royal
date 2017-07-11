@@ -18,7 +18,7 @@
               <el-button type="success" value="Login" @click="submit">Log In</el-button>
             </div>
             <div>
-              <a href="#">Lost your password?</a>
+              <!--<a href="#">Lost your password?</a>-->
               <!--<a href="#">Register</a>-->
             </div>
           </el-form>
@@ -49,12 +49,14 @@ export default {
         type: 'login',
         user: this.user
       })
-      .then((res) => {
-        this.$router.push('/admin')
-      })
-      .catch(() => {
-        this.$router.push('/home')
-      })
+      .then((res) => this.$router.push('/admin'),
+        () => {
+          this.$message({
+            type: 'error',
+            message: 'One or more fields are not correct'
+          })
+          this.$router.push('/')
+        })
     }
   }
 }

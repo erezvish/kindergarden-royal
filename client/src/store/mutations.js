@@ -14,7 +14,7 @@ export default {
         if (idx !== -1) {
             state.kids.splice(idx, 1, kid)
         } else {
-            console.error('error in update kid:', kid.firstName, kid.lastName, 'is not found in state and therefore cannot be updated')
+            console.error('error in mutation: update kid')
         }
     },
 

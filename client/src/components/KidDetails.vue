@@ -2,7 +2,7 @@
   <section :class="classObject" @click="toggleIsPresent">
   
     <div class="kid-img" :id="cameraId">
-      <img :src="kid.imgUrl" alt="Kid image">
+      <img :src="imgUrl" alt="Kid image">
     </div>
     <div class="properties">
       <div class="container">
@@ -68,14 +68,17 @@ export default {
         // 'kid-details-container': this.isListView
       }
     },
+    imgUrl() {
+      return this.kid.imgUrl
+    }
   },
   methods: {
     toggleIsPresent() {
-      if (this.isAdmin || this.isBasic) this.$emit('toggle');
-      else this.$message({
-        type: 'error',
-        message: 'Sorry, status may only be changed at the Kindergarden'
-      });
+      if (this.isAdmin || this.isBasic) this.$emit('toggle')
+      // else this.$message({
+      //   type: 'error',
+      //   message: 'Sorry, status may only be changed at the Kindergarden'
+      // });
     },
     deleteKidCard() {
       this.$emit('delete')
