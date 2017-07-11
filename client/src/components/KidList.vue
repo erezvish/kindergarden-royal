@@ -10,6 +10,7 @@
           </div>
           <ul class="controls">
             <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
+            <i class="fa fa-refresh" @click=resetStatus aria-hidden="true"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -36,7 +37,7 @@ import KidDetails from './KidDetails'
 import store from '../store'
 export default {
   name: 'kid-list',
-  props:['isAdmArea'],
+  props: ['isAdmArea'],
   components: {
     KidDetails,
 
@@ -165,6 +166,19 @@ export default {
       this.$store.dispatch({
         type: 'sendParentMessage',
         message
+      })
+    },
+    resetStatus() {
+      // console.log('resetting')
+      this.$confirm('Are you sure?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: 'Good Morning New Day!'
+        });
       })
     }
   }
