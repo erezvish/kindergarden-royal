@@ -34,12 +34,12 @@
         <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
           <div class="icons-left">
             <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-            <i class="fa fa-cog" aria-hidden="true"></i>
+            <i v-if="false" class="fa fa-cog" aria-hidden="true"></i>
           </div>
           <div class="icons-right">
             <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-            <i class="fa fa-medkit" aria-hidden="true"></i>
-            <i class="fa fa-phone-square" aria-hidden="true"></i>
+            <i v-if="false" class="fa fa-medkit" aria-hidden="true"></i>
+            <i v-if="false" class="fa fa-phone-square" aria-hidden="true"></i>
           </div>
         </div>
       </div>
