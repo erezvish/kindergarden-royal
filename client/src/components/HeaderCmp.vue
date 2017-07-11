@@ -18,11 +18,11 @@
         </li>
         <li class="nav-item" v-if="!isAdmin" @click="slideMenu">
           <router-link class="router-link" to="/login">
-            <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Log In') }}</router-link>
         </li>
         <li class="nav-item" v-if="isAdmin" @click="logout">
             <a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i>
-            {{ t('Logout') }}</a>
+            {{ t('Log Out') }}</a>
         </li>
         <li class="nav-item">
           <div class="lang-icons">
