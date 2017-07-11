@@ -2,23 +2,22 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
-        <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}"></i>
-        <el-input type="search" 
-        class="search-bar" 
-        :class="{'hideSearchBar': isSearchBarHidden}" 
-        placeholder="Search" 
-        icon="search" 
-        v-model="searchInput" 
-        @input="filterKids">
-        </el-input>
-        <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
-        <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
-        <el-radio-group class="controls" v-model="radioSelected" >
-          <el-radio-button label="all">All</el-radio-button>
-          <el-radio-button label="present">Present</el-radio-button>
-          <el-radio-button label="absent">Absent</el-radio-button>
-        </el-radio-group>
-        </div> 
+        <div class="icon-wraper">
+          <i class="fa fa-microphone" aria-hidden="true" :class="{'disabled': isSearchBarHidden}"></i>
+          <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar" :class="{'hideSearchBar': !isSearchBarHidden}"></i>
+          <i class="fa fa-filter" aria-hidden="true" @click="toggleSearchBar" :class="{'hideSearchBar ': isSearchBarHidden}"></i>
+        </div>
+        <div class="search-and-filter">
+            <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" icon="search" v-model="searchInput" @input="filterKids">
+            </el-input>
+          <div class="filter-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
+            <el-radio-group class="controls" v-model="radioSelected">
+              <el-radio-button label="all">All</el-radio-button>
+              <el-radio-button label="present">Present</el-radio-button>
+              <el-radio-button label="absent">Absent</el-radio-button>
+            </el-radio-group>
+          </div>
+          </div>
       </section>
     </el-col>
   </el-row>
@@ -84,9 +83,10 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-// * {
-//   outline: 1px solid #333;
-// }
+* {
+  outline: 1px solid #333;
+}
+
 .el-row {
   display: flex;
   justify-content: center;
@@ -94,109 +94,76 @@ export default {
 
 .control-panel {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background: white;
-
-  height: 4em;
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
-  border-radius: 0em;
-  margin-bottom: 1em;
   padding: 0 0em;
-  .filter-cmp {
-    width: 100%;
+  margin-bottom: 1.5em;
+  height: 4em;
+  background: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) .021em, rgba(255, 255, 255, 0.3));
+  border-radius: 0em;
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
+  .icon-wraper {
+    .fa {
+      font-size: 2em;
+      margin: 0 0.2em;
+    }
+    .disabled {
+      opacity: 0.3;
+    }
   }
-
-  &>* {
-    margin: 0 1em;
-  }
-}
-
-.control-panel {
-  // display: flex;
-  .controls {
+  .search-and-filter {
     display: flex;
-    padding: 2em!important;
-  }
-
-  & .fa {
-    font: {
-      size: 2em;
+    .filter-wraper {
+      display: flex;
+      .controls {
+        display: flex;
+            
+      }
     }
-    margin: 0.2em 0.4em;
-    transition: all,
-    0.3s; // @media screen and (max-width: 500px) {
-    //   font: {
-    //     size: 1.6em;
-    //   }
-    // }
-  }
-
-  & .fa:hover {
-    cursor: pointer;
-    color: #ADD8E6;
-    transition: all, 0.3s;
-  }
-}
-
-// ------------------------- MEDIA QUERIES ------------------------- //
-//
-@media screen and (min-width: $xs) {
-  .control-panel {
-    // display: none;
-    justify-content: space-between;
-    border-radius: 0em;
-    padding: 0 2em;
-    margin: 0 0 1.5em 0;
-    background: rgba(255, 255, 255, 0.8);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) .021em, rgba(255, 255, 255, 0.3));
-
-    .fa-search {
-      margin-left: 0;
-      font-size: 2.6em;
-      color: rgba(55, 98, 131, 0.6);
-    }
-    
-  }
-  .control-panel .filter-cmp {
-    display: none;
-  }
-}
-
-@media screen and (max-width: $sm) {
-  .control-panel {
-    .controls-wraper {
-      margin:0;
-    }
-  }
-  .search-bar {
-    position: absolute;
-    margin: 0 18%;
-    width: 66%;
-    z-index: 1;
-    visibility: visible;
-    opacity: 1;
-    transition: all, 1s;
   }
   .hideSearchBar {
+    display: none!important;
     transition: all, 1s;
     visibility: hidden;
     opacity: 0;
   }
 }
 
-@media screen and (min-width: $sm) {
+
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
+@media screen and (min-width: $xs) {
   .control-panel {
-    border-radius: 1em;
+    padding: 0 0.5em;
   }
 }
 
+
+@media screen and (min-width: $sm) {
+  .control-panel {
+    justify-content: space-between;
+    border-radius: 1em;
+    padding: 0 0.8em;
+  }
+}
+
+
 @media screen and (min-width: $md) {
   .control-panel {
-    .fa-search {
-      display: none;
-      border: 14px solid red;
+    .filter-wraper {
     }
+    border-radius: 1em;
+    padding: 0 0.8em;
+    .icon-wraper {
+      .fa-search {
+        // visibility: hidden;
+        display: none;
+      }
+    }
+      .search-bar {
+        display: initial;  
+      }
   }
 }
 </style>

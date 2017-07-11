@@ -9,7 +9,7 @@
   
       <ul id="nav-items" class="nav-items clear-style" :class="{ 'menu-on': menuIsClicked }" :dir="direction">
         <li>
-          <div class="lang-icons">
+          <div class="lang-icons" @click="slideMenu">
             <img @click="lang='eng'" src="../../static/img/eng.png">
             <img @click="lang='heb'" src="../../static/img/heb.png">
           </div>
