@@ -29,7 +29,7 @@ export default {
     return {
       searchInput: '',
       isSearchBarHidden: true,
-      radioSelected: 'ignore',
+      radioSelected: 'all',
 
       voiceCommands: {
         'search *spokenFilter': this.runSpokenFilter,
@@ -71,10 +71,8 @@ export default {
       this.filterKids()
     },
     runSpokenRadioFilter(radioSelection) {
-      debugger;
-      if (radioSelection.toLowerCase === 'all') this.radioSelected = 'all';
-      else if (radioSelection.toLowerCase === 'here') this.radioSelected = 'present'
-      else if (radioSelection.toLowerCase === 'away') this.radioSelected = 'absent'
+      if(radioSelection.toLowerCase() === 'all' || radioSelection.toLowerCase() === 'here'
+      || radioSelection.toLowerCase === 'away')       this.radioSelected = radioSelection;
     },
     clearFilter() {
       this.searchInput = '';
