@@ -1,20 +1,13 @@
 
+@import 'typorgaphy';
+@import 'media-queries';    
+
 // media queries sizes
 
-$xs: 320px;
-$sm: 425px;
-$md: 768px;
-$lg: 1024px;
-
-// Fonts import
-@import url('https://fonts.googleapis.com/css?family=Boogaloo|Dosis|Abel');
 
 
-// Font-Colors
-$color-default: red;
 
-// ----------------------  BACKGROUND-COLORS ----------------------
-//
+// Background colors:
 $bg-default: white;
 $bg-linear-gradient: linear-gradient(to top, #95C1D2 1%, white 25%);
 // kid-detailes background
@@ -28,11 +21,20 @@ $box-shadow-default: 0 0 11px rgba(0, 0, 0, 0.2);
 $border-alpha-wide: 5px solid rgba(0,0,0,0.051);
 $border-alpha-narrow: 1px solid rgba(0, 0, 0, 0.2);
 
+// ul styling
 .clear-style {
     padding: 0;
     list-style-type: none;
 }
-
+.clear-style-nav {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    li {
+        margin: 0.1em 0;
+    }
+}
 // transitions
 $transition-default: all, 0.5s;
 
@@ -46,31 +48,12 @@ $transition-default: all, 0.5s;
     }
 }
 
-
 // -------------------------- VISIBILITY SETTINGS --------------------------
-//  
+
 .hidden {
     display: none;
 }
 
 .visible {
     display: initial;
-}
-
-// -------------------------- DISPLAY SETTINGS -----------------------------
-
-.flex {
-    display: flex;
-}
-
-.flex-col-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.flex-col-spaced {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }

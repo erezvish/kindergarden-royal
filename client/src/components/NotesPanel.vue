@@ -19,7 +19,6 @@ export default {
     name: 'notes-panel',
     data() {
         return {
-            notes: ['lorede sdsdf', 'sdf a ds dd', 'dewr asda vvdsd', 'edasdas'],
             isClosed: true
         }
     },
@@ -77,7 +76,7 @@ export default {
     display: none;
 }
 
-// ------------------------- MEDIA QUERIES ------------------------- //
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 //
 @media screen and (max-width: $sm) {
     .notes-panel {
