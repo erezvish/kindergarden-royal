@@ -2,7 +2,14 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
-        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
+        <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}"></i>
+        <el-input type="search" 
+        class="search-bar" 
+        :class="{'hideSearchBar': isSearchBarHidden}" 
+        placeholder="Search" 
+        icon="search" 
+        v-model="searchInput" 
+        @input="filterKids">
         </el-input>
         <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
