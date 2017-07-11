@@ -3,22 +3,22 @@
     <el-col :xs="24" :sm="17" :md="10">
       <section class="login-container">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
-        <h1> Log-in </h1>
+        <h1> Log In </h1>
         <div class="kid-details-container">
   
           <!-- form -->
           <el-form action="">
             <div>
-              <el-input type="text" placeholder="Username" autofocus required v-model="user.username"></el-input>
+              <el-input type="text" :placeholder="username" autofocus required v-model="user.username"></el-input>
             </div>
             <div>
-              <el-input type="password" placeholder="Password" required v-model="user.pass"></el-input>
+              <el-input type="password" :placeholder="password" required v-model="user.pass"></el-input>
             </div>
             <div>
-              <el-button type="success" value="Login" @click="submit">Log-in</el-button>
+              <el-button type="success" value="Login" @click="submit">Log In</el-button>
             </div>
             <div>
-              <a href="#">Lost your password?</a>
+              <!--<a href="#">Lost your password?</a>-->
               <!--<a href="#">Register</a>-->
             </div>
           </el-form>
@@ -37,7 +37,10 @@ export default {
       user: {
         username: '',
         pass: ''
-      }
+      },
+      // TODO: implement translation somehow
+      username: 'username',
+      password: 'password'
     }
   },
   methods: {
@@ -46,12 +49,14 @@ export default {
         type: 'login',
         user: this.user
       })
-      .then((res) => {
-        this.$router.push('/admin')
-      })
-      .catch(() => {
-        this.$router.push('/home')
-      })
+      .then((res) => this.$router.push('/admin'),
+        () => {
+          this.$message({
+            type: 'error',
+            message: 'One or more fields are not correct'
+          })
+          this.$router.push('/')
+        })
     }
   }
 }

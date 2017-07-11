@@ -7,7 +7,7 @@
         </el-input>
         <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
-          <el-radio-group class="controls" v-model="radioSelected">
+          <el-radio-group class="controls" dir="ltr" v-model="radioSelected">
             <el-radio-button label="all">All</el-radio-button>
             <el-radio-button label="present">Present</el-radio-button>
             <el-radio-button label="absent">Absent</el-radio-button>

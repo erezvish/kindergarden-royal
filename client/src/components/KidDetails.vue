@@ -2,8 +2,7 @@
   <section :class="classObject" @click.self="toggleIsPresent">
   
     <div class="kid-img" :id="cameraId" @click.stop="toggleIsPresent">
-      <img :src="kid.imgUrl">
-  
+      <img :src="localKid.imgUrl">
     </div>
     <div class="properties">
       <div class="container">
@@ -49,14 +48,25 @@
 
 <script>
 import Webcam from 'webcamjs'
+import img1 from './img1.js'
+import img2 from './img2.js'
 export default {
   name: 'kid-details',
   props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  // created() {
+  //   this.localKid.imgUrl = img2
+  // },
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.localKid.imgUrl = img1
+  //   }, 2000)
+  // },
   data() {
     return {
       inputMsgParent: '',
       isCameraOn: false,
-      cameraId: 'K' + this.kid._id
+      cameraId: 'K' + this.kid._id,
+      localKid: Object.assign({}, this.kid)
     }
   },
   computed: {
@@ -68,17 +78,15 @@ export default {
         'list-view': this.isListView,
         // 'kid-details-container': this.isListView
       }
-    },
-  },
-  created() {
+    }
   },
   methods: {
     toggleIsPresent() {
-      if (this.isAdmin || this.isBasic) this.$emit('toggle');
-      else this.$message({
-        type: 'error',
-        message: 'Sorry, status may only be changed at the Kindergarden'
-      });
+      if (this.isAdmin || this.isBasic) this.$emit('toggle')
+      // else this.$message({
+      //   type: 'error',
+      //   message: 'Sorry, status may only be changed at the Kindergarden'
+      // });
     },
     deleteKidCard() {
       this.$emit('delete')
@@ -95,8 +103,10 @@ export default {
         });
         Webcam.reset()
         let updatedKid = Object.assign({}, this.kid)
-        updatedKid.imgUrl = capturedImgUrl;
+        this.localKid.imgUrl = capturedImgUrl
+        updatedKid.imgUrl = capturedImgUrl
         this.$emit('picture', updatedKid, this.kid)
+        this.localKid.imgUrl = capturedImgUrl
       }
       else Webcam.attach(`#${this.cameraId}`);
       this.isCameraOn = !this.isCameraOn;
