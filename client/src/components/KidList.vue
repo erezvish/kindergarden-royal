@@ -21,7 +21,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -116,7 +116,7 @@ export default {
     },
 
     updateKidPicture(kid, prevKid) {
-      console.log('recieved picture update request', prevKid)
+      // console.log('recieved picture update request', prevKid)
       this.$store.dispatch({
         type: 'updateKid',
         kid
@@ -125,7 +125,7 @@ export default {
         )
     },
     confirmImg(kid) {
-      console.log('current kid url:', kid.imgUrl)
+      // console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -156,6 +156,14 @@ export default {
         else return (a.firstName < b.firstName) ? -1 : 1;
       });
       this.$forceUpdate();
+    },
+    sendParentMessage(message) {
+      console.log('There is a message from the parents of:', message.kidFullName)
+      console.log('message:', message)
+      this.$store.dispatch({
+        type: 'sendParentMessage',
+        message
+      })
     }
   }
 }
@@ -175,9 +183,15 @@ export default {
 }
 
 @keyframes bell-flash {
-    0% {color: orange;}
-    50% {color: #B8D5E1;}
-    100% {color: orange;}
+  0% {
+    color: orange;
+  }
+  50% {
+    color: #B8D5E1;
+  }
+  100% {
+    color: orange;
+  }
 }
 
 .el-row {
