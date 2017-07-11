@@ -7,60 +7,63 @@
     <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid2.jpg">
     </div>
-    <div class="properties">
-      <div class="container">
-        <div class="" @click.stop="toggleIsPresent">
-          <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-  
-          <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </el-button>
-        </div>
-        <ul class="status clear-style" @click.stop="toggleIsPresent">
-          <li class="kid-status">
-            <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-            <span class="kid-away" v-show="!kid.isPresent"> {{ t('NOT IN CLASS') }} </span>
+    <!--<div class="">-->
+    <!--<div class="">-->
+    <div class="" @click.stop="toggleIsPresent">
+      <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+      <div class="status kid-status">
+        <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+        <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+      </div>
+      <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      </el-button>
+    </div>
+    <ul class="status clear-style" @click.stop="toggleIsPresent">
+      <!--<li class="kid-status">
+                <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+              </li>-->
+      <li>
+        <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/heart.png">
           </li>
           <li>
-            <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/heart.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/star.png">
-              </li>
-              <li>
-                <img class="fav-icon" src="../assets/msg-icon/blink.png">
-              </li>
-            </ul>
+            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
           </li>
-          <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/star.png">
+          </li>
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/blink.png">
+          </li>
         </ul>
+      </li>
+      <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
+    </ul>
   
+    <!--</div>-->
+    <div class="container-right" @click.self="toggleIsPresent">
+      <div v-if="isAdmArea" class="msg-parent x-space-child">
+        <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
+        <el-button type="default" @click="sendMessage">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </el-button>
       </div>
-      <div class="container-right" @click.self="toggleIsPresent">
-        <div v-if="isAdmArea" class="msg-parent x-space-child">
-          <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
-          <el-button type="default" @click="sendMessage">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-          </el-button>
+      <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
+        <div class="icons-left">
+          <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+          <i v-if="false" class="fa fa-cog" aria-hidden="true"></i>
         </div>
-        <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
-          <div class="icons-left">
-            <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-            <i v-if="false" class="fa fa-cog" aria-hidden="true"></i>
-          </div>
-          <div class="icons-right">
-            <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-            <i v-if="false" class="fa fa-medkit" aria-hidden="true"></i>
-            <i v-if="false" class="fa fa-phone-square" aria-hidden="true"></i>
-          </div>
+        <div class="icons-right">
+          <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+          <i v-if="false" class="fa fa-medkit" aria-hidden="true"></i>
+          <i v-if="false" class="fa fa-phone-square" aria-hidden="true"></i>
         </div>
       </div>
     </div>
+    <!--</div>-->
   </section>
 </template>
 
@@ -156,10 +159,17 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-* {outline: 1px solid green;}
+// * {
+//   outline: 1px solid green;
+// }
+
 //
 .main-section {
-  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em 0.5em;
+  
 }
 
 .kid-img {
@@ -167,19 +177,19 @@ export default {
   justify-content: center;
   align-items: center;
   background: orange;
-  width: 23vw;
-  height: 23vw;
-  max-width: 23vw;
-  max-height: 23vw;
+  width: 20vw;
+  height: 20vw; // max-width: 23vw;
+  // max-height: 23vw;
   margin: 0 1em;
   border-radius: 50%;
   box-shadow: 0 0 11px #333;
   cursor: pointer;
 
   .img-circle {
-    width: 20vw;
-    height: 20vw;
+    width: 85%;
+    height: 85%;
     border-radius: 50%;
+    box-shadow: 0.1em 0.1em 2em rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -199,6 +209,7 @@ export default {
 .status {
   .kid-status {
     & span {
+      font-size: 1.3vw;
       padding: 0.2em 0.5em;
       border-radius: 0.5em;
     }
@@ -208,6 +219,8 @@ export default {
     justify-content: center;
     margin: 1em 0;
     li {
+      display: table-cell;
+      vertical-align: middle;
       margin: 0 0.5em;
       img {
         width: 3vw;
@@ -229,39 +242,76 @@ export default {
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 @media screen and (max-width: $md) {
-
-.kid-img {
-  width: 25vw;
-  height: 25vw;
-  max-width: 23vw;
-  max-height: 23vw;
-  margin: 0 1em;
-  border-radius: 50%;
-  box-shadow: 0 0 11px #333;
-  cursor: pointer;
-
-  .img-circle {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 50%;
+  .main-section {
+    width: 30%;
   }
-}
+  .kid-img {
+    width: 25vw;
+    height: 25vw; // max-width: 23vw;
+    // max-height: 23vw;
+    margin: 0 1em;
+    border-radius: 50%;
+    box-shadow: 0 0 11px #333;
+    cursor: pointer;
 
-.status {
-  .icon-list {
-    margin: 1em 0;
-    li {
-      margin: 0 0.5em;
-      img {
-        width: 3.6vw;
-        height: 3.6vw;
+    .img-circle {
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+    }
+  }
+
+  .status {
+    .icon-list {
+      margin: 1em 0;
+      li {
+        margin: 0 0.5em;
+        img {
+          // width: 80%;
+          // height: 80%;
+        }
       }
     }
   }
-}
 
   .kid-name {
-    font-size: 2.8vw;
+    font-size: 3vw;
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .main-section {
+    width: 80vw;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .kid-img {
+    width: 65vw;
+    height: 65vw; 
+    margin: 0 11%;
+    border-radius: 50%;
+    box-shadow: 0 0 11px #333;
+  }
+
+  .status {
+    & span {
+      font-size: 1.2em;
+      padding: 0.2em 0.5em;
+      border-radius: 0.5em;
+    }
+    .icon-list {
+      width: 70vw;
+      margin: 1em 0;
+      li {
+        margin: 0 0.5em;
+        img {
+          width: 80%;
+          height: 80%;
+        }
+      }
+    }
+  }
+  .kid-name {
+    font-size: 7vw;
   }
 }
 </style>
