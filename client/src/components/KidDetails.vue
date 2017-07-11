@@ -84,7 +84,6 @@ export default {
     },
     edit() {
       this.$emit('edit')
-
     },
     cameraClicked() {
       if (this.isCameraOn) {
@@ -99,9 +98,7 @@ export default {
         this.$emit('picture', updatedKid, this.kid)
       }
       else Webcam.attach(`#${this.cameraId}`);
-
       this.isCameraOn = !this.isCameraOn;
-
     },
     createEmptyMessage() {
       const kidFullName = this.kid.firstName + ' ' + this.kid.lastName;
@@ -135,21 +132,17 @@ export default {
 .el-row {
   display: flex;
 }
-
 .properties {
   padding: 0 0.5em;
-
   & .fa {
     // font-size: 1.8em;
   }
 }
-
 .kid-details-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .kid-details {
   background: white;
   border-radius: 1em;
@@ -170,14 +163,12 @@ export default {
       padding: 0.5em 0;
     }
   }
-
   & .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 }
-
 .kid-img {
   position: relative;
   border: {
@@ -192,25 +183,21 @@ export default {
     max-width: 100%;
   }
 }
-
 .mark-present {
   background: rgba(0, 155, 2, 0.7); 
   background: $bg-present;
   color: white;
 }
-
 .mark-absent {
   background: lightcoral; 
   background: $bg-absent;
   color: white;
 }
-
 .msg-parent {
   display: flex;
   justify-content: space-between;
   margin: 1.2em 0;
 }
-
 .action-icons {
   display: flex;
   justify-content: space-between;
@@ -229,16 +216,13 @@ export default {
     display: flex;
   }
 }
-
 .hr {
   margin: 0.5em 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-
 .list-view {
   width: 100%;
   display: flex;
-
   flex-direction: row;
   .properties {
     display: flex;
@@ -256,11 +240,9 @@ export default {
       padding: 10px;
       display: flex;
       justify-content: space-between;
-
       .msg-parent {
         margin-top: 8px;
       }
-
       .action-icons {
         align-self: flex-end;
         >* {
@@ -286,15 +268,12 @@ export default {
     .msg-parent {
       display: none;
     }
-
     .list-view {
       display: none;
     }
     .card-header {}
   }
 }
-
-
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 </style>

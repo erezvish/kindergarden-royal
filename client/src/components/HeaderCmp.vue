@@ -1,3 +1,21 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Gist
+ @erezvish
+ Sign out
+ Unwatch 3
+  Unstar 1  Fork 0 erezvish/kindergarden-royal
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Settings Insights 
+Tree: 3496d162f8 Find file Copy pathkindergarden-royal/client/src/components/HeaderCmp.vue
+3496d16  3 hours ago
+@erezvish erezvish trying to merge
+3 contributors @tamiross @MeirP-3 @erezvish
+RawBlameHistory      
+264 lines (233 sloc)  5.33 KB
 <template>
   <el-row class="header-section">
     <header>
@@ -32,6 +50,7 @@
             <img @click="lang='eng'" src="../../static/img/eng.png">
             <img @click="lang='heb'" src="../../static/img/heb.png">
           </div>
+
         </li>
 
       </ul>
@@ -52,6 +71,9 @@ export default {
       lang: 'eng'
     }
   },
+  mounted() {
+    this.$el.classList.add('root-comp')
+  },
   watch: {
     lang: function(val) {
         this.$translate.setLang(val)
@@ -69,7 +91,6 @@ export default {
   },
   methods: {
     iconClicked: () => {
-
     },
     menuClicked: function () {
       this.menuIsClicked = !this.menuIsClicked;
@@ -89,7 +110,6 @@ export default {
       nav.classList.remove('menu-on');
       fixed.classList.remove('unScroll');
       this.menuIsClicked = false;
-
     },
     logout() {
       this.$confirm('Are you sure?', 'Warning', {
@@ -126,26 +146,21 @@ export default {
 // }
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Fredoka+One');
 @import "../sass/main.scss";
-
 h1 {
   margin: 0;
   font-family: 'Boogaloo', cursive; // font-family: 'Fredoka One', cursive;
   font-size: 3em;
 }
-
 a {
   color: white;
   text-decoration: none;
 }
-
 a:active {
   color: pink;
 }
-
 a:hover {
   color: white;
 }
-
 .header-section::after {
   content: '';
   position: absolute;
@@ -154,7 +169,6 @@ a:hover {
   background: rgba(55, 98, 131, 0.2);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
-
 header {
   display: flex;
   justify-content: space-between;
@@ -163,11 +177,9 @@ header {
   height: 5em;
   border-bottom: 0.5em solid rgba(0, 0, 0, 0.2);
 }
-
 .nav-item {
   margin: 1em;
 }
-
 .nav-items {
   list-style-type: none;
   display: flex;
@@ -176,7 +188,6 @@ header {
   font: {
     size: 1.5em;
   }
-
   & .fa {
     margin-right: 0.6em;
     font-size: 1.2em;
@@ -189,7 +200,6 @@ header {
     color: rgba(255,255,255,0.8);
   }
 }
-
 .brand {
   display: flex;
   align-items: flex-start;
@@ -198,7 +208,6 @@ header {
   position: relative;
   z-index: 3;
 }
-
 .nav-menu-btn {
   position: relative;
   z-index: 3;
@@ -208,7 +217,6 @@ header {
     font-size: 2.2em;
   }
 }
-
 .lang-icons {
   display: flex;
   img {
@@ -218,8 +226,6 @@ header {
     margin: 0.3em;
   }
 }
-
-
 // -------------------------------
 @media screen and (max-width: $sm) {
   .nav-items {
@@ -238,23 +244,19 @@ header {
     z-index: 2;
     width: 100%;
     transition: all, 0.8s;
-
     & li {
       font-size: 1.5em;
       margin: 0.6em 0;
     }
   }
-
   .nav-menu-btn {
     display: initial;
   }
 }
-
 .menu-on {
   right: 0;
   transition: all, 0.7s;
 }
-
 </style>
 
 <style>

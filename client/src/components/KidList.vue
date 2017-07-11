@@ -84,7 +84,7 @@ export default {
       //PLACEHOLDER, ACCEPT MEIR'S VERSION
     },
     toggleIsPresent(kid) {
-      console.log('toggling is present:')
+      console.log('toggling is present:', kid.imgUrl)
       this.$confirm('Change Kid Status?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -116,7 +116,7 @@ export default {
     },
 
     updateKidPicture(kid, prevKid) {
-      console.log('recieved picture update request', prevKid)
+      // console.log('recieved picture update request', prevKid)
       this.$store.dispatch({
         type: 'updateKid',
         kid
@@ -125,7 +125,7 @@ export default {
         )
     },
     confirmImg(kid) {
-      console.log('current kid url:', kid.imgUrl)
+      // console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -164,7 +164,6 @@ export default {
         type: 'sendParentMessage',
         message
       })
-
     }
   }
 }
@@ -184,9 +183,15 @@ export default {
 }
 
 @keyframes bell-flash {
-    0% {color: orange;}
-    50% {color: #B8D5E1;}
-    100% {color: orange;}
+  0% {
+    color: orange;
+  }
+  50% {
+    color: #B8D5E1;
+  }
+  100% {
+    color: orange;
+  }
 }
 
 .el-row {

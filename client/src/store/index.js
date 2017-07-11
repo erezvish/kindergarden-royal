@@ -30,13 +30,12 @@ const store = new Vuex.Store({
         },
         kidsFilter: {
             text: '',
-            radio: 'ignore'
+            radio:'ignore'
         },
         isAdmin: true,
         isBasic: false,
         token: '',
-        messages:[]
-
+        messages: []
     },
     getters,
     actions,

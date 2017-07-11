@@ -32,10 +32,10 @@ export default {
     this.$store.dispatch({
       type: 'initSocket',
     }),
-    this.$store.dispatch({
-      type: 'getMessages',
-    }),
-    console.log('fetching kids from state!')
+      this.$store.dispatch({
+        type: 'getMessages',
+      }),
+      console.log('fetching kids from state!')
     this.$store.dispatch({
       type: 'getKids'
     })

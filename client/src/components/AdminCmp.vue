@@ -1,9 +1,10 @@
 <template>
   <section class="admin-panel" v-if="isAdmin">
-    <h1> {{ t('Admin Panel') }} </h1>
+    <h1> Admin Panel </h1>
     <el-row>
       
       <el-col :xs="24" :sm="24" :md="24">
+        <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
         <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode" @toggle-sidebar="toggleSidebar"></kid-list>
@@ -18,7 +19,6 @@ import KidList from './KidList'
 import KidEdit from './KidEdit'
 import ControlPanel from './ControlPanel'
 import SideBar from './SideBar'
-
 export default {
   name: 'admin-cmp',
   components: {
@@ -61,14 +61,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/vars.scss";
-
 // * {
 //   outline: 1px solid red;
 // }
 .el-row {
   display: flex;
 }
-
 .admin-panel {
   display: flex;
   justify-content: flex-start;
@@ -77,11 +75,8 @@ export default {
   padding: 2em;
   min-height: 100vh;
 }
-
-
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
-
 @media screen and (max-width: $sm) {
   .admin-panel {
     padding: 0;

@@ -45,7 +45,7 @@ export default {
     },
 
 
-    filterKids({ commit }, payload) {
+    filterKids({commit}, payload) {
         console.log('Firing filter Action!')
         payload.text = payload.text.toLowerCase()
         commit(payload);
@@ -87,9 +87,9 @@ export default {
 
     logout({ commit }, { type }) {
         return userService.logout()
-            .then(() => {
-                commit(type)
-            })
+        .then(() => {
+            commit(type)
+        })
     },
     //actions that refer to Messages
 

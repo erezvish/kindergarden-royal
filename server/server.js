@@ -244,7 +244,7 @@ io.on('connection', function (socket) {
 		console.log('user disconnected');
 	});
 	socket.on('chat message', function (msg) {
-		console.log('message: ' + msg);
+		// console.log('message: ' + msg);
 		io.emit('chat message', msg);
 	});
 	socket.on('parent message', function (msg) {//duplicating some code instead of a dedicated function,
@@ -280,8 +280,5 @@ io.on('connection', function (socket) {
 		io.emit('toggle notice', kid);
 	});
 });
-
-
-
 
 cl('WebSocket is Ready');

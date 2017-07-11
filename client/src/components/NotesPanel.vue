@@ -4,10 +4,10 @@
             <H1>
                 Notes panel
             </H1>
-           
+    
             <!--<div>
-                <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
-            </div>-->
+                        <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+                    </div>-->
         </div>
         <NoteCmp v-for="note in notes" :note="note" :key="note._id" @delete-note="deleteNote(note)"></NoteCmp>
     </section>
@@ -28,12 +28,9 @@ export default {
             return this.$store.state.messages
         }
     },
-    created() {
-    },
     methods: {
         plusClicked: () => {
             console.log('plusClicked');
-
         },
         deleteNote: function (note) {
             console.log('deleting note: ', );
@@ -42,9 +39,11 @@ export default {
                 _id: note._id
             })
 
+
         },
         closeClicked() {
             console.log('closing notes...');
+
         }
     },
     components: {
@@ -73,9 +72,11 @@ export default {
         font-size: 1.3em; // + button icon
     }
 }
+
 .hidden {
     display: none;
 }
+
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 @media screen and (max-width: $sm) {

@@ -12,7 +12,6 @@
         <ul class="add-note clear-style" @click="trashClicked">
             <li>
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </i>
             </li>
         </ul>
     </section>
@@ -22,9 +21,6 @@
 export default {
     name: 'note-cmp',
     props: ['note'],
-    created() {
-        // console.log('this note:', this.noteClicked)
-    },
     methods: {
         noteClicked: function () {
             console.log('note clicked!');
