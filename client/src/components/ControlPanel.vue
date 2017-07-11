@@ -2,23 +2,17 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
-        <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}"></i>
-        <el-input type="search" 
-        class="search-bar" 
-        :class="{'hideSearchBar': isSearchBarHidden}" 
-        placeholder="Search" 
-        icon="search" 
-        v-model="searchInput" 
-        @input="filterKids">
+        <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}" @click="activateVoice"></i>
+        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" icon="search" v-model="searchInput" @input="filterKids">
         </el-input>
         <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
-        <el-radio-group class="controls" v-model="radioSelected" >
-          <el-radio-button label="all">All</el-radio-button>
-          <el-radio-button label="present">Present</el-radio-button>
-          <el-radio-button label="absent">Absent</el-radio-button>
-        </el-radio-group>
-        </div> 
+          <el-radio-group class="controls" v-model="radioSelected">
+            <el-radio-button label="all">All</el-radio-button>
+            <el-radio-button label="present">Present</el-radio-button>
+            <el-radio-button label="absent">Absent</el-radio-button>
+          </el-radio-group>
+        </div>
       </section>
     </el-col>
   </el-row>
@@ -40,6 +34,8 @@ export default {
       voiceCommands: {
         'search *spokenFilter': this.runSpokenFilter,
         'find *spokenFilter': this.runSpokenFilter,
+        'clear': this.clearFilter,
+        'show *radioSelection': this.runSpokenRadioFilter
       }
     }
   },
@@ -69,8 +65,28 @@ export default {
       this.searchInput = spokenFilter;
       this.filterKids()
     },
+    runSpokenRadioFilter(radioSelection) {
+      debugger;
+      if (radioSelection.toLowerCase === 'all') this.radioSelected = 'all';
+      else if (radioSelection.toLowerCase === 'here') this.radioSelected = 'present'
+      else if (radioSelection.toLowerCase === 'away') this.radioSelected = 'absent'
+    },
+    clearFilter() {
+      this.searchInput = '';
+      this.filterKids()
+    },
     radioClicked() {
       console.log('radio clicked!')
+    },
+    activateVoice() {
+      if (!annyang.isListening()) {
+        annyang.start();
+        this.$message('mic on!');
+        setTimeout(() => {
+          annyang.abort()
+          this.$message('mic off!')
+        }, 5000)
+      }
     }
   },
   watch: {
@@ -156,7 +172,6 @@ export default {
       font-size: 2.6em;
       color: rgba(55, 98, 131, 0.6);
     }
-    
   }
   .control-panel .filter-cmp {
     display: none;
@@ -166,7 +181,7 @@ export default {
 @media screen and (max-width: $sm) {
   .control-panel {
     .controls-wraper {
-      margin:0;
+      margin: 0;
     }
   }
   .search-bar {
