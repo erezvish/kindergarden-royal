@@ -26,11 +26,11 @@
             </li>
             <li v-if="!isAdmin" @click="slideMenu">
               <router-link class="router-link single-item" to="/login">
-                <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Login') }}</router-link>
+                <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Log In') }}</router-link>
             </li>
             <li v-if="isAdmin" @click="logout">
               <div class="single-item">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Logout') }}</router-link>
+                <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Log Out') }}</router-link>
               </div>
             </li>
           </ul>
@@ -241,6 +241,7 @@ header {
   }
   .nav-menu-btn {
     display: initial;
+    cursor: pointer;
   }
   .nav-items .navbar {
     position: relative;

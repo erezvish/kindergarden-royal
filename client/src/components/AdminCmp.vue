@@ -27,6 +27,9 @@ export default {
     ControlPanel,
     SideBar
   },
+  created() {
+    if (!this.$store.state.isAdmin) this.$router.push('/')
+  },
   data() {
     return {
       isEditMode: false,
