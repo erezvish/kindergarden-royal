@@ -23,6 +23,7 @@ export default {
         'Meir': () => { this.$message('Programmer Extraordinaire'); },
         'Erez': () => { this.$message('Google him, you may be surprised!'); },
         'Alon': () => { this.$message('He is VP R&D'); },
+        'Yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
         
       }
     }
@@ -30,14 +31,17 @@ export default {
   created() {
     this.$store.dispatch({
       type: 'initSocket',
-    })
+    }),
+    this.$store.dispatch({
+      type: 'getMessages',
+    }),
     console.log('fetching kids from state!')
     this.$store.dispatch({
       type: 'getKids'
     })
 
     // Add our commands to annyang
-    // annyang.addCommands(this.voiceCommands);
+    annyang.addCommands(this.voiceCommands);
     // annyang.start();
   },
   destroyed() {
@@ -59,7 +63,7 @@ body {
 }
 
 main {
-  text-align: center; // margin-top: 40px;
+  text-align: center;
 }
 
 header {

@@ -2,14 +2,14 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
-        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" icon="search" v-model="searchInput" @input=filterKids>
+        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" :placeholder="search" icon="search" v-model="searchInput" @input=filterKids>
         </el-input>
         <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
-        <el-radio-group class="controls" v-model="radioSelected" >
-          <el-radio-button label="all">All</el-radio-button>
-          <el-radio-button label="present">Present</el-radio-button>
-          <el-radio-button label="absent">Absent</el-radio-button>
+        <el-radio-group class="controls" v-model="radioSelected" dir="ltr">
+          <el-radio-button label="all"> {{ t('All') }} </el-radio-button>
+          <el-radio-button label="present"> {{ t('Present') }} </el-radio-button>
+          <el-radio-button label="absent"> {{ t('Absent') }} </el-radio-button>
         </el-radio-group>
         </div> 
       </section>
@@ -18,12 +18,8 @@
 </template>
 
 <script>
-import FilterCmp from './FilterCmp'
 export default {
   name: 'control-panel',
-  components: {
-    FilterCmp
-  },
   data() {
     return {
       searchInput: '',
@@ -37,7 +33,9 @@ export default {
     }
   },
   computed: {
-
+    search() {
+      return this.$translate.lang === 'heb' ? 'הקלידי שם ו/או משפחה:' : 'Search'
+    }
   },
   created() {
     annyang.addCommands(this.voiceCommands)
