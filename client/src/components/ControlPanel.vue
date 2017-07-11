@@ -36,7 +36,12 @@ export default {
         'find *spokenFilter': this.runSpokenFilter,
         'clear': this.clearFilter,
         'show *radioSelection': this.runSpokenRadioFilter
-      }
+      },
+      audioSounds: {
+        micAudio1: new Audio('/static/sound/mic1.mp3'),
+        micAudio2: new Audio('/static/sound/mic2.mp3'),
+      },
+      micDuration: 5000
     }
   },
   computed: {
@@ -81,11 +86,17 @@ export default {
     activateVoice() {
       if (!annyang.isListening()) {
         annyang.start();
-        this.$message('mic on!');
+        this.audioSounds.micAudio2.play()
+        this.$message({
+          message: 'Mic is on!',
+          duration: this.micDuration,
+          type: 'success'
+        });
         setTimeout(() => {
           annyang.abort()
-          this.$message('mic off!')
-        }, 5000)
+          this.audioSounds.micAudio1.play()
+          this.$message('Mic is off!')
+        }, this.micDuration)
       }
     }
   },
