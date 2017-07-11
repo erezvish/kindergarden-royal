@@ -7,7 +7,7 @@
         <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
         <kid-edit v-if="isEditMode" :kid="kidToEdit" @closeEdit="toggleEditMode"></kid-edit>
-        <kid-list v-if="!isEditMode" @edit="setEditMode" @createKid="setEditMode" @toggle-sidebar="toggleSidebar"></kid-list>
+        <kid-list v-if="!isEditMode" :isAdmArea="true" @edit="setEditMode" @createKid="setEditMode" @toggle-sidebar="toggleSidebar"></kid-list>
       </el-col>
       <side-bar :bellProp="sidebarOn" @toggle-sidebar="toggleSidebar"></side-bar>
     </el-row>

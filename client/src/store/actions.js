@@ -27,13 +27,15 @@ export default {
     },
 
     updateKid({ commit }, payload) {
+        // console.log('url before server:', payload.kid.imgUrl)
         kidService.update(payload.kid)
             .then(res => {
                 payload.kid = res.data
                 commit(payload)
+                // console.log('url after server:', res.data.imgUrl)
             })
             .catch(err => {
-                console.error('cannot update kid on server', kid.firstName, kid.lastName, err)
+                console.error('cannot update kid on server', payload.kid.firstName, payload.kid.lastName, err)
             })
     },
 

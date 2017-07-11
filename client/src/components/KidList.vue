@@ -21,7 +21,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -36,6 +36,7 @@ import KidDetails from './KidDetails'
 import store from '../store'
 export default {
   name: 'kid-list',
+  props:['isAdmArea'],
   components: {
     KidDetails,
 
@@ -117,6 +118,7 @@ export default {
 
     updateKidPicture(kid, prevKid) {
       // console.log('recieved picture update request', prevKid)
+      // console.log('kids:', kid, prevKid)
       this.$store.dispatch({
         type: 'updateKid',
         kid
@@ -124,7 +126,7 @@ export default {
         this.confirmImg(prevKid)
         )
     },
-    confirmImg(kid) {
+    confirmImg(prevKid) {
       // console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
@@ -138,7 +140,7 @@ export default {
       }).catch(() => {
         this.$store.dispatch({
           type: 'updateKid',
-          kid
+          kid: prevKid
         })
         this.$message({
           type: 'info',

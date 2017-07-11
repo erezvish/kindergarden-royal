@@ -10,7 +10,7 @@
         <div class="card-header hr" @click.stop="toggleIsPresent">
           <h2>{{`${kid.firstName} ${kid.lastName}`}} </h2>
   
-          <el-button v-if="isAdmin" @click.stop="edit">
+          <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </el-button>
         </div>
@@ -31,7 +31,7 @@
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </el-button>
         </div>
-        <div v-if="isAdmin" class="action-icons" @click.self="toggleIsPresent">
+        <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
           <div class="icons-left">
             <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
             <i class="fa fa-cog" aria-hidden="true"></i>
@@ -44,7 +44,6 @@
         </div>
       </div>
     </div>
-  
   </section>
 </template>
 
@@ -52,7 +51,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
@@ -71,6 +70,8 @@ export default {
       }
     },
   },
+  created() {
+  },
   methods: {
     toggleIsPresent() {
       if (this.isAdmin || this.isBasic) this.$emit('toggle');
@@ -87,8 +88,8 @@ export default {
     },
     cameraClicked() {
       if (this.isCameraOn) {
-        Webcam.freeze()
         let capturedImgUrl = null;
+        // console.log('url before change:', this.kid.imgUrl)
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
@@ -115,7 +116,7 @@ export default {
     sendMessage() {
       console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
-      newMessage. text = this.inputMsgParent;
+      newMessage.text = this.inputMsgParent;
       newMessage.timestamp = Date.now();
       this.$emit('parent-message', newMessage)
       this.inputMsgParent = '';
@@ -132,17 +133,20 @@ export default {
 .el-row {
   display: flex;
 }
+
 .properties {
   padding: 0 0.5em;
   & .fa {
     // font-size: 1.8em;
   }
 }
+
 .kid-details-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .kid-details {
   background: white;
   border-radius: 1em;
@@ -169,6 +173,7 @@ export default {
     justify-content: space-between;
   }
 }
+
 .kid-img {
   position: relative;
   border: {
@@ -183,21 +188,25 @@ export default {
     max-width: 100%;
   }
 }
+
 .mark-present {
-  background: rgba(0, 155, 2, 0.7); 
+  background: rgba(0, 155, 2, 0.7);
   background: $bg-present;
   color: white;
 }
+
 .mark-absent {
-  background: lightcoral; 
+  background: lightcoral;
   background: $bg-absent;
   color: white;
 }
+
 .msg-parent {
   display: flex;
   justify-content: space-between;
   margin: 1.2em 0;
 }
+
 .action-icons {
   display: flex;
   justify-content: space-between;
@@ -216,10 +225,12 @@ export default {
     display: flex;
   }
 }
+
 .hr {
   margin: 0.5em 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .list-view {
   width: 100%;
   display: flex;
@@ -274,6 +285,7 @@ export default {
     .card-header {}
   }
 }
+
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 </style>
