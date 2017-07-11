@@ -3,7 +3,7 @@
 // Plus support for file upload
 // Author: Yaron Biton misterBIT.co.il
 
-"use strict";
+"use strict"
 
 var cl = console.log;
 
@@ -12,7 +12,7 @@ const express = require('express'),
 	cors = require('cors'),
 	mongodb = require('mongodb')
 
-const sessions = require("client-sessions");
+const sessions = require('client-sessions')
 const upload = require('./uploads');
 const app = express();
 
@@ -24,12 +24,6 @@ var corsOptions = {
 const serverRoot = 'http://localhost:3003/';
 const baseUrl = serverRoot + 'data';
 
-
-app.use(express.static('uploads'));
-
-
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
 app.use(sessions({
 	cookieName: 'mySession', // cookie name dictates the key name added to the request object 
 	secret: 'pukiwwwnttothemountains', // should be a large unguessable string 
@@ -63,6 +57,10 @@ function dbConnect() {
 // GETs a list
 app.get('/data/:objType', function (req, res) {
 	const objType = req.params.objType;
+	if(objType === 'user') {
+		res.status(403).json({ error: 'Un Authorized!' })
+		return
+	}
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
@@ -82,6 +80,10 @@ app.get('/data/:objType', function (req, res) {
 // GETs a single
 app.get('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
+	if(objType === 'user') {
+		res.status(403).json({ error: 'Un Authorized!' })
+		return
+	}
 	const objId = req.params.id;
 	cl(`Getting you an ${objType} with id: ${objId}`);
 	dbConnect()
@@ -186,7 +188,7 @@ app.put('/data/:objType/:id', function (req, res) {
 app.post('/login', function (req, res) {
 	dbConnect().then((db) => {
 		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
-			if (user) {
+			if (user && user.type === 'admin') {
 				cl('Login Succesful');
 				delete user.pass;
 				req.mySession.user = user;  //refresh the session value
@@ -215,7 +217,7 @@ function requireLogin(req, res, next) {
 	}
 }
 
-// app.get('/protected', requireLogin, function (req, res) {
+// app.get('/protected', function (req, res) {
 // 	console.log('I am here')
 // 	res.end('User is loggedin, return some data');
 // });

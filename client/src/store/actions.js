@@ -84,7 +84,6 @@ export default {
                 commit(payload)
                 return res
             })
-            .catch(res => console.log(res.data))
     },
 
     logout({ commit }, { type }) {

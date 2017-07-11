@@ -3,7 +3,6 @@
   
     <div class="kid-img" :id="cameraId" @click.stop="toggleIsPresent">
       <img :src="kid.imgUrl">
-  
     </div>
     <div class="properties">
       <div class="container">
@@ -69,16 +68,19 @@ export default {
         // 'kid-details-container': this.isListView
       }
     },
+    imgUrl() {
+      return this.kid.imgUrl
+    }
   },
   created() {
   },
   methods: {
     toggleIsPresent() {
-      if (this.isAdmin || this.isBasic) this.$emit('toggle');
-      else this.$message({
-        type: 'error',
-        message: 'Sorry, status may only be changed at the Kindergarden'
-      });
+      if (this.isAdmin || this.isBasic) this.$emit('toggle')
+      // else this.$message({
+      //   type: 'error',
+      //   message: 'Sorry, status may only be changed at the Kindergarden'
+      // });
     },
     deleteKidCard() {
       this.$emit('delete')
