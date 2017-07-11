@@ -1,5 +1,6 @@
 import kidService from '../services/kid.service.js'
 import userService from '../services/user.service.js'
+import msgService from '../services/msg.service.js'
 
 export default {
 
@@ -61,7 +62,13 @@ export default {
                 type: 'updateKid',
                 kid
             })
-        })
+        }),
+            msgService.initSocket(message => {
+                commit({
+                    type: 'receiveParentMessage',
+                    message
+                })
+            })
     },
 
     togglePresent({ commit }, payload) {
@@ -83,5 +90,33 @@ export default {
         .then(() => {
             commit(type)
         })
+    },
+    //actions that refer to Messages
+
+    getMessages({ commit }, payload) {
+        msgService.getList()
+            .then(res => {
+                payload.messages = res.data
+                commit(payload)
+            })
+            .catch(err => {
+                console.error('cannot get messages from server', err)
+            })
+    },
+
+    sendParentMessage({ commit }, payload) {
+        msgService.send(payload.message)
+    },
+    receiveParentMessage({ commit }, { message }) {
+        commit({
+            type: 'receiveParentMessage',
+            message
+        })
+    },
+    deleteMessage({ commit }, payload) {
+        msgService.delete(payload._id)
+            .then(() => commit(payload))
+            .catch(err => {
+            })
     },
 }

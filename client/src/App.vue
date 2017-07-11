@@ -23,7 +23,7 @@ export default {
         'Meir': () => { this.$message('Programmer Extraordinaire'); },
         'Erez': () => { this.$message('Google him, you may be surprised!'); },
         'Alon': () => { this.$message('He is VP R&D'); },
-        
+        'Yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
       }
     }
   },
@@ -37,7 +37,7 @@ export default {
     })
 
     // Add our commands to annyang
-    // annyang.addCommands(this.voiceCommands);
+    annyang.addCommands(this.voiceCommands);
     // annyang.start();
   },
   destroyed() {

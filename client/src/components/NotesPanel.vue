@@ -4,12 +4,12 @@
             <H1>
                 Notes panel
             </H1>
-           
+    
             <!--<div>
-                <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
-            </div>-->
+                        <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+                    </div>-->
         </div>
-        <NoteCmp v-for="note in notes" :key="note" @delete-note="deleteNote(this)"></NoteCmp>
+        <NoteCmp v-for="note in notes" :note="note" :key="note._id" @delete-note="deleteNote(note)"></NoteCmp>
     </section>
 </template>
 
@@ -19,6 +19,11 @@ export default {
     name: 'notes-panel',
     data() {
         return {
+        }
+    },
+    computed: {
+        notes() {
+            return this.$store.state.messages
         }
     },
     methods: {
@@ -33,8 +38,8 @@ export default {
                 _id: note._id
             })
 
-       
-       },
+
+        },
         closeClicked() {
             console.log('closing notes...');
 
@@ -66,9 +71,11 @@ export default {
         font-size: 1.3em; // + button icon
     }
 }
+
 .hidden {
     display: none;
 }
+
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 @media screen and (max-width: $sm) {
