@@ -18,10 +18,10 @@
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
           <ul class="status clear-style" @click.stop="toggleIsPresent">
-      <li class="kid-status">
+      <!--<li class="kid-status">
         <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
         <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-      </li>
+      </li>-->
       <li>
         <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li>
