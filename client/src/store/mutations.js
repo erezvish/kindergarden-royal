@@ -41,6 +41,7 @@ export default {
     logout(state) {
         state.isAdmin = false
         state.isBasic = false
+        state.isParent = false
     },
 
     setParent(state, payload) {

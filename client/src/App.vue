@@ -38,15 +38,13 @@ export default {
     this.$store.dispatch({
       type: 'getKids'
     })
-    let id = this.$route.params.kidId
-    if (id) {
-      const that = this
-      this.$store.dispatch({
-        type: 'checkParent',
-        id,
-        that
-      })
-    }
+    const id = this.$route.params.kidId
+    const that = this
+    this.$store.dispatch({
+      type: 'checkParent',
+      id,
+      that
+    })
     // Add our commands to annyang
     annyang.addCommands(this.voiceCommands);
     // annyang.start();

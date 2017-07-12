@@ -65,12 +65,12 @@ export default {
                 kid
             })
         }),
-        msgService.initSocket(message => {
-            commit({
-                type: 'receiveParentMessage',
-                message
+            msgService.initSocket(message => {
+                commit({
+                    type: 'receiveParentMessage',
+                    message
+                })
             })
-        })
         msgService.initEmojiSocket((_id, emojiType) => {
             commit({
                 type: 'receiveEmojiMessage',
@@ -100,14 +100,20 @@ export default {
             })
     },
 
-    checkParent({ commit }, payload) {
-        userService.checkParent(payload.id)
-            .then(isParent => {
-                commit({
-                    type: 'setParent',
-                    id: payload.id
-                })
-            }).catch(err => payload.that.$router.push('/login'))
+    checkParent({ commit, state }, payload) {
+        if (payload.id) {
+            userService.checkParent(payload.id)
+                .then(isParent => {
+                    commit({
+                        type: 'setParent',
+                        id: payload.id
+                    })
+                }).catch(err => payload.that.$router.push('/login'))
+        } else {
+            if (!state.isAdmin && !state.isBasic) {
+                payload.that.$router.push('/login')
+            }
+        }
     },
 
     //actions that refer to Messages

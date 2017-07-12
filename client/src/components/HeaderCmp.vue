@@ -30,7 +30,8 @@
             </li>
             <li v-if="isAdmin" @click="logout">
               <div class="single-item">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>{{ t('Log Out') }}</router-link>
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                {{ t('Log Out') }}
               </div>
             </li>
           </ul>
@@ -112,7 +113,7 @@ export default {
                 type: 'success',
                 message: 'logout successful'
               })
-              this.$router.push('/')
+              this.$router.push('/login')
             })
             .catch(() => {
               this.$message({
@@ -181,6 +182,7 @@ header {
       // display: none;
       margin: 0 0.8em;
       padding: 0;
+      cursor: pointer;
     }
   }
   .lang-icons {
@@ -209,7 +211,7 @@ header {
     font-size: 2.2em;
   }
 }
-.lang-icons {
+  .lang-icons {
   display: flex;
   img {
     height: 1em;

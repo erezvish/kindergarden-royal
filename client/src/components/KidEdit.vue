@@ -42,7 +42,7 @@
                   <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[1].mail"></el-input>
                 </el-form-item>-->
   
-              <div class="form-controls">
+              <div class="form-controls" dir="ltr">
                 <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
                 <el-button type="danger" @click="cancel">Cancel</el-button>
                 <el-button type="default" @click="resetForm('edit-kid')">Reset</el-button>
