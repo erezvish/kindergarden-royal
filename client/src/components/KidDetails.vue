@@ -2,11 +2,11 @@
   <section class="main-section" :class="classObject">
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
-      <div class="emojis" v-if="(isAdmin || isBasic) && !isAdmArea ">
-        <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
-        <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
-        <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
-        <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
+      <div class="emojis">
+        <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojis.heart">
+        <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojis.heartEyes">
+        <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojis.star">
+        <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojis.wink">
       </div>
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
@@ -19,7 +19,6 @@
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
       <ul class="status clear-style" @click.stop="toggleIsPresent">
         <!--<li class="kid-status">
-
               <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
               <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
             </li>-->
@@ -41,7 +40,6 @@
         </li>
       </ul>
       <!--<div class="status kid-status">
-
                 <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
                 <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
               </div>-->
@@ -75,9 +73,11 @@
 
 <script>
 import Webcam from 'webcamjs'
+import img1 from './img1.js'
+import img2 from './img2.js'
 export default {
   name: 'kid-details',
-  props: ['kid','isParent' ,'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  props: ['kid', 'emojis', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
@@ -94,14 +94,6 @@ export default {
         'mark-absent': !this.kid.isPresent,
         'list-view': this.isListView,
         'kid-details-container': this.isListView
-      }
-    },
-    emojisObject() {
-      return {
-        heart: this.kid.emojiType === 'heart',
-        heartEyes: this.kid.emojiType === 'heartEyes',
-        star: this.kid.emojiType === 'star',
-        wink: this.kid.emojiType === 'wink'
       }
     }
   },
@@ -167,9 +159,9 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-// * {
-//   outline: 1px solid green;
-// }
+* {
+  outline: 1px solid green;
+}
 //
 .main-section {
   display: flex;
@@ -369,7 +361,7 @@ export default {
     cursor: pointer;
     .emoji {
       position: absolute;
-      // top: 0;
+      top: 0;
       animation: 1.5s blink-anim infinite;
     }
   }
