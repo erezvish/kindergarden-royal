@@ -1,13 +1,19 @@
 <template>
-  <section class="main-section" :class="classObject" @click.self="toggleIsPresent">
+  <section class="main-section" :class="classObject">
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
+      <div class="emojis">
+        <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojis.heart">
+        <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojis.heartEyes">
+        <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojis.star">
+        <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojis.wink">
+      </div>
     </div>
     <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
-    <!--<div class="">-->
+ 
     <!--<div class="">-->
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
@@ -42,7 +48,7 @@
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
     </div>
-    <!-- <ul class="status clear-style" @click.stop="toggleIsPresent">
+    <!-- <ul class="status clear-style">
       <li class="kid-status">
         <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
         <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
@@ -50,16 +56,16 @@
       <li>
         <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart.png">
+            <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
+            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
           </li>
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/star.png">
+            <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
           </li>
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/blink.png">
+            <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
           </li>
         </ul>
       </li>
@@ -67,14 +73,14 @@
    <!-- </ul> -->
   
     <!--</div>-->
-    <div class="container-right" @click.self="toggleIsPresent">
+    <div class="container-right">
       <div v-if="isAdmArea" class="msg-parent x-space-child">
         <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
         <el-button type="default" @click="sendMessage">
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
         </el-button>
       </div>
-      <div v-if="isAdmin && isAdmArea" class="action-icons" @click.self="toggleIsPresent">
+      <div v-if="isAdmin && isAdmArea" class="action-icons">
         <div class="icons-left">
           <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
           <i v-if="false" class="fa fa-cog" aria-hidden="true"></i>
@@ -96,7 +102,7 @@ import img1 from './img1.js'
 import img2 from './img2.js'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  props: ['kid', 'emojis', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   // created() {
   //   this.localKid.imgUrl = img2
   // },
@@ -110,7 +116,7 @@ export default {
       inputMsgParent: '',
       isCameraOn: false,
       cameraId: 'K' + this.kid._id,
-      localKid: Object.assign({}, this.kid)
+      localKid: Object.assign({}, this.kid),
     }
   },
   computed: {
@@ -120,7 +126,7 @@ export default {
         'mark-present': this.kid.isPresent,
         'mark-absent': !this.kid.isPresent,
         'list-view': this.isListView,
-        // 'kid-details-container': this.isListView
+        'kid-details-container': this.isListView
       }
     }
   },
@@ -137,6 +143,10 @@ export default {
     },
     edit() {
       this.$emit('edit')
+    },
+    setEmoji(kid, emojiType) {
+      this.$emit('emoji', this.kid, emojiType)
+      // console.log('emoji clicked')
     },
     cameraClicked() {
       if (this.isCameraOn) {
@@ -185,7 +195,6 @@ export default {
 // * {
 //   outline: 1px solid green;
 // }
-
 //
 .main-section {
   display: flex;
@@ -349,6 +358,33 @@ export default {
     font-size: 7vw;
     margin: 0;
     padding: 0;
+  }
+}
+
+.fav-icon {
+  cursor: pointer;
+}
+
+.emojis {
+  position: absolute;
+  cursor: pointer;
+  .emoji {
+    position: relative;
+    top: -3em;
+    right: -2em;
+    animation: 1.5s blink-anim infinite;
+  }
+}
+
+@keyframes blink-anim {
+  0% {
+    width: 30px;
+  }
+  50% {
+    width: 40px;
+  }
+  100% {
+    width: 30px;
   }
 }
 </style>
