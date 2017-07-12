@@ -5,7 +5,6 @@
   
         <div class="status-bar">
           <div class="title">
-            <i class="fa fa-address-card-o" aria-hidden="true"></i>
             <h1> Kid list area </h1>
           </div>
           <ul class="controls">
@@ -326,9 +325,6 @@ export default {
 //
 @media screen and (max-width: $sm) {
   .view {
-    display: none;
-  }
-  .fa-address-card-o {
     display: none;
   }
 }
