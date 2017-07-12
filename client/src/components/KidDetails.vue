@@ -25,16 +25,16 @@
       <li>
         <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart.png">
+            <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
+            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
           </li>
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/star.png">
+            <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
           </li>
           <li>
-            <img class="fav-icon" src="../assets/msg-icon/blink.png">
+            <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
           </li>
         </ul>
       </li>
