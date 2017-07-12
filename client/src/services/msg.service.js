@@ -21,7 +21,7 @@ export default {
         appSocket.socket.on('emoji message', (_id, emojiType) => {
             // console.log('emit received!')
             if (typeof actionFunc === 'function') {
-                actionFunc(id, emojiType)
+                actionFunc(_id, emojiType)
             }
         })
     },

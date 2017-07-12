@@ -254,7 +254,8 @@ io.on('connection', function (socket) {
 		// console.log('message: ' + msg);
 		io.emit('chat message', msg);
 	});
-	socket.on('emjoi message', function (_id, emoji) {
+	socket.on('emoji message', function (_id, emoji) {
+		console.log('received emoji, sending to all', _id, emoji)
 		io.emit('emoji message', _id, emoji);
 	})
 	socket.on('parent message', function (msg) {//duplicating some code instead of a dedicated function,
