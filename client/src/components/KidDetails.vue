@@ -2,47 +2,47 @@
   <section class="main-section" :class="classObject">
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid.jpg">
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojis.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojis.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojis.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojis.wink">
       </div>
+      <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
     <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
- 
+  
     <!--<div class="">-->
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-          <ul class="status clear-style" @click.stop="toggleIsPresent">
-      <!--<li class="kid-status">
-        <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-        <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-      </li>-->
-      <li>
-        <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
-          </li>
-        </ul>
-      </li>
-    </ul>
+      <ul class="status clear-style" @click.stop="toggleIsPresent">
+        <!--<li class="kid-status">
+              <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+              <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+            </li>-->
+        <li>
+          <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
+            </li>
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
+            </li>
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
+            </li>
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
+            </li>
+          </ul>
+        </li>
+      </ul>
       <!--<div class="status kid-status">
-          <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-          <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-        </div>-->
+                <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+              </div>-->
       <el-button class="edit-btn" v-if="isAdmin && isAdmArea" @click.stop="edit">
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
- 
+  
   </section>
 </template>
 
@@ -171,6 +171,8 @@ export default {
 }
 
 .kid-img {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -184,6 +186,8 @@ export default {
   cursor: pointer;
 
   .img-circle {
+    position: relative;
+    z-index: 1;
     width: 85%;
     height: 85%;
     border-radius: 50%;
@@ -235,6 +239,34 @@ export default {
 
 .kid-name {
   font-size: 2.4vw;
+}
+
+.emojis {
+  cursor: pointer;
+  .emoji {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    animation: 1.5s blink-anim infinite;
+  }
+}
+
+@keyframes blink-anim {
+  0% {
+    width: 1vw;
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  50% {
+    width: 9vw;
+    opacity: 0.7;
+    transform: rotate(360deg);
+  }
+  100% {
+    width: 1vw;
+    opacity: 0;
+    transform: rotate(0deg);
+  }
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
@@ -315,10 +347,8 @@ export default {
     margin-left: 3vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    // justify-content: space-between;
+    align-items: center; // justify-content: space-between;
     align-self: center;
-    
   }
   .kid-name {
     color: #376283;
@@ -326,32 +356,36 @@ export default {
     margin: 0;
     padding: 0;
   }
+
+  .emojis {
+    cursor: pointer;
+    .emoji {
+      position: absolute;
+      // top: 0;
+      animation: 1.5s blink-anim infinite;
+    }
+  }
+
+  @keyframes blink-anim {
+    0% {
+      width: 1vw;
+      opacity: 0;
+      transform: rotate(0deg);
+    }
+    50% {
+      width: 19vw;
+      opacity: 0.7;
+      transform: rotate(360deg);
+    }
+    100% {
+      width: 1vw;
+      opacity: 0;
+      transform: rotate(0deg);
+    }
+  }
 }
 
 .fav-icon {
   cursor: pointer;
-}
-
-.emojis {
-  position: absolute;
-  cursor: pointer;
-  .emoji {
-    position: relative;
-    top: -3em;
-    right: -2em;
-    animation: 1.5s blink-anim infinite;
-  }
-}
-
-@keyframes blink-anim {
-  0% {
-    width: 30px;
-  }
-  50% {
-    width: 40px;
-  }
-  100% {
-    width: 30px;
-  }
 }
 </style>
