@@ -2,7 +2,7 @@
   <section class="main-section" :class="classObject">
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
-      <div class="emojis" v-if="(isAdmin || isBasic) && !isAdmArea ">
+      <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
@@ -19,10 +19,9 @@
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
       <ul class="status clear-style" @click.stop="toggleIsPresent">
         <!--<li class="kid-status">
-
-              <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-              <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-            </li>-->
+                <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+              </li>-->
         <li>
           <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
             <li>
@@ -41,10 +40,9 @@
         </li>
       </ul>
       <!--<div class="status kid-status">
-
-                <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-                <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-              </div>-->
+                  <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                  <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+                </div>-->
       <el-button class="edit-btn" v-if="isAdmin && isAdmArea" @click.stop="edit">
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
@@ -77,7 +75,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid','isParent' ,'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
@@ -167,9 +165,10 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-// * {
-//   outline: 1px solid green;
-// }
+* {
+  outline: 1px solid green;
+}
+
 //
 .main-section {
   display: flex;
@@ -369,7 +368,7 @@ export default {
     cursor: pointer;
     .emoji {
       position: absolute;
-      // top: 0;
+      top: 0;
       animation: 1.5s blink-anim infinite;
     }
   }
