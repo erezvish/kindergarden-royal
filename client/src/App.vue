@@ -31,15 +31,20 @@ export default {
   created() {
     this.$store.dispatch({
       type: 'initSocket',
-    }),
-      this.$store.dispatch({
-        type: 'getMessages',
-      }),
-      console.log('fetching kids from state!')
+    })
+    this.$store.dispatch({
+      type: 'getMessages',
+    })
     this.$store.dispatch({
       type: 'getKids'
     })
-
+    const id = this.$route.params.kidId
+    const that = this
+    this.$store.dispatch({
+      type: 'checkParent',
+      id,
+      that
+    })
     // Add our commands to annyang
     annyang.addCommands(this.voiceCommands);
     // annyang.start();

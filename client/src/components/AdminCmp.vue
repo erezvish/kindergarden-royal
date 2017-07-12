@@ -1,6 +1,5 @@
 <template>
-  <section class="admin-panel" v-if="isAdmin">
-    <h1> Admin Panel </h1>
+  <section class="admin-panel">
     <el-row>
       
       <el-col :xs="24" :sm="24" :md="24">
@@ -28,7 +27,7 @@ export default {
     SideBar
   },
   created() {
-    if (!this.$store.state.isAdmin) this.$router.push('/')
+    if (!this.isAdmin) this.$router.push('/login')
   },
   data() {
     return {

@@ -1,12 +1,12 @@
 <template>
-  <section class="main-panel">
-    <h1>Welcome! </h1>
+  <section class="main-panel" v-if="isAdmin || isBasic || isParent">
     <control-panel></control-panel>
     <kid-list :isAdmArea="false"></kid-list>
   </section>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import KidList from './KidList'
 import KidEdit from './KidEdit'
 import ControlPanel from './ControlPanel'
@@ -17,12 +17,11 @@ export default {
     KidEdit,
     ControlPanel
   },
-  data() {
-    return {
-    }
-  },
-  methods: {
-  }
+  computed: mapState([
+    'isAdmin',
+    'isBasic',
+    'isParent'
+  ])
 }
 </script>
 
