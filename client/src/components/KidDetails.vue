@@ -5,7 +5,7 @@
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
     <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid2.jpg">
+      <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
     <!--<div class="">-->
     <!--<div class="">-->
@@ -15,7 +15,7 @@
         <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
         <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
       </div>
-      <el-button v-if="isAdmin && isAdmArea" @click.stop="edit">
+      <el-button class="edit-btn"v-if="isAdmin && isAdmArea" @click.stop="edit">
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
     </div>

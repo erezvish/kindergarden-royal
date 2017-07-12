@@ -87,11 +87,7 @@ export default {
     },
     toggleIsPresent(kid) {
       console.log('toggling is present:', kid.imgUrl)
-      this.$confirm('Change Kid Status?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'info'
-      }).then(() => {
+      
         this.$store.dispatch({
           type: 'togglePresent',
           kid
@@ -100,12 +96,7 @@ export default {
           type: 'success',
           message: 'Kid Status Updated'
         });
-      }).catch(() => {
-        this.$message({
-          type: 'error',
-          message: 'Status Update Cancelled'
-        });
-      });
+    
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
