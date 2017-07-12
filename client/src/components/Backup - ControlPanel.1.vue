@@ -2,12 +2,10 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
-        <div class="icon-wraper">
         <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}" @click="activateVoice"></i>
-        <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
-        </div>
-        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" v-model="searchInput" @input="filterKids">
+        <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" icon="search" v-model="searchInput" @input="filterKids">
         </el-input>
+        <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
           <el-radio-group class="controls" dir="ltr" v-model="radioSelected">
             <el-radio-button label="all">All</el-radio-button>
@@ -73,8 +71,8 @@ export default {
       this.filterKids()
     },
     runSpokenRadioFilter(radioSelection) {
-      if (radioSelection.toLowerCase() === 'all' || radioSelection.toLowerCase() === 'here'
-        || radioSelection.toLowerCase === 'away') this.radioSelected = radioSelection;
+      if(radioSelection.toLowerCase() === 'all' || radioSelection.toLowerCase() === 'here'
+      || radioSelection.toLowerCase === 'away')       this.radioSelected = radioSelection;
     },
     clearFilter() {
       this.searchInput = '';
@@ -114,7 +112,6 @@ export default {
 // * {
 //   outline: 1px solid #333;
 // }
-
 .el-row {
   display: flex;
   justify-content: center;
@@ -141,6 +138,7 @@ export default {
 }
 
 .control-panel {
+  // display: flex;
   .controls {
     display: flex;
     padding: 2em!important;
@@ -152,6 +150,11 @@ export default {
     }
     margin: 0.2em 0.4em;
     transition: all,
+    0.3s; // @media screen and (max-width: 500px) {
+    //   font: {
+    //     size: 1.6em;
+    //   }
+    // }
   }
 
   & .fa:hover {
@@ -159,17 +162,13 @@ export default {
     color: #ADD8E6;
     transition: all, 0.3s;
   }
-
-  .icon-wraper {
-    display: flex;
-    // flex-direction: column;
-  }
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 @media screen and (min-width: $xs) {
   .control-panel {
+    // display: none;
     justify-content: space-between;
     border-radius: 0em;
     padding: 0 2em;
@@ -177,9 +176,9 @@ export default {
     background: rgba(255, 255, 255, 0.8);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) .021em, rgba(255, 255, 255, 0.3));
 
-    .fa-search, fa-microphone {
+    .fa-search {
       margin-left: 0;
-      font-size: 2.1em;
+      font-size: 2.6em;
       color: rgba(55, 98, 131, 0.6);
     }
   }
@@ -189,24 +188,21 @@ export default {
 }
 
 @media screen and (max-width: $sm) {
-  
   .control-panel {
-    justify-content: flex-start;
     .controls-wraper {
       margin: 0;
     }
   }
   .search-bar {
-    // position: absolute;
-    // margin: 0 18%;
-    // width: 66%;
+    position: absolute;
+    margin: 0 18%;
+    width: 66%;
     z-index: 1;
     visibility: visible;
     opacity: 1;
     transition: all, 1s;
   }
   .hideSearchBar {
-    display: none;
     transition: all, 1s;
     visibility: hidden;
     opacity: 0;

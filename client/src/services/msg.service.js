@@ -6,20 +6,32 @@ import appSocket from './socket'
 
 const port = appSocket.port;
 const url = `http://localhost:${port}/data/msg`
-console.log('msg socket:', appSocket.socket)
 
 export default {
     initSocket(actionFunc) {
         appSocket.socket.on('parent message', (message) => {
-            console.log('emit received!')
+            // console.log('emit received!')
             if (typeof actionFunc === 'function') {
                 actionFunc(message)
             }
         })
     },
+    initEmojiSocket(actionFunc) {
+        appSocket.socket.on('emoji message', (_id, emojiType) => {
+            // console.log('emit received!')
+            if (typeof actionFunc === 'function') {
+                actionFunc(_id, emojiType)
+            }
+        })
+    },
+
     send(message) {
-        console.log('message has left the service')
+        // console.log('message has left the service')
         appSocket.socket.emit('parent message', message)
+    },
+    sendEmoji(_id, emoji) {
+        console.log('sending emoji')
+        appSocket.socket.emit('emoji message', _id, emoji)
     },
 
     getList() {
@@ -43,7 +55,7 @@ export default {
             })
     },
 
-    create(message) {}, //done via WebSockets
+    create(message) { }, //done via WebSockets
 
     delete(messageId) {
         const messageUrl = url + `/${messageId}`

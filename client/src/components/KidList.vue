@@ -5,7 +5,6 @@
   
         <div class="status-bar">
           <div class="title">
-            <i class="fa fa-address-card-o" aria-hidden="true"></i>
             <h1> Kid list area </h1>
           </div>
           <ul class="controls">
@@ -22,7 +21,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -31,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
 
 import store from '../store'
@@ -40,36 +39,29 @@ export default {
   props: ['isAdmArea'],
   components: {
     KidDetails,
-
   },
   data() {
     return {
       thumbnailView: true,
-
       triggerListView: false,
       isReverseSort: false,
-      isFirstSort: true
-
+      isFirstSort: true,
     }
   },
   computed: { //TODO: use map getters
-    ...mapGetters([
-    ]),
+    // ...mapGetters([
+    // ]),
     kids() {
       return this.$store.getters.filteredKids
     },
-    isAdmin() {
-      return this.$store.state.isAdmin
-    },
-    isBasic() {
-      return this.$store.state.isBasic
-    },
+    ...mapState([
+      'isAdmin',
+      'isBasic',
+      'isParent'
+    ]),
     hasMessages() {
       return this.$store.state.messages.length > 0
     }
-  },
-
-  created() {
   },
   methods: {
     bellClicked() {
@@ -87,11 +79,7 @@ export default {
     },
     toggleIsPresent(kid) {
       console.log('toggling is present:', kid.imgUrl)
-      this.$confirm('Change Kid Status?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'info'
-      }).then(() => {
+      
         this.$store.dispatch({
           type: 'togglePresent',
           kid
@@ -100,12 +88,7 @@ export default {
           type: 'success',
           message: 'Kid Status Updated'
         });
-      }).catch(() => {
-        this.$message({
-          type: 'error',
-          message: 'Status Update Cancelled'
-        });
-      });
+    
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -179,6 +162,14 @@ export default {
           type: 'success',
           message: 'Good Morning New Day!'
         });
+      })
+    },
+    setEmoji(kid, emojiType) {
+      console.log('kid', kid, 'should get the emoji', emojiType)
+      this.$store.dispatch({
+        type: 'sendEmoji',
+        _id: kid._id,
+        emojiType
       })
     }
   }
@@ -322,9 +313,6 @@ export default {
 //
 @media screen and (max-width: $sm) {
   .view {
-    display: none;
-  }
-  .fa-address-card-o {
     display: none;
   }
 }

@@ -34,23 +34,44 @@ export default {
     },
 
     login(state, payload) {
-        state.isAdmin = true
-        state.token = payload.token
+        if (payload.user.type === 'admin') state.isAdmin = true
+        else if (payload.user.type === 'basic') state.isBasic = true
     },
 
     logout(state) {
         state.isAdmin = false
-        state.token = ''
+        state.isBasic = false
+        state.isParent = false
     },
+
+    setParent(state, payload) {
+        state.isParent = true
+    },
+
     //mutations that refer to Messages
     receiveParentMessage(state, { message }) {
         // console.log('Message reached the mutation!!!')
         state.messages.unshift(message)
     },
+    receiveEmojiMessage(state, { _id, emojiType }) {
+        // console.log('Emoji reached the mutation!!!')
+        const idx = state.kids.findIndex(kid => kid._id === _id)
+        if (idx !== -1) {
+            let updatedKid = Object.assign({}, state.kids[idx])
+            clearTimeout(updatedKid.emojiTimeoutIdx);
+            updatedKid.emojiType = emojiType;
+            state.kids.splice(idx, 1, updatedKid)
+            updatedKid.emojiTimeoutIdx =  setTimeout(_ => {
+                updatedKid.emojiType = null;
+                state.kids.splice(idx, 1, updatedKid)
+            }, 7000)
+            // console.log('updated kid:', updatedKid)
+            // console.log('updated state with kid emoji:', state.kids)    
+        }
+    },
     getMessages(state, { messages }) {
         const len = state.messages.length
         state.messages.splice(0, len, ...messages)
-        console.log('messages:', state.messages)
     },
     deleteMessage(state, { _id }) {
         console.log('message deleted from store')
