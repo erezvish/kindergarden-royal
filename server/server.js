@@ -92,7 +92,7 @@ app.get('/data/:objType/:id', function (req, res) {
 	}
 	const objId = req.params.id;
 	cl(`Getting you an ${objType} with id: ${objId}`);
-	dbConnect()
+	const pm = dbConnect()
 		.then((db) => {
 			const collection = db.collection(objType);
 			let _id;
@@ -114,6 +114,7 @@ app.get('/data/:objType/:id', function (req, res) {
 					db.close();
 				})
 		});
+	pm.catch(err => res.status(404).json({ error: 'not found' }))
 });
 
 // DELETE
@@ -198,6 +199,7 @@ app.post('/login', function (req, res) {
 				cl('Login Succesful');
 				delete user.pass;
 				req.mySession.user = user;  //refresh the session value
+				res.json(user)
 				res.end()
 			} else {
 				cl('Login NOT Succesful');
@@ -222,11 +224,7 @@ function requireLogin(req, res, next) {
 	}
 }
 
-// app.get('/protected', function (req, res) {
-// 	console.log('I am here')
-// 	res.end('User is loggedin, return some data');
-// });
-app.get('/protected', function (req, res) {
+app.get('/protected', requireLogin, function (req, res) {
 	console.log('req.mySession.user', req.mySession.user);
 	res.send('<h1>Hello Admin</h1>');
 })

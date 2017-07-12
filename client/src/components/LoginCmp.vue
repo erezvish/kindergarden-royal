@@ -53,7 +53,7 @@ export default {
         () => {
           this.$message({
             type: 'error',
-            message: 'One or more fields are not correct'
+            message: 'Error in log in'
           })
           this.$router.push('/')
         })

@@ -35,7 +35,7 @@ const store = new Vuex.Store({
         },
         isAdmin: true,
         isBasic: false,
-        token: '',
+        isParent: false,
         messages: []
     },
     getters,

@@ -34,14 +34,19 @@ export default {
     },
 
     login(state, payload) {
-        state.isAdmin = true
-        state.token = payload.token
+        if (payload.user.type === 'admin') state.isAdmin = true
+        else if (payload.user.type === 'basic') state.isBasic = true
     },
 
     logout(state) {
         state.isAdmin = false
-        state.token = ''
+        state.isBasic = false
     },
+
+    setParent(state, payload) {
+        state.isParent = true
+    },
+
     //mutations that refer to Messages
     receiveParentMessage(state, { message }) {
         // console.log('Message reached the mutation!!!')
@@ -54,7 +59,6 @@ export default {
     getMessages(state, { messages }) {
         const len = state.messages.length
         state.messages.splice(0, len, ...messages)
-        console.log('messages:', state.messages)
     },
     deleteMessage(state, { _id }) {
         console.log('message deleted from store')

@@ -87,7 +87,7 @@ export default {
     login({ commit }, payload) {
         return userService.login(payload.user)
             .then(res => {
-                payload.token = res.data.token
+                payload.user = res.data
                 commit(payload)
                 return res
             })
@@ -99,6 +99,17 @@ export default {
                 commit(type)
             })
     },
+
+    checkParent({ commit }, payload) {
+        userService.checkParent(payload.id)
+            .then(isParent => {
+                commit({
+                    type: 'setParent',
+                    id: payload.id
+                })
+            }).catch(err => payload.that.$router.push('/login'))
+    },
+
     //actions that refer to Messages
 
     getMessages({ commit }, payload) {
