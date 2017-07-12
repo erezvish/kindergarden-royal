@@ -23,7 +23,7 @@
                 <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
               </li>-->
         <li>
-          <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+          <ul  class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
             <li>
               <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
             </li>
@@ -48,9 +48,9 @@
       </el-button>
     </div>
   
-    <div class="container-right">
-      <div v-if="isAdmArea" class="msg-parent x-space-child">
-        <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
+    <!--<div class="container-right">-->
+      <div v-if="isAdmArea || isBasic" class="msg-parent">
+        <input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></input>
         <el-button type="default" @click="sendMessage">
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
         </el-button>
@@ -165,9 +165,9 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-* {
-  outline: 1px solid green;
-}
+// * {
+//   outline: 1px solid green;
+// }
 
 //
 .main-section {
@@ -215,6 +215,10 @@ export default {
   color: white;
 }
 
+.msg-parent {
+  display: flex;
+  border: 2px solid red;
+}
 .status {
   .kid-status {
     & span {
