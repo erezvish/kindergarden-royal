@@ -48,8 +48,15 @@ export default {
         state.messages.unshift(message)
     },
     receiveEmojiMessage(state, { _id, emojiType }) {
-        console.log('Emoji reached the mutation!!!')
-        // state.messages.unshift(messareachedge)
+        // console.log('Emoji reached the mutation!!!')
+        const idx = state.kids.findIndex(kid => kid._id === _id)
+        if (idx !== -1) {
+            let updatedKid = Object.assign({}, state.kids[idx])
+            updatedKid.emojiType = emojiType;
+            // console.log('updated kid:', updatedKid)
+            state.kids.splice(idx, 1, updatedKid)
+            console.log('updated state with kid emoji:', state.kids)    
+        }
     },
     getMessages(state, { messages }) {
         const len = state.messages.length

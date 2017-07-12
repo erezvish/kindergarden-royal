@@ -4,45 +4,45 @@
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
       <div class="emojis">
-        <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojis.heart">
-        <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojis.heartEyes">
-        <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojis.star">
-        <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojis.wink">
+        <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
+        <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
+        <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
+        <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
     </div>
     <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
- 
+  
     <!--<div class="">-->
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-          <ul class="status clear-style" @click.stop="toggleIsPresent">
-      <!--<li class="kid-status">
-        <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-        <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-      </li>-->
-      <li>
-        <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
-          </li>
-        </ul>
-      </li>
-    </ul>
+      <ul class="status clear-style" @click.stop="toggleIsPresent">
+        <!--<li class="kid-status">
+            <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+            <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+          </li>-->
+        <li>
+          <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
+            </li>
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
+            </li>
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
+            </li>
+            <li>
+              <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
+            </li>
+          </ul>
+        </li>
+      </ul>
       <!--<div class="status kid-status">
-          <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-          <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-        </div>-->
+              <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+              <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+            </div>-->
       <el-button class="edit-btn" v-if="isAdmin && isAdmArea" @click.stop="edit">
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
- 
+  
   </section>
 </template>
 
@@ -94,6 +94,14 @@ export default {
         'mark-absent': !this.kid.isPresent,
         'list-view': this.isListView,
         'kid-details-container': this.isListView
+      }
+    },
+    emojisObject() {
+      return {
+        heart: this.kid.emojiType === 'heart',
+        heartEyes: this.kid.emojiType === 'heartEyes',
+        star: this.kid.emojiType === 'star',
+        wink: this.kid.emojiType === 'wink'
       }
     }
   },
@@ -315,10 +323,8 @@ export default {
     margin-left: 3vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    // justify-content: space-between;
+    align-items: center; // justify-content: space-between;
     align-self: center;
-    
   }
   .kid-name {
     color: #376283;
