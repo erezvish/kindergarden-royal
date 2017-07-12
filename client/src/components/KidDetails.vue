@@ -73,8 +73,6 @@
 
 <script>
 import Webcam from 'webcamjs'
-import img1 from './img1.js'
-import img2 from './img2.js'
 export default {
   name: 'kid-details',
   props: ['kid', 'emojis', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
