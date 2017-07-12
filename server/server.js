@@ -195,7 +195,7 @@ app.put('/data/:objType/:id', function (req, res) {
 app.post('/login', function (req, res) {
 	dbConnect().then((db) => {
 		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
-			if (user && user.type === 'admin') {
+			if (user && (user.type === 'admin' || user.type === 'basic')) {
 				cl('Login Succesful');
 				delete user.pass;
 				req.mySession.user = user;  //refresh the session value

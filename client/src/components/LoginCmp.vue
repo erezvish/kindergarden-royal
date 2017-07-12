@@ -49,13 +49,17 @@ export default {
         type: 'login',
         user: this.user
       })
-      .then((res) => this.$router.push('/admin'),
+        .then((res) => {
+          const user = res.data
+          if (user.type === 'admin') this.$router.push('/admin')
+          else this.$router.push('/')
+        },
         () => {
           this.$message({
             type: 'error',
             message: 'Error in log in'
           })
-          this.$router.push('/')
+          this.$router.push('/login')
         })
     }
   }
@@ -67,14 +71,13 @@ export default {
 // * {
 //   outline: 1px solid #333;
 // }
-
 .login {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   background: lightblue;
-  
+
   padding: 2em;
   min-height: 100vh;
 }

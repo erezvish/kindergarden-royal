@@ -24,11 +24,11 @@
               <router-link class="router-link single-item" to="/admin">
                 <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
             </li>
-            <li v-if="!isAdmin" @click="slideMenu">
+            <li v-if="!isAdmin && !isBasic" @click="slideMenu">
               <router-link class="router-link single-item" to="/login">
                 <i class="fa fa-user-circle" aria-hidden="true"></i>{{ t('Log In') }}</router-link>
             </li>
-            <li v-if="isAdmin" @click="logout">
+            <li v-if="isAdmin || isBasic" @click="logout">
               <div class="single-item">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 {{ t('Log Out') }}
