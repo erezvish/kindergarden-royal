@@ -252,6 +252,34 @@ io.on('connection', function (socket) {
 		// console.log('message: ' + msg);
 		io.emit('chat message', msg);
 	});
+	socket.on('emoji message', function (_id, emoji) {
+		console.log('received emoji, sending to all', _id, emoji)
+		io.emit('emoji message', _id, emoji);
+	})
+	socket.on('parent message', function (msg) {//duplicating some code instead of a dedicated function,
+		// because there might be a single server for demonstration and people may need the original code
+		console.log('message: ' + msg);
+		io.emit('parent message', msg);
+		const objType = 'msg';
+		cl("POST for " + objType);
+
+		const obj = msg;
+		delete obj._id;
+		dbConnect().then((db) => {
+			const collection = db.collection(objType);
+
+			collection.insert(obj, (err, result) => {
+				if (err) {
+					cl(`Couldnt insert a new ${objType}`, err)
+					// TODO: send some response with emit and wait at client side
+				} else {
+					cl(objType + " added");
+					// TODO: send some response with emit and wait at client side
+				}
+				db.close();
+			});
+		});
+	});
 	socket.on('toggle present', function (kid) {
 		kid._id = new mongodb.ObjectID(kid._id);
 		dbConnect().then((db) => {

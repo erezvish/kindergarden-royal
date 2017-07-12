@@ -52,6 +52,10 @@ export default {
         // console.log('Message reached the mutation!!!')
         state.messages.unshift(message)
     },
+    receiveEmojiMessage(state, { _id, emojiType }) {
+        console.log('Emoji reached the mutation!!!')
+        // state.messages.unshift(messareachedge)
+    },
     getMessages(state, { messages }) {
         const len = state.messages.length
         state.messages.splice(0, len, ...messages)
