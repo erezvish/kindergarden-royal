@@ -2,7 +2,6 @@
   <section class="main-section" :class="classObject">
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid.jpg">
       <div class="emojis" v-if="(isAdmin || isBasic) && !isAdmArea ">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojis.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojis.heartEyes">
