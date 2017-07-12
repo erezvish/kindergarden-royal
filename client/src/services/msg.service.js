@@ -11,19 +11,28 @@ console.log('msg socket:', appSocket.socket)
 export default {
     initSocket(actionFunc) {
         appSocket.socket.on('parent message', (message) => {
-            console.log('emit received!')
+            // console.log('emit received!')
             if (typeof actionFunc === 'function') {
                 actionFunc(message)
             }
         })
     },
+    initEmojiSocket(actionFunc) {
+        appSocket.socket.on('emoji message', (_id, emojiType) => {
+            // console.log('emit received!')
+            if (typeof actionFunc === 'function') {
+                actionFunc(id, emojiType)
+            }
+        })
+    },
+
     send(message) {
         // console.log('message has left the service')
         appSocket.socket.emit('parent message', message)
     },
-    sendEmoji(emoji) {
+    sendEmoji(_id, emoji) {
         console.log('sending emoji')
-        appSocket.socket.emit('emoji message', emoji)        
+        appSocket.socket.emit('emoji message', _id, emoji)
     },
 
     getList() {

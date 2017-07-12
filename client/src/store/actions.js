@@ -47,7 +47,7 @@ export default {
     },
 
 
-    filterKids({commit}, payload) {
+    filterKids({ commit }, payload) {
         console.log('Firing filter Action!')
         payload.text = payload.text.toLowerCase()
         commit(payload);
@@ -65,12 +65,19 @@ export default {
                 kid
             })
         }),
-            msgService.initSocket(message => {
-                commit({
-                    type: 'receiveParentMessage',
-                    message
-                })
+        msgService.initSocket(message => {
+            commit({
+                type: 'receiveParentMessage',
+                message
             })
+        })
+        msgService.initEmojiSocket((_id, emojiType) => {
+            commit({
+                type: 'receiveParentMessage',
+                _id,
+                emojiType
+            })
+        })
     },
 
     togglePresent({ commit }, payload) {
@@ -88,9 +95,9 @@ export default {
 
     logout({ commit }, { type }) {
         return userService.logout()
-        .then(() => {
-            commit(type)
-        })
+            .then(() => {
+                commit(type)
+            })
     },
     //actions that refer to Messages
 
@@ -112,6 +119,17 @@ export default {
         commit({
             type: 'receiveParentMessage',
             message
+        })
+    },
+
+    sendEmoji({ commit }, payload) {
+        msgService.send(payload._id, payload.emojiType)
+    },
+    receiveEmojiMessage({ commit }, { _id, emojiType }) {
+        commit({
+            type: 'receiveEmojiMessage',
+            _id,
+            emojiType
         })
     },
     deleteMessage({ commit }, payload) {

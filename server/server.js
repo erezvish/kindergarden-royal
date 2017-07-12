@@ -254,8 +254,8 @@ io.on('connection', function (socket) {
 		// console.log('message: ' + msg);
 		io.emit('chat message', msg);
 	});
-	socket.on('emjoi message', function (emoji) {
-		io.emit('emoji message', emoji);
+	socket.on('emjoi message', function (_id, emoji) {
+		io.emit('emoji message', _id, emoji);
 	})
 	socket.on('parent message', function (msg) {//duplicating some code instead of a dedicated function,
 		// because there might be a single server for demonstration and people may need the original code
