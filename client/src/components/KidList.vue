@@ -22,7 +22,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isListView="triggerListView" :isAdmArea="isAdmArea" :emojis="emojisObject" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" :emojis="emojisObject" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
 
 import store from '../store'
@@ -40,7 +40,6 @@ export default {
   props: ['isAdmArea'],
   components: {
     KidDetails,
-
   },
   data() {
     return {
@@ -54,27 +53,22 @@ export default {
         star: false,
         wink: false
       }
-
     }
   },
   computed: { //TODO: use map getters
-    ...mapGetters([
-    ]),
+    // ...mapGetters([
+    // ]),
     kids() {
       return this.$store.getters.filteredKids
     },
-    isAdmin() {
-      return this.$store.state.isAdmin
-    },
-    isBasic() {
-      return this.$store.state.isBasic
-    },
+    ...mapState([
+      'isAdmin',
+      'isBasic',
+      'isParent'
+    ]),
     hasMessages() {
       return this.$store.state.messages.length > 0
     }
-  },
-
-  created() {
   },
   methods: {
     bellClicked() {

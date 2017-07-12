@@ -3,7 +3,7 @@
   
     <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
-      <div class="emojis">
+      <div class="emojis" v-if="(isAdmin || isBasic) && !isAdmArea ">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojis.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojis.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojis.star">
@@ -100,7 +100,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'emojis', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  props: ['kid', 'emojis','isParent' ,'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
