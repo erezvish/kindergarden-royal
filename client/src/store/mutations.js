@@ -52,10 +52,15 @@ export default {
         const idx = state.kids.findIndex(kid => kid._id === _id)
         if (idx !== -1) {
             let updatedKid = Object.assign({}, state.kids[idx])
+            clearTimeout(updatedKid.emojiTimeoutIdx);
             updatedKid.emojiType = emojiType;
-            // console.log('updated kid:', updatedKid)
             state.kids.splice(idx, 1, updatedKid)
-            console.log('updated state with kid emoji:', state.kids)    
+            updatedKid.emojiTimeoutIdx =  setTimeout(_ => {
+                updatedKid.emojiType = null;
+                state.kids.splice(idx, 1, updatedKid)
+            }, 7000)
+            // console.log('updated kid:', updatedKid)
+            // console.log('updated state with kid emoji:', state.kids)    
         }
     },
     getMessages(state, { messages }) {
