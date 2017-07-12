@@ -9,21 +9,13 @@
     </div>
     <!--<div class="">-->
     <!--<div class="">-->
-    <div class="" @click.stop="toggleIsPresent">
+    <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-      <div class="status kid-status">
+          <ul class="status clear-style" @click.stop="toggleIsPresent">
+      <li class="kid-status">
         <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
         <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-      </div>
-      <el-button class="edit-btn"v-if="isAdmin && isAdmArea" @click.stop="edit">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-      </el-button>
-    </div>
-    <ul class="status clear-style" @click.stop="toggleIsPresent">
-      <!--<li class="kid-status">
-                <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-                <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-              </li>-->
+      </li>
       <li>
         <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li>
@@ -42,6 +34,37 @@
       </li>
       <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
     </ul>
+      <!--<div class="status kid-status">
+          <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+          <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+        </div>-->
+      <el-button class="edit-btn" v-if="isAdmin && isAdmArea" @click.stop="edit">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      </el-button>
+    </div>
+    <!-- <ul class="status clear-style" @click.stop="toggleIsPresent">
+      <li class="kid-status">
+        <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+        <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+      </li>
+      <li>
+        <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/heart.png">
+          </li>
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png">
+          </li>
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/star.png">
+          </li>
+          <li>
+            <img class="fav-icon" src="../assets/msg-icon/blink.png">
+          </li>
+        </ul>
+      </li>
+      <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
+   <!-- </ul> -->
   
     <!--</div>-->
     <div class="container-right" @click.self="toggleIsPresent">
@@ -169,7 +192,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 1em 0.5em;
-  
 }
 
 .kid-img {
@@ -281,26 +303,29 @@ export default {
 
 @media screen and (max-width: $sm) {
   .main-section {
-    width: 80vw;
+    padding-bottom: 0.7em;
+    flex-direction: row;
+    width: 90vw;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
   .kid-img {
-    width: 65vw;
-    height: 65vw; 
-    margin: 0 11%;
+    width: 31vw;
+    height: 31vw;
+    margin: 0 0;
     border-radius: 50%;
     box-shadow: 0 0 11px #333;
   }
 
   .status {
     & span {
-      font-size: 1.2em;
+      display: none;
+      font-size: 0.2em;
       padding: 0.2em 0.5em;
       border-radius: 0.5em;
     }
     .icon-list {
-      width: 70vw;
-      margin: 1em 0;
+      width: 57vw;
+      margin: 0em 0;
       li {
         margin: 0 0.5em;
         img {
@@ -310,8 +335,20 @@ export default {
       }
     }
   }
+  .kid-name-wraper {
+    margin-left: 3vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: space-between;
+    align-self: center;
+    
+  }
   .kid-name {
+    color: #376283;
     font-size: 7vw;
+    margin: 0;
+    padding: 0;
   }
 }
 </style>
