@@ -190,9 +190,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid red;
-// }
+* {
+  outline: 1px solid red;
+}
 .bell-is-on {
   color: orange!important;
   animation-name: bell-flash;
