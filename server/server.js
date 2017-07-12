@@ -25,10 +25,10 @@ const serverRoot = 'http://localhost:3003/';
 const baseUrl = serverRoot + 'data';
 
 app.use(sessions({
-  cookieName: 'mySession', // cookie name dictates the key name added to the request object 
-  secret: 'pukiwwwnttothemountains', // should be a large unguessable string 
-  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms 
-  activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds 
+	cookieName: 'mySession', // cookie name dictates the key name added to the request object 
+	secret: 'pukiwwwnttothemountains', // should be a large unguessable string 
+	duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms 
+	activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds 
 }))
 
 app.use(express.static('uploads'));
@@ -63,7 +63,7 @@ function dbConnect() {
 // GETs a list
 app.get('/data/:objType', function (req, res) {
 	const objType = req.params.objType;
-	if(objType === 'user') {
+	if (objType === 'user') {
 		res.status(403).json({ error: 'Un Authorized!' })
 		return
 	}
@@ -86,13 +86,13 @@ app.get('/data/:objType', function (req, res) {
 // GETs a single
 app.get('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
-	if(objType === 'user') {
+	if (objType === 'user') {
 		res.status(403).json({ error: 'Un Authorized!' })
 		return
 	}
 	const objId = req.params.id;
 	cl(`Getting you an ${objType} with id: ${objId}`);
-	dbConnect()
+	const pm = dbConnect()
 		.then((db) => {
 			const collection = db.collection(objType);
 			let _id;
@@ -114,6 +114,7 @@ app.get('/data/:objType/:id', function (req, res) {
 					db.close();
 				})
 		});
+	pm.catch(err => res.status(404).json({ error: 'not found' }))
 });
 
 // DELETE
@@ -198,6 +199,7 @@ app.post('/login', function (req, res) {
 				cl('Login Succesful');
 				delete user.pass;
 				req.mySession.user = user;  //refresh the session value
+				res.json(user)
 				res.end()
 			} else {
 				cl('Login NOT Succesful');
@@ -215,20 +217,16 @@ app.get('/logout', function (req, res) {
 });
 
 function requireLogin(req, res, next) {
-  if (!req.mySession.user) {
-    res.status(403).end('Un Authenticated!')
-  } else {
-    next();
-  }
+	if (!req.mySession.user) {
+		res.status(403).end('Un Authenticated!')
+	} else {
+		next();
+	}
 }
 
-// app.get('/protected', function (req, res) {
-// 	console.log('I am here')
-// 	res.end('User is loggedin, return some data');
-// });
-app.get('/protected', function (req, res) {
-  console.log('req.mySession.user', req.mySession.user);
-  res.send('<h1>Hello Admin</h1>');
+app.get('/protected', requireLogin, function (req, res) {
+	console.log('req.mySession.user', req.mySession.user);
+	res.send('<h1>Hello Admin</h1>');
 })
 
 // Kickup our server 

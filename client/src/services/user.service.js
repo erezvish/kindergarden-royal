@@ -12,6 +12,9 @@ export default {
     logout() {
         const logoutUrl = url + '/logout'
         return axios.get(logoutUrl)
-    }
+    },
 
+    checkParent(id) {
+        return axios.get(url + '/data/kid/' + id)
+    }
 }

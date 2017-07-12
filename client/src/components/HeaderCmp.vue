@@ -16,7 +16,7 @@
         </li>
         <li>
           <ul class="navbar clear-style-nav">
-            <li class="nav-item" @click="slideMenu">
+            <li class="nav-item" @click="slideMenu" v-if="isAdmin || isBasic || isParent">
               <router-link class="router-link single-item" to="/">
                 <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
             </li>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'header-cmp',
   data() {
@@ -64,9 +65,11 @@ export default {
     }
   },
   computed: {
-    isAdmin() {
-      return this.$store.state.isAdmin
-    },
+    ...mapState([
+      'isAdmin',
+      'isBasic',
+      'isParent'
+    ]),
     direction() {
       let direction = this.lang === 'eng' ? 'ltr' : 'rtl'
       return direction

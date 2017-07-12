@@ -47,7 +47,7 @@ export default {
     },
 
 
-    filterKids({commit}, payload) {
+    filterKids({ commit }, payload) {
         console.log('Firing filter Action!')
         payload.text = payload.text.toLowerCase()
         commit(payload);
@@ -80,7 +80,7 @@ export default {
     login({ commit }, payload) {
         return userService.login(payload.user)
             .then(res => {
-                payload.token = res.data.token
+                payload.user = res.data
                 commit(payload)
                 return res
             })
@@ -88,10 +88,21 @@ export default {
 
     logout({ commit }, { type }) {
         return userService.logout()
-        .then(() => {
-            commit(type)
-        })
+            .then(() => {
+                commit(type)
+            })
     },
+
+    checkParent({ commit }, payload) {
+        userService.checkParent(payload.id)
+            .then(isParent => {
+                commit({
+                    type: 'setParent',
+                    id: payload.id
+                })
+            }).catch(err => payload.that.$router.push('/login'))
+    },
+
     //actions that refer to Messages
 
     getMessages({ commit }, payload) {

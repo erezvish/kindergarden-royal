@@ -6,7 +6,6 @@ import appSocket from './socket'
 
 const port = appSocket.port;
 const url = `http://localhost:${port}/data/msg`
-console.log('msg socket:', appSocket.socket)
 
 export default {
     initSocket(actionFunc) {

@@ -48,19 +48,9 @@
 
 <script>
 import Webcam from 'webcamjs'
-import img1 from './img1.js'
-import img2 from './img2.js'
 export default {
   name: 'kid-details',
   props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
-  // created() {
-  //   this.localKid.imgUrl = img2
-  // },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.localKid.imgUrl = img1
-  //   }, 2000)
-  // },
   data() {
     return {
       inputMsgParent: '',
