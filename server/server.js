@@ -113,8 +113,8 @@ app.get('/data/:objType/:id', function (req, res) {
 					res.json(404, { error: 'not found' })
 					db.close();
 				})
-		});
-	pm.catch(err => res.status(404).json({ error: 'not found' }))
+		})
+		.catch(err => res.status(404).json({ error: 'not found' }))
 });
 
 // DELETE

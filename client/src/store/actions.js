@@ -108,7 +108,9 @@ export default {
                         type: 'setParent',
                         id: payload.id
                     })
-                }).catch(err => payload.that.$router.push('/login'))
+                }).catch(err => {
+                    payload.that.$router.push('/login')
+                })
         } else {
             if (!state.isAdmin && !state.isBasic) {
                 payload.that.$router.push('/login')
