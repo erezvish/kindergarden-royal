@@ -165,9 +165,9 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-* {
-  outline: 1px solid green;
-}
+// * {
+//   outline: 1px solid green;
+// }
 
 //
 .main-section {

@@ -5,6 +5,7 @@
   
         <div class="status-bar">
           <div class="title">
+            <div class="clock">{{(time)}}</div>
             <h1> Kid list area </h1>
           </div>
           <ul class="controls">
@@ -21,7 +22,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :class="{'warn-absent': !kid.isPrsent && timePassed}"  :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -33,6 +34,7 @@
 import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
 
+import moment from 'moment'
 import store from '../store'
 export default {
   name: 'kid-list',
@@ -46,7 +48,21 @@ export default {
       triggerListView: false,
       isReverseSort: false,
       isFirstSort: true,
+      time: moment().format('HH:mm'),
+      checkTime: moment('9:30', 'HH:mm'), 
+      PresentChecked: false,
     }
+  },
+  created() {
+    window.moment = moment
+    let that = this;
+    const clockInterval = setInterval(function clockRun() {
+      that.time = moment().format('HH:mm');
+      if (!that.PresentChecked && that.checkTime.isBefore(that.currTime)) {
+        that.PresentChecked = true;
+        that.checkAbsentees()
+      }
+    }, 1000)
   },
   computed: { //TODO: use map getters
     // ...mapGetters([
@@ -61,6 +77,9 @@ export default {
     ]),
     hasMessages() {
       return this.$store.state.messages.length > 0
+    },
+    currTime() {
+      return moment()
     }
   },
   methods: {
@@ -79,16 +98,16 @@ export default {
     },
     toggleIsPresent(kid) {
       console.log('toggling is present:', kid.imgUrl)
-      
-        this.$store.dispatch({
-          type: 'togglePresent',
-          kid
-        })
-        this.$message({
-          type: 'success',
-          message: 'Kid Status Updated'
-        });
-    
+
+      this.$store.dispatch({
+        type: 'togglePresent',
+        kid
+      })
+      this.$message({
+        type: 'success',
+        message: 'Kid Status Updated'
+      });
+
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -170,6 +189,11 @@ export default {
         type: 'sendEmoji',
         _id: kid._id,
         emojiType
+      })
+    },
+    checkAbsentees() {
+      this.kids.forEach(kid => {
+        console.log(kid.isPresent)
       })
     }
   }
@@ -264,6 +288,12 @@ export default {
     }
     .title {
       display: flex;
+    }
+    .clock {
+      color: yellow;
+      position: absolute;
+      top: 0.1em;
+      left: 3.5%;
     }
   }
 }
