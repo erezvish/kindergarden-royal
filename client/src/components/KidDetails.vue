@@ -38,7 +38,6 @@
           </li>
         </ul>
       </li>
-      <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
     </ul>
       <!--<div class="status kid-status">
           <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
@@ -48,31 +47,7 @@
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
     </div>
-    <!-- <ul class="status clear-style">
-      <li class="kid-status">
-        <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-        <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-      </li>
-      <li>
-        <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
-          </li>
-          <li>
-            <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
-          </li>
-        </ul>
-      </li>
-      <!--<li class="hr"> {{ t('Last seen') }}:</li>-->
-   <!-- </ul> -->
   
-    <!--</div>-->
     <div class="container-right">
       <div v-if="isAdmArea" class="msg-parent x-space-child">
         <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
@@ -92,7 +67,7 @@
         </div>
       </div>
     </div>
-    <!--</div>-->
+ 
   </section>
 </template>
 
@@ -103,14 +78,6 @@ import img2 from './img2.js'
 export default {
   name: 'kid-details',
   props: ['kid', 'emojis', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
-  // created() {
-  //   this.localKid.imgUrl = img2
-  // },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.localKid.imgUrl = img1
-  //   }, 2000)
-  // },
   data() {
     return {
       inputMsgParent: '',
