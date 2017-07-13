@@ -308,7 +308,7 @@ export default {
   100% {
     opacity: 0;
   }  100% {
-    opacity: 1;
+    opacity: 0;
   }
 }
 
