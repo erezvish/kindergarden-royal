@@ -21,11 +21,9 @@
 </template>
 
 <script>
-import FilterCmp from './FilterCmp'
 export default {
   name: 'control-panel',
   components: {
-    FilterCmp
   },
   data() {
     return {
@@ -37,7 +35,7 @@ export default {
         'search *spokenFilter': this.runSpokenFilter,
         'find *spokenFilter': this.runSpokenFilter,
         'clear': this.clearFilter,
-        'show *radioSelection': this.runSpokenRadioFilter
+        // 'show *radioSelection': this.runSpokenRadioFilter
       },
       audioSounds: {
         micAudio1: new Audio('/static/sound/mic1.mp3'),

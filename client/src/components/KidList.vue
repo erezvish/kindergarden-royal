@@ -22,7 +22,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :class="{'warn-absent': !kid.isPrsent && timePassed}"  :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :activateWarning = "activateWarning"  :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -51,6 +51,7 @@ export default {
       time: moment().format('HH:mm'),
       checkTime: moment('9:30', 'HH:mm'), 
       PresentChecked: false,
+      activateWarning: false
     }
   },
   created() {
@@ -60,7 +61,7 @@ export default {
       that.time = moment().format('HH:mm');
       if (!that.PresentChecked && that.checkTime.isBefore(that.currTime)) {
         that.PresentChecked = true;
-        that.checkAbsentees()
+        that.activateWarning = true;
       }
     }, 1000)
   },

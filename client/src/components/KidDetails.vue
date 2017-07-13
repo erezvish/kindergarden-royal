@@ -1,7 +1,7 @@
 <template>
   <section class="main-section" :class="classObject">
   
-    <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
+    <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
@@ -10,8 +10,8 @@
       </div>
       <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
-    <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
-      <img class="img-circle" src="../assets/img-kid/kid.jpg">
+    <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
+      <img class="img-circle" :src="kid.imgUrl">
     </div>
   
     <!--<div class="">-->
@@ -19,9 +19,9 @@
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
       <ul class="status clear-style" @click.stop="toggleIsPresent">
         <!--<li class="kid-status">
-                <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-                <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-              </li>-->
+                  <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                  <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+                </li>-->
         <li>
           <ul class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
             <li>
@@ -40,9 +40,9 @@
         </li>
       </ul>
       <!--<div class="status kid-status">
-                  <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
-                  <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
-                </div>-->
+                    <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                    <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+                  </div>-->
       <el-button class="edit-btn" v-if="isAdmin && isAdmArea" @click.stop="edit">
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </el-button>
@@ -75,7 +75,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning'],
   data() {
     return {
       inputMsgParent: '',
@@ -83,6 +83,9 @@ export default {
       cameraId: 'K' + this.kid._id,
       localKid: Object.assign({}, this.kid),
     }
+  },
+  created() {
+    // debugger;
   },
   computed: {
     classObject() {
@@ -101,7 +104,15 @@ export default {
         star: this.kid.emojiType === 'star',
         wink: this.kid.emojiType === 'wink'
       }
-    }
+    },
+    imgClassObject() {
+      return {
+        'kid-img': true,
+        'kid-present': this.kid.isPresent,
+        'kid-away': !this.kid.isPresent,
+        'warning': this.activateWarning && !this.kid.isPresent
+      }
+    },
   },
   methods: {
     toggleIsPresent() {
@@ -168,7 +179,6 @@ export default {
 // * {
 //   outline: 1px solid green;
 // }
-
 //
 .main-section {
   display: flex;
@@ -213,6 +223,10 @@ export default {
   background: $bg-absent;
   box-shadow: $box-shadow-default;
   color: white;
+}
+
+.warning {
+  animation: 1s warn-absent infinite
 }
 
 .status {
@@ -276,6 +290,16 @@ export default {
   }
 }
 
+@keyframes warn-absent {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 @media screen and (max-width: $md) {
@@ -297,7 +321,6 @@ export default {
       border-radius: 50%;
     }
   }
-
   .status {
     .icon-list {
       margin: 1em 0;
