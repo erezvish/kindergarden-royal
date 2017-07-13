@@ -80,6 +80,8 @@ export default {
 @media screen and (max-width: $md) {
     .el-col-sidebar {
         position: absolute;
+        z-index: 1;
+        height: 100vh;
         left: 0;
     }
     .sidebar {

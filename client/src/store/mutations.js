@@ -10,6 +10,8 @@ export default {
 
     updateKid(state, { kid }) {
         const _id = kid._id
+        kid.emojiType = null;
+        kid.emojiTimeoutIdx = null;
         const idx = state.kids.findIndex(someKid => someKid._id === _id)
         if (idx !== -1) {
             state.kids.splice(idx, 1, kid)
