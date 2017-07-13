@@ -1,8 +1,8 @@
 <template>
   <section class="main-section" :class="classObject">
   
-    <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
-      <div class="ctrl-icons">
+    <div class="kid-img kid-present" :id="cameraId" @click.stop="toggleIsPresent" v-show="kid.isPresent">
+        <div class="ctrl-icons">
         <i class="fa fa-volume-control-phone" v-if="isAdmin && isAdmArea" aria-hidden="true"></i>
         <i class="fa fa-pencil-square-o" aria-hidden="true" v-if="isAdmin && isAdmArea" @click.stop="edit"></i>
       </div>
@@ -14,10 +14,23 @@
       </div>
       <img class="img-circle" src="../assets/img-kid/kid2.jpg">
     </div>
+
+    <div class="kid-img kid-away" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
+      <img class="img-circle" src="../assets/img-kid/kid.jpg">
+      <div class="ctrl-icons">
+        <i class="fa fa-volume-control-phone" v-if="isAdmin && isAdmArea" aria-hidden="true"></i>
+        <i class="fa fa-pencil-square-o" v-if="isAdmin && isAdmArea" aria-hidden="true" ></i>
+      </div>
+    </div>
   
+    <!--<div class="">-->
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
       <ul class="status clear-style" @click.stop="toggleIsPresent">
+        <!--<li class="kid-status">
+                        <span class="kid-present" v-show="kid.isPresent"> {{ t('Currently In class') }} </span>
+                        <span class="kid-away" v-show="!kid.isPresent"> {{ t('Currently Not in class') }} </span>
+                      </li>-->
         <li>
           <ul v-if="isParent || isAdmin" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
             <li>
@@ -45,8 +58,8 @@
         </el-button>
       </div>
       <div v-if="isAdmin && isAdmArea" class="action-icons">
-        <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-        <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+          <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+          <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
       </div>
     </div>
   
@@ -167,7 +180,7 @@ export default {
   align-items: center;
   background: orange;
   width: 20vw;
-  height: 20vw;
+  height: 20vw; 
   margin: 0 1em;
   border-radius: 50%;
   box-shadow: 0 0 11px #333;
@@ -183,9 +196,9 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 2.6vw;
-      height: 2.6vw;
-      background: rgba(255, 255, 255, 0.9);
+      width:2.6vw;
+      height:2.6vw;
+      background:rgba(255,255,255,0.9);
       padding: 0.4em;
       border-radius: 50%;
       border: 1px solid #376283;
@@ -212,8 +225,6 @@ export default {
   background: rgba(0, 155, 2, 0.7);
   background: $bg-present;
   color: white;
-  animation: 1s kid-blink 1s;
-  animation-delay: 0s;
 }
 
 .kid-away {
@@ -221,10 +232,7 @@ export default {
   background: $bg-absent;
   box-shadow: $box-shadow-default;
   color: white;
-  animation: 1s kid-blink infinite;
-  animation-delay: 0s;
 }
-
 
 .msg-parent {
   display: flex;
@@ -270,7 +278,7 @@ export default {
 
 .kid-name {
   font-size: 2.4vw;
-  margin: 0.7em 0;
+  margin:0.7em 0;
 }
 
 .emojis {
@@ -301,22 +309,12 @@ export default {
   }
 }
 
-@keyframes kid-blink {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }  100% {
-    opacity: 1;
-  }
-}
-
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 @media screen and (max-width: $md) {
   .main-section {
     width: 30%;
+    
   }
   .kid-img {
     width: 25vw;
