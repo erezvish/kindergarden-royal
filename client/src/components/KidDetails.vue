@@ -291,12 +291,8 @@ export default {
 }
 
 @keyframes warn-absent {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.8;
-    transform: scale(1.1);
+  50% {
+    transform: scale(0.8);
   }
 }
 
