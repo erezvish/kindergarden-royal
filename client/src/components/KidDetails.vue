@@ -292,7 +292,8 @@ export default {
 
 @keyframes warn-absent {
   50% {
-    transform: scale(0.8);
+    transform: scale(0.98);
+    background: linear-gradient(to top, rgba(236, 162, 0, 1) 1%, orange 0.5em, rgba(236, 162, 0, 0.9) 18em);
   }
 }
 
