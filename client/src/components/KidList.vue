@@ -22,7 +22,7 @@
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :activateWarning = "activateWarning"  :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :activateWarning="activateWarning" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -49,7 +49,7 @@ export default {
       isReverseSort: false,
       isFirstSort: true,
       time: moment().format('HH:mm'),
-      checkTime: moment('9:30', 'HH:mm'), 
+      checkTime: moment('11:31', 'HH:mm'),
       PresentChecked: false,
       activateWarning: false
     }
@@ -59,7 +59,8 @@ export default {
     let that = this;
     const clockInterval = setInterval(function clockRun() {
       that.time = moment().format('HH:mm');
-      if (!that.PresentChecked && that.checkTime.isBefore(that.currTime)) {
+      let currTime = moment();
+      if (!that.PresentChecked && that.checkTime.isBefore(currTime)) {
         that.PresentChecked = true;
         that.activateWarning = true;
       }
@@ -79,9 +80,6 @@ export default {
     hasMessages() {
       return this.$store.state.messages.length > 0
     },
-    currTime() {
-      return moment()
-    }
   },
   methods: {
     bellClicked() {
