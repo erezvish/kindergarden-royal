@@ -19,7 +19,6 @@
   
           </ul>
         </div>
-        {{warningSystemOn}}
         <div class="warn-system">
           <label class="switch">
             <input type="checkbox" v-model="warningSystemOn">
@@ -57,7 +56,7 @@ export default {
       isReverseSort: false,
       isFirstSort: true,
       time: moment().format('HH:mm'),
-      checkTime: moment('9:30', 'HH:mm'),
+      checkTime: moment('9:30', 'HH:mm'), //TODO: change the hardcoded time to a user selection
       PresentChecked: false,
       activateWarning: false,
       warningSystemOn: true
@@ -72,6 +71,10 @@ export default {
       if (!that.PresentChecked && that.checkTime.isBefore(currTime)) {
         that.PresentChecked = true;
         that.activateWarning = true;
+      }
+      if (currTime.hours() === 7 && currTime.minutes() === 00 && currTime.seconds() === 0) {
+        console.log('A new day has arrived')
+        that.resetData()
       }
     }, 1000)
   },
@@ -186,7 +189,7 @@ export default {
       this.warningSystemOn = true;
       this.PresentChecked = false;
       this.kids.forEach(kid => {
-        if(kid.isPresent) this.toggleIsPresent(kid);
+        if (kid.isPresent) this.toggleIsPresent(kid);
       })
     },
     setEmoji(kid, emojiType) {
@@ -315,6 +318,9 @@ export default {
 }
 
 
+
+
+
 /* The switch - the box around the slider */
 
 .switch {
@@ -333,11 +339,17 @@ h5 {
 
 
 
+
+
+
 /* Hide default HTML checkbox */
 
 .switch input {
   display: none;
 }
+
+
+
 
 
 
@@ -379,6 +391,9 @@ input:focus+.slider {
 input:checked+.slider:before {
   transform: translateX(2em);
 }
+
+
+
 
 
 
