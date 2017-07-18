@@ -116,10 +116,6 @@ export default {
   methods: {
     toggleIsPresent() {
       if (this.isAdmin || this.isBasic) this.$emit('toggle')
-      // else this.$message({
-      //   type: 'error',
-      //   message: 'Sorry, status may only be changed at the Kindergarden'
-      // });
     },
     deleteKidCard() {
       this.$emit('delete')
@@ -129,12 +125,10 @@ export default {
     },
     setEmoji(kid, emojiType) {
       this.$emit('emoji', this.kid, emojiType)
-      // console.log('emoji clicked')
     },
     cameraClicked() {
       if (this.isCameraOn) {
         let capturedImgUrl = null;
-        // console.log('url before change:', this.kid.imgUrl)
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
@@ -161,7 +155,6 @@ export default {
       }
     },
     sendMessage() {
-      console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
       newMessage.text = this.inputMsgParent;
       newMessage.timestamp = Date.now();

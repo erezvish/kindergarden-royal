@@ -10,7 +10,7 @@
           </div>
           <ul class="controls">
             <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
-            <i class="fa fa-refresh" @click=resetStatus aria-hidden="true"></i>
+            <i class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -19,10 +19,11 @@
   
           </ul>
         </div>
+        {{warningSystemOn}}
         <div class="warn-system">
           <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round" @click.stop="toggleWarnSystem"></span>
+            <input type="checkbox" v-model="warningSystemOn">
+            <span class="slider round"></span>
           </label>
           <h5> Warning System Status </h5>
         </div>
@@ -56,7 +57,7 @@ export default {
       isReverseSort: false,
       isFirstSort: true,
       time: moment().format('HH:mm'),
-      checkTime: moment('11:31', 'HH:mm'),
+      checkTime: moment('9:30', 'HH:mm'),
       PresentChecked: false,
       activateWarning: false,
       warningSystemOn: true
@@ -91,7 +92,6 @@ export default {
   },
   methods: {
     bellClicked() {
-      console.log('click on KidList');
       this.$emit('toggle-sidebar');
     },
     setListView() {
@@ -100,11 +100,7 @@ export default {
     setThumbView() {
       this.triggerListView = false;
     },
-    plusClicked() {
-      //PLACEHOLDER, ACCEPT MEIR'S VERSION
-    },
     toggleIsPresent(kid) {
-      console.log('toggling is present:', kid.imgUrl)
 
       this.$store.dispatch({
         type: 'togglePresent',
@@ -127,8 +123,6 @@ export default {
     },
 
     updateKidPicture(kid, prevKid) {
-      // console.log('recieved picture update request', prevKid)
-      // console.log('kids:', kid, prevKid)
       this.$store.dispatch({
         type: 'updateKid',
         kid
@@ -137,7 +131,6 @@ export default {
         )
     },
     confirmImg(prevKid) {
-      // console.log('current kid url:', kid.imgUrl)
       this.$confirm('Accpet new Image?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -162,7 +155,6 @@ export default {
       this.$emit('createKid')
     },
     sortKids(reverseDirection = false) {
-      console.log('Sorting them Kids')
       this.kids.sort(function (a, b) {
         if (reverseDirection) return (a.firstName > b.firstName) ? -1 : 1;
         else return (a.firstName < b.firstName) ? -1 : 1;
@@ -170,38 +162,40 @@ export default {
       this.$forceUpdate();
     },
     sendParentMessage(message) {
-      console.log('There is a message from the parents of:', message.kidFullName)
-      console.log('message:', message)
+      // console.log('There is a message from the parents of:', message.kidFullName)
+      // console.log('message:', message)
       this.$store.dispatch({
         type: 'sendParentMessage',
         message
       })
     },
-    resetStatus() {
-      // console.log('resetting')
-      this.$confirm('Are you sure?', 'Warning', {
+    confirmReset() {
+      this.$confirm('This will reset the system, perform action?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'info'
       }).then(() => {
+        this.resetData()
         this.$message({
           type: 'success',
           message: 'Good Morning New Day!'
         });
       })
     },
+    resetData() {
+      this.warningSystemOn = true;
+      this.PresentChecked = false;
+      this.kids.forEach(kid => {
+        if(kid.isPresent) this.toggleIsPresent(kid);
+      })
+    },
     setEmoji(kid, emojiType) {
-      console.log('kid', kid, 'should get the emoji', emojiType)
       this.$store.dispatch({
         type: 'sendEmoji',
         _id: kid._id,
         emojiType
       })
     },
-    toggleWarnSystem() {
-      this.warningSystemOn = !this.warningSystemOn
-      console.log('warning system status:', this.warningSystemOn)
-    }
   }
 }
 </script>
@@ -320,6 +314,7 @@ export default {
   }
 }
 
+
 /* The switch - the box around the slider */
 
 .switch {
@@ -337,11 +332,13 @@ h5 {
 
 
 
+
 /* Hide default HTML checkbox */
 
 .switch input {
   display: none;
 }
+
 
 
 
@@ -382,6 +379,7 @@ input:focus+.slider {
 input:checked+.slider:before {
   transform: translateX(2em);
 }
+
 
 
 
