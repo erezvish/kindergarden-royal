@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moment from 'moment'
 import annyang from 'annyang'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'

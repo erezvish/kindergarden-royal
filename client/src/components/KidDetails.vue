@@ -1,15 +1,23 @@
 <template>
   <!--<el-col :xs="12" :sm="8">-->
   <section class="main-section" :class="classObject">
+
   
     <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
+
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
+
+      <img class="img-circle" src="../assets/img-kid/kid.jpg">
+    </div>
+    <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
+      <img class="img-circle" :src="kid.imgUrl">
+
     </div>
     <div class="list-wraper" v-if="isAdmin && isAdmArea">
       <div class="ctrl-icons" >
@@ -64,7 +72,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning', 'warningSystemStatus'],
   data() {
     return {
       inputMsgParent: '',
@@ -72,6 +80,9 @@ export default {
       cameraId: 'K' + this.kid._id,
       localKid: Object.assign({}, this.kid),
     }
+  },
+  created() {
+    // debugger;
   },
   computed: {
     classObject() {
@@ -90,7 +101,15 @@ export default {
         star: this.kid.emojiType === 'star',
         wink: this.kid.emojiType === 'wink'
       }
-    }
+    },
+    imgClassObject() {
+      return {
+        'kid-img': true,
+        'kid-present': this.kid.isPresent,
+        'kid-away': !this.kid.isPresent,
+        'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
+      }
+    },
   },
   methods: {
     toggleIsPresent() {
@@ -104,12 +123,10 @@ export default {
     },
     setEmoji(kid, emojiType) {
       this.$emit('emoji', this.kid, emojiType)
-      // console.log('emoji clicked')
     },
     cameraClicked() {
       if (this.isCameraOn) {
         let capturedImgUrl = null;
-        // console.log('url before change:', this.kid.imgUrl)
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
@@ -136,7 +153,6 @@ export default {
       }
     },
     sendMessage() {
-      console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
       newMessage.text = this.inputMsgParent;
       newMessage.timestamp = Date.now();
@@ -154,9 +170,6 @@ export default {
 //   outline: 1px solid green;
 // }
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view START <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-//
 .main-section {
   display: flex;
   flex-direction: column;
@@ -251,6 +264,7 @@ export default {
   color: white;
 }
 
+
 .msg-parent {
   display: flex; // width:100%;
   @media screen and (min-width: $xs) and (max-width: $sm) {
@@ -265,6 +279,9 @@ export default {
   padding: 0.5em 0;
   font-size: 2em;
   color: #376283;
+
+.warning {
+  animation: 1s warn-absent infinite
 }
 
 .status {
@@ -332,6 +349,7 @@ export default {
   }
 }
 
+
 // >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
   margin: 0;
@@ -342,6 +360,15 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+@keyframes warn-absent {
+  50% {
+    transform: scale(0.98);
+    background: linear-gradient(to top, rgba(236, 162, 0, 1) 1%, orange 0.5em, rgba(236, 162, 0, 0.9) 18em);
+  }
+}
+
+
   .kid-img {
     width: 13vw;
     height: 13vw;
@@ -360,6 +387,7 @@ export default {
       .fa {
         font-size: 5vw;
         padding: 3vw;
+
       }
     }
     }

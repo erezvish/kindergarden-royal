@@ -1,4 +1,4 @@
-<template>
+`<template>
   <el-row class="header-section">
     <header>
       <div class="brand">
@@ -53,11 +53,14 @@ export default {
   data() {
     return {
       menuIsClicked: false,
-      lang: 'eng'
+      lang: 'eng',
     }
   },
   mounted() {
     this.$el.classList.add('root-comp')
+  },
+  destryoed() {
+    clearInterval(this.clockInterval)
   },
   watch: {
     lang: function (val) {
@@ -128,25 +131,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../sass/main.scss";
-  // * {
-  //   outline: 1px solid red;
-  // }
+@import "../sass/main.scss"; // * {
+//   outline: 1px solid red;
+// }
 h1 {
   margin: 0;
-  font-family: 'Boogaloo','Varela Round', cursive; // font-family: 'Fredoka One', cursive;
+  font-family: 'Boogaloo', 'Varela Round', cursive; // font-family: 'Fredoka One', cursive;
   font-size: 3em;
 }
+
 a {
   color: white;
   text-decoration: none;
 }
+
 a:active {
   color: pink;
 }
+
 a:hover {
   color: white;
 }
+
 .header-section::after {
   content: '';
   position: absolute;
@@ -155,6 +161,7 @@ a:hover {
   background: rgba(55, 98, 131, 0.2);
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
+
 header {
   display: flex;
   justify-content: space-between;
@@ -163,9 +170,11 @@ header {
   height: 5em;
   border-bottom: 0.5em solid rgba(0, 0, 0, 0.2);
 }
+
 .nav-item {
   margin: 1em;
 }
+
 .nav-items {
   display: flex;
   justify-content: space-between;
@@ -194,6 +203,7 @@ header {
     }
   }
 }
+
 .brand {
   display: flex;
   align-items: flex-start;
@@ -202,6 +212,7 @@ header {
   position: relative; // margin-right: 1.5em;
   z-index: 3;
 }
+
 .nav-menu-btn {
   position: relative;
   z-index: 3;
@@ -211,7 +222,8 @@ header {
     font-size: 2.2em;
   }
 }
-  .lang-icons {
+
+.lang-icons {
   display: flex;
   img {
     height: 1em;
@@ -220,6 +232,14 @@ header {
     margin: 0.3em;
   }
 }
+
+.clock {
+  position: absolute;
+  font-size: 1.2em;
+  left: 1.6em;
+  margin-top: 0.2em;
+}
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 //
 @media screen and (max-width: $md) {
@@ -250,8 +270,7 @@ header {
   }
   .nav-items .navbar {
     position: relative;
-    top: 1em;
-    // flex-direction: column;
+    top: 1em; // flex-direction: column;
     li {
       // text-align: center;
       .single-item {
@@ -277,6 +296,7 @@ header {
   }
 }
 
+
 @media screen and (max-width: $sm) {
   .nav-items .navbar {
     position: relative;
@@ -284,6 +304,7 @@ header {
     flex-direction: column;
   }
 }
+
 // this class must be after the media query!
 .menu-on {
   right: 0;

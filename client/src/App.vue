@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import appSpeech from './speech/app.speech'
 import HeaderCmp from './components/HeaderCmp'
 export default {
   name: 'app',
