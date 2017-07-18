@@ -19,6 +19,14 @@
   
           </ul>
         </div>
+        {{warningSystemOn}}
+        <div class="warn-system" @click.stop="toggleWarnSystem">
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <h5> warn system </h5>
+        </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
@@ -51,7 +59,8 @@ export default {
       time: moment().format('HH:mm'),
       checkTime: moment('11:31', 'HH:mm'),
       PresentChecked: false,
-      activateWarning: false
+      activateWarning: false,
+      warningSystemOn: true
     }
   },
   created() {
@@ -190,10 +199,9 @@ export default {
         emojiType
       })
     },
-    checkAbsentees() {
-      this.kids.forEach(kid => {
-        console.log(kid.isPresent)
-      })
+    toggleWarnSystem() {
+      this.warningSystemOn = !this.warningSystemOn
+      console.log('warning system status:', this.warningSystemOn)
     }
   }
 }
@@ -301,6 +309,97 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+
+.warn-system {
+  display: flex;
+  justify-content: flex-start;
+  height: 2em;
+  h5 {
+    margin: 1em;
+  }
+}
+
+/* The switch - the box around the slider */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2em;
+  transform: translate(0.4em, 0.4em)
+}
+
+h5 {
+  display: inline-block;
+}
+
+
+
+
+/* Hide default HTML checkbox */
+
+.switch input {
+  display: none;
+}
+
+
+
+
+
+/* The slider */
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5em;
+  width: 1.5em;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  transform: translateX(2em);
+}
+
+
+
+
+
+/* Rounded sliders */
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.unseen {
+  display: none;
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
