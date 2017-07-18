@@ -74,7 +74,7 @@
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning', 'warningSystemStatus'],
   data() {
     return {
       inputMsgParent: '',
@@ -109,7 +109,7 @@ export default {
         'kid-img': true,
         'kid-present': this.kid.isPresent,
         'kid-away': !this.kid.isPresent,
-        'warning': this.activateWarning && !this.kid.isPresent
+        'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
       }
     },
   },

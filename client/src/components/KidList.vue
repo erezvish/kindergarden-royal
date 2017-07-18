@@ -24,12 +24,12 @@
             <input type="checkbox" checked>
             <span class="slider round" @click.stop="toggleWarnSystem"></span>
           </label>
-          <h5> warn system </h5>
+          <h5> Warning System Status </h5>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :activateWarning="activateWarning" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :activateWarning="activateWarning" :warningSystemStatus="warningSystemOn" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
