@@ -19,11 +19,10 @@
   
           </ul>
         </div>
-        {{warningSystemOn}}
-        <div class="warn-system" @click.stop="toggleWarnSystem">
+        <div class="warn-system">
           <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
+            <input type="checkbox" checked>
+            <span class="slider round" @click.stop="toggleWarnSystem"></span>
           </label>
           <h5> warn system </h5>
         </div>
