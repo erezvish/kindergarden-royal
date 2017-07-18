@@ -1,5 +1,5 @@
 <template>
-<!--<el-col :xs="12" :sm="8">-->
+  <!--<el-col :xs="24" :sm="8">-->
   <section class="main-section" :class="classObject">
   
     <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
@@ -12,11 +12,13 @@
       </div>
     </div>
     <div class="list-wraper">
-      <div class="ctrl-icons" v-if="isAdmin && isAdmArea">
+      <div class="ctrl-icons" >
         <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
         <i class="fa fa-camera" aria-hidden="true" @click.stop="cameraClicked"></i>
-        <i class="m-icon fa fa-pencil-square-o" aria-hidden="true" @click.stop="edit"></i>
-        <i class="m-icon fa fa-trash " aria-hidden="true" @click.stop="deleteKidCard"></i>
+        <i v-show="isAdmin && isAdmArea" class="fa fa-pencil-square-o" aria-hidden="true" @click.stop="edit"></i>
+        <i v-show="isAdmin && isAdmArea" class="fa fa-trash " aria-hidden="true" @click.stop="deleteKidCard"></i>
+        <i v-show="isParent" class="m-icon fa fa-smile-o" aria-hidden="true"></i>
+        <i class="m-icon fa fa-commenting-o" aria-hidden="true"></i>
       </div>
   
       <div class="kid-name-wraper" @click.stop="toggleIsPresent">
@@ -25,7 +27,7 @@
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
-        <ul v-if="isAdmin" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+        <ul v-if="isParent" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li>
             <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>
@@ -50,13 +52,13 @@
       </el-button>
     </div>
     <!--<div v-if="isAdmin && isAdmArea" class="action-icons">
-                <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-                <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-              </div>-->
+                    <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+                    <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+                  </div>-->
     <!--</div>-->
   
   </section>
-<!--</el-col>-->
+  <!--</el-col>-->
 </template>
 
 <script>
@@ -152,7 +154,6 @@ export default {
 // * {
 //   outline: 1px solid green;
 // }
-
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view START <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //
@@ -161,11 +162,10 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 1.9vw 0.9vw;
-  padding-top: 0.7em;
+  padding: 1.9em 0;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 5%;
-  border-top-right-radius: 5%;
+  border-radius: 1em;
   border: {
     left: $border-alpha-narrow;
     right: $border-alpha-narrow;
@@ -222,7 +222,24 @@ export default {
     &:hover {
       color: $color-default;
       transition: $trans-default;
+      position: relative;
+      animation: floatIcon 0.5s infinite normal ease-out;
     }
+  }
+  .m-icon {
+    display: none;
+  }
+}
+
+@keyframes floatIcon {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: -0.3em;
+  }
+  100% {
+    top: 0em;
   }
 }
 
@@ -283,7 +300,12 @@ export default {
   .kid-name {
     font-size: 2.4vw;
     margin: 0.1em 0;
+    color: #376283;
   }
+}
+
+.m-icon {
+  display: none;
 }
 
 .emojis {
@@ -315,13 +337,15 @@ export default {
 }
 
 .list-view {
+  text-align: left;
   margin: 0;
   padding: 0.6em 0;
-  width: 100%;
-  background: yellow;
+  background: white;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   flex-direction: row;
+  flex-basis: 100vw;
   justify-content: flex-start;
+  align-items: flex-end;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   .kid-img {
     width: 11vw;
@@ -335,17 +359,21 @@ export default {
     justify-content: space-around;
   }
   .kid-name-wraper {
-    // align-self: flex-start;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
   }
   .ctrl-icons {
+    .m-icon {
+      display: initial;
+    }
     .fa {
       margin: 0 0.3em 0 0; // font-size: 4.6vw;
     }
   }
   .status {
     position: relative;
-  
+    display: none;
     order: 4;
     margin: 0 auto;
     .icon-list img {
@@ -356,20 +384,25 @@ export default {
     }
   }
   .msg-parent {
-    // position: absolute;
-    right: 10%;
-    order: 3;
+    display: none; // right: 10%;
+    // order: 3;
   }
 }
+
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
-// @media screen and (max-width: $md) {
-//   .main-section {
-//     width: 30vw;
-//     padding: 0;
-//   }
-// }
-
+@media screen and (max-width: $md) {
+  .main-section {
+    width: 26vw;
+    margin: 1vw;
+    .kid-img {
+      margin: 0;
+    }
+  }
+  .kid-name-wraper .kid-name {
+    font-size: 2em;
+  }
+}
 // @media screen and (max-width: $md) {
 //   .main-section {
 //     width: 30%;

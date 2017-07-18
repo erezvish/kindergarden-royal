@@ -78,7 +78,6 @@ export default {
       //PLACEHOLDER, ACCEPT MEIR'S VERSION
     },
     toggleIsPresent(kid) {
-      console.log('toggling is present:', kid.imgUrl)
       
         this.$store.dispatch({
           type: 'togglePresent',
@@ -206,11 +205,7 @@ export default {
   justify-content: center;
 }
 
-.list-view {
-  background: yellow;
-  display: flex;
-  flex-direction: column;
-}
+
 
 .thumbnail {
   background: pink;
@@ -274,6 +269,10 @@ export default {
   flex-wrap: wrap;
 }
 
+// .list-view {
+//   background: red;
+//   flex-direction: column;
+// }
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
 // ---- XS queries ---------
