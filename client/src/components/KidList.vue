@@ -72,7 +72,7 @@ export default {
         that.PresentChecked = true;
         that.activateWarning = true;
       }
-      if (currTime.hours() === 7 && currTime.minutes() === 00 && currTime.seconds() === 0) {
+      if (currTime.hours() === 7 && currTime.minutes() === 0 && currTime.seconds() === 0) {
         console.log('A new day has arrived')
         that.resetData()
       }
