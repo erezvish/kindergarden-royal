@@ -105,6 +105,7 @@ export default {
     },
     toggleIsPresent(kid) {
 
+
       this.$store.dispatch({
         type: 'togglePresent',
         kid
@@ -233,11 +234,7 @@ export default {
   justify-content: center;
 }
 
-.list-view {
-  background: yellow;
-  display: flex;
-  flex-direction: column;
-}
+
 
 .thumbnail {
   background: pink;
@@ -306,8 +303,6 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-
-
 .warn-system {
   display: flex;
   justify-content: flex-start;
@@ -316,10 +311,6 @@ export default {
     margin: 1em;
   }
 }
-
-
-
-
 
 /* The switch - the box around the slider */
 
@@ -335,26 +326,11 @@ h5 {
   display: inline-block;
 }
 
-
-
-
-
-
-
-
 /* Hide default HTML checkbox */
 
 .switch input {
   display: none;
 }
-
-
-
-
-
-
-
-
 
 /* The slider */
 
@@ -391,14 +367,6 @@ input:focus+.slider {
 input:checked+.slider:before {
   transform: translateX(2em);
 }
-
-
-
-
-
-
-
-
 
 /* Rounded sliders */
 

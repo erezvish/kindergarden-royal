@@ -1,10 +1,21 @@
 // Latin fonts:
+//-------------
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Dosis|Abel');
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One');
 
 // hebrew fonts:
+//--------------
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 
 // Font-Colors:
-$color-default: red;
+//-------------
+$color-default: rgb(55, 98, 131);
+$color-default-faded: rgba(55, 98, 131,0.6);
+
+// Font sizes:
+//------------
+$fa-mobile-small: 1.4em;
+$fa-mobile-normal: 2em;
+
+$font-size-normal: normal;
