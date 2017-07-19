@@ -30,7 +30,7 @@ export default {
         appSocket.socket.emit('parent message', message)
     },
     sendEmoji(_id, emoji) {
-        console.log('sending emoji')
+        // console.log('sending emoji')
         appSocket.socket.emit('emoji message', _id, emoji)
     },
 
