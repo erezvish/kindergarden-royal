@@ -1,7 +1,5 @@
 <template>
 <div class="base64-upload">
-  <img :src="src"
-    :style="imageStyle"/>
   <input type="file"
     accept="image/*"
     @change="onChange" />

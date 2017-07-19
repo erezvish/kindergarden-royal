@@ -74,12 +74,7 @@ export default {
     setThumbView() {
       this.triggerListView = false;
     },
-    plusClicked() {
-      //PLACEHOLDER, ACCEPT MEIR'S VERSION
-    },
     toggleIsPresent(kid) {
-      console.log('toggling is present:', kid.imgUrl)
-      
         this.$store.dispatch({
           type: 'togglePresent',
           kid

@@ -12,7 +12,8 @@
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
-      <img class="img-circle" src="../assets/img-kid/kid2.jpg">
+      <!--<img class="img-circle" src="../assets/img-kid/kid2.jpg">-->
+      <base64-upload class="img-circle" :imageSrc="kid.imgUrl" @change="onChangeImage"></base64-upload>
     </div>
   
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
@@ -54,10 +55,17 @@
 </template>
 
 <script>
+import Base64Upload from './Base64Upload'
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
+  components: {
+    Base64Upload
+  },
+  // created() {
+  //   console.log()
+  // },
+  props: ['kid', 'isListView', 'isParent', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
@@ -98,6 +106,14 @@ export default {
     setEmoji(kid, emojiType) {
       this.$emit('emoji', this.kid, emojiType)
       // console.log('emoji clicked')
+    },
+    onChangeImage(file) {
+      let updatedKid = this.kid
+      updatedKid.imgUrl = 'data:image/jpeg;base64,' + file.base64
+        this.$store.dispatch({
+          type: 'updateKid',
+          kid: updatedKid
+        })
     },
     cameraClicked() {
       if (this.isCameraOn) {
@@ -143,11 +159,10 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-* {
-  outline: 1px solid green;
-}
+// * {
+//   outline: 1px solid green;
+// }
 
-//
 .main-section {
   display: flex;
   flex-direction: column;
@@ -307,7 +322,8 @@ export default {
   }
   100% {
     opacity: 0;
-  }  100% {
+  }
+  100% {
     opacity: 0;
   }
 }
