@@ -12,8 +12,8 @@
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
-      <!--<img class="img-circle" src="../assets/img-kid/kid2.jpg">-->
-      <base64-upload class="img-circle" :imageSrc="kid.imgUrl" @change="onChangeImage"></base64-upload>
+      <img class="img-circle" src="../assets/img-kid/kid2.jpg">
+      <!-- <base64-upload class="img-circle" :imageSrc="kid.imgUrl" @change="onChangeImage"></base64-upload> -->
     </div>
   
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
@@ -55,13 +55,13 @@
 </template>
 
 <script>
-import Base64Upload from './Base64Upload'
+// import Base64Upload from './Base64Upload'
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  components: {
-    Base64Upload
-  },
+  // components: {
+  //   Base64Upload
+  // },
   // created() {
   //   console.log()
   // },
