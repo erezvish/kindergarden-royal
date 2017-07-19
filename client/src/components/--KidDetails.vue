@@ -1,7 +1,8 @@
 <template>
+  <!--<el-col :xs="12" :sm="8">-->
   <section class="main-section" :class="classObject">
   
-    <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent, 'warning': warningSystemStatus && activateWarning && !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
+    <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
@@ -9,10 +10,9 @@
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
-      <!--<img class="img-circle" src="../assets/img-kid/kid.jpg">-->
     </div>
     <div class="list-wraper" v-if="isAdmin && isAdmArea">
-      <div class="ctrl-icons">
+      <div class="ctrl-icons" >
         <i class="fa fa-volume-control-phone" aria-hidden="true" title="Call Kid's parent"></i>
         <i class="fa fa-camera" aria-hidden="true" @click.stop="cameraClicked" title="Take a picture"></i>
         <i class="m-icon fa fa-pencil-square-o" aria-hidden="true" @click.stop="edit" title="Edit mode"></i>
@@ -21,11 +21,11 @@
       </div>
   
     </div>
-    <div class="kid-name-wraper" @click.stop="toggleIsPresent">
-      <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-    </div>
+      <div class="kid-name-wraper" @click.stop="toggleIsPresent">
+        <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+      </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
-      <li>
+      <li >
         <ul v-if="isAdmin" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li title="love">
             <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
@@ -43,20 +43,28 @@
       </li>
     </ul>
   
+    <!--<div class="container-right">-->
     <div v-if="isAdmArea" class="msg-parent">
       <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
       <el-button type="default" @click="sendMessage">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </el-button>
     </div>
+    <!--<div v-if="isAdmin && isAdmArea" class="action-icons">
+                        <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+                        <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+                      </div>-->
+    <!--</div>-->
+  
   </section>
+  <!--</el-col>-->
 </template>
 
 <script>
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning', 'warningSystemStatus'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
@@ -65,27 +73,16 @@ export default {
       localKid: Object.assign({}, this.kid),
     }
   },
-  created() {
-    // debugger;
-  },
   computed: {
-    // imgClassObject() {
-    //   return {
-    //     'kid-img': true,
-    //     'kid-present': this.kid.isPresent,
-    //     'kid-away': !this.kid.isPresent,
-    //     'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
-    //   }
-    // },
-    // classObject() {
-    //   return {
-    //     'kid-details': true,
-    //     'mark-present': this.kid.isPresent,
-    //     'mark-absent': !this.kid.isPresent,
-    //     'list-view': this.isListView,
-    //     'kid-details-container': this.isListView
-    //   }
-    // },
+    classObject() {
+      return {
+        'kid-details': true,
+        'mark-present': this.kid.isPresent,
+        'mark-absent': !this.kid.isPresent,
+        'list-view': this.isListView,
+        'kid-details-container': this.isListView
+      }
+    },
     emojisObject() {
       return {
         heart: this.kid.emojiType === 'heart',
@@ -93,15 +90,7 @@ export default {
         star: this.kid.emojiType === 'star',
         wink: this.kid.emojiType === 'wink'
       }
-    },
-    imgClassObject() {
-      return {
-        'kid-img': true,
-        'kid-present': this.kid.isPresent,
-        'kid-away': !this.kid.isPresent,
-        'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
-      }
-    },
+    }
   },
   methods: {
     toggleIsPresent() {
@@ -115,10 +104,12 @@ export default {
     },
     setEmoji(kid, emojiType) {
       this.$emit('emoji', this.kid, emojiType)
+      // console.log('emoji clicked')
     },
     cameraClicked() {
       if (this.isCameraOn) {
         let capturedImgUrl = null;
+        // console.log('url before change:', this.kid.imgUrl)
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
@@ -145,6 +136,7 @@ export default {
       }
     },
     sendMessage() {
+      console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
       newMessage.text = this.inputMsgParent;
       newMessage.timestamp = Date.now();
@@ -162,6 +154,9 @@ export default {
 //   outline: 1px solid green;
 // }
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view START <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//
 .main-section {
   display: flex;
   flex-direction: column;
@@ -176,10 +171,7 @@ export default {
     left: $border-alpha-narrow;
     right: $border-alpha-narrow;
   }
-  @media screen and (max-width: $sm) {
-    margin: 3vw 0;
-    width: 80vw;
-  }
+  @media screen and (min-width: $xs) and (max-width: $sm) {}
 }
 
 .kid-img {
@@ -202,12 +194,11 @@ export default {
     height: 85%;
     border-radius: 50%;
     box-shadow: 0.1em 0.1em 2em rgba(0, 0, 0, 0.5);
+
     border: none;
   }
-  @media screen and (max-width: $sm) {
-    // display: none;
-    width: 55vw;
-    height: 55vw;
+  @media screen and (max-width: $md){ 
+    
   }
 }
 
@@ -218,18 +209,18 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center; // option icons
+  align-items: center;
   .fa {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 0.2vw;
-    padding: 0.8vw; //0.4em;
+    padding: 0.4em;
     width: 2vw;
     height: 2vw;
     background: rgba(255, 255, 255, 0.6);
     color: $color-default-faded;
-    font-size: 2vw;
+    font-size: 2.2vw; // border: 1px solid #376283;
     box-shadow: 0 0 5px 1px #376283;
     border-radius: 50%;
     cursor: pointer;
@@ -238,23 +229,12 @@ export default {
       color: $color-default;
       transition: $trans-default;
     }
-    @media screen and (max-width: $sm) {
-      font-size: 3.4vw;
-      padding: 2.0vw;
-    }
-    @media screen and (max-width: $sm) {
-      font-size: 5.4vw;
-      padding: 4.0vw;
-    }
   }
   .sm-icon {
     display: none;
     @media screen and (max-width: $sm) {
       display: flex;
     }
-  }
-  @media screen and (max-width: $sm) {
-    width: 75vw;
   }
 }
 
@@ -271,13 +251,11 @@ export default {
   color: white;
 }
 
-.warning {
-  animation: 1s warn-absent infinite
-}
-
 .msg-parent {
-  display: flex;
-  @media screen and (min-width: $xs) and (max-width: $sm) {}
+  display: flex; // width:100%;
+  @media screen and (min-width: $xs) and (max-width: $sm) {
+
+  }
 }
 
 .action-icons {
@@ -299,7 +277,7 @@ export default {
   }
   .icon-list {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     margin: 1em 0;
     li {
       display: table-cell;
@@ -311,17 +289,18 @@ export default {
       }
     }
   }
+  @media screen and (max-width: $sm) {
+    display: none;
+  }
 }
 
 .kid-name-wraper {
   display: flex;
   justify-content: center;
+  // width: 100%;
   .kid-name {
-    font-size: 2.4em;
+    font-size: 2.4vw;
     margin: 0.1em 0;
-    @media screen and (max-width: $md) {
-      font-size: 1.6rem; // margin: 3.2vw;
-    }
   }
 }
 
@@ -353,12 +332,6 @@ export default {
   }
 }
 
-@keyframes warn-absent {
-  50% {
-    transform: scale(0.98);
-    background: linear-gradient(to top, rgba(236, 162, 0, 1) 1%, orange 0.5em, rgba(236, 162, 0, 0.9) 18em);
-  }
-}
 // >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
   margin: 0;
@@ -372,6 +345,7 @@ export default {
   .kid-img {
     width: 13vw;
     height: 13vw;
+
   }
   .list-wraper {
     display: flex;
@@ -380,66 +354,62 @@ export default {
     flex-direction: column-reverse;
     justify-content: center;
     @media screen and (max-width: $sm) {
-      flex-basis: 70%;
-      .ctrl-icons {
-        justify-content: space-between;
-        .fa {
-          font-size: 5vw;
-          padding: 3vw;
-        }
+    flex-basis: 70%;
+    .ctrl-icons {
+      justify-content: space-between;
+      .fa {
+        font-size: 5vw;
+        padding: 3vw;
       }
+    }
     }
   }
   .kid-name-wraper {
-    margin-left: 3vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center; // justify-content: space-between;
-    align-self: center;
-  }
-  .kid-name {
-    color: #376283;
-    font-size: 7vw;
-    margin: 0;
-    padding: 0;
-  }
-
-  .emojis {
-    cursor: pointer;
-    .emoji {
+    position: relative;
+    left: 0;
+    display: none;
+    justify-content: flex-start;
+    align-self: flex-start;
+    & p {
+      display: none;
       position: absolute;
-      top: 0;
-      animation: 1.5s blink-anim infinite;
+      left: 0;
     }
   }
   .ctrl-icons {
-    top: 0; // flex-basis: 70%;
+    top: 0;
+    // flex-basis: 70%;
     @media screen and (max-width: $md) {
       justify-content: space-between;
     }
     .fa {
-      margin: 0 0.3em 0 0;
+      margin: 0 0.3em 0 0; 
     }
   }
   .status {
     position: relative;
     order: 4;
-    flex-basis: 25%; // margin: 0 auto;
+    flex-basis: 25%;
+    // margin: 0 auto;
     .icon-list img {
       max-width: 3.2vw;
       max-height: 3.2vw;
       width: 100%;
       height: 100%;
     }
-    100% {
-      width: 1vw;
-      opacity: 0;
-      transform: rotate(0deg);
+  }
+  .msg-parent {
+    // position: absolute;
+    flex-basis: 25%;
+    right: 10%;
+    order: 3;
+    @media screen and (max-width: $sm) {
+      position: absolute;
+      display: none;
     }
   }
 }
 
-.fav-icon {
-  cursor: pointer;
-}
+// ------------------------- MEDIA QUERIES ------------------------- //
+//
 </style>
