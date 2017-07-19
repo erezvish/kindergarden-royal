@@ -292,7 +292,7 @@ export default {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    // margin: 1em 0;
+   
     li {
       display: table-cell;
       vertical-align: middle;
