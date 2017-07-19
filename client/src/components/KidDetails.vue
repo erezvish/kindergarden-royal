@@ -22,6 +22,7 @@
     </div>
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
@@ -42,11 +43,13 @@
       </li>
     </ul>
   
+
     <div v-if="isParent" class="msg-parent">
       <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
       <el-button type="default" @click="sendMessage">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </el-button>
+
     </div>
   </section>
 </template>
@@ -145,9 +148,9 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-* {
-  outline: 1px solid green;
-}
+// * {
+//   outline: 1px solid green;
+// }
 
 .main-section {
   display: flex;
@@ -257,6 +260,7 @@ export default {
   color: white;
 }
 
+
 .warning {
   animation: 1s warn-absent infinite
 }
@@ -274,6 +278,7 @@ export default {
   font-size: 2em;
   color: #376283;
 }
+
 
 .status {
   .kid-status {
