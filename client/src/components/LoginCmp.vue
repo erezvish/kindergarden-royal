@@ -15,7 +15,7 @@
               <el-input type="password" :placeholder="password" required v-model="user.pass"></el-input>
             </div>
             <div>
-              <el-button type="success" value="Login" @click="submit">Log In</el-button>
+              <el-button type="success" value="Login" @click="submit" autofocus>Log In</el-button>
             </div>
             <div>
               <!--<a href="#">Lost your password?</a>-->

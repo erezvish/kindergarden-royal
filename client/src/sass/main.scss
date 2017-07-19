@@ -60,3 +60,15 @@ $trans-default: all, 0.5s;
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.flex {
+    display: flex;
+}
+
+.spread {
+    justify-content: space-between;
+}
+
+.middle {
+    align-items: center;
+}
