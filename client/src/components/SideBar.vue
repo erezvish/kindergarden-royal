@@ -42,6 +42,8 @@ export default {
 //     outline: 1px solid #333;
 // }
 .sidebar {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -50,7 +52,7 @@ export default {
     background: linear-gradient(to top, #95C1D2 1%, white 25%);
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
-    min-height: 100%;
+    min-height: 100vh;
     .fa {
         font-size: 2em;
         margin: 0 0.5em;

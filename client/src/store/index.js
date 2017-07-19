@@ -15,7 +15,7 @@ const store = new Vuex.Store({
             lastName: '',
             gender: '',
             imgUrl: '',
-            emoji: null,
+            emojiType: null,
             parents: [
                 {
                     firstName: '',
@@ -35,7 +35,7 @@ const store = new Vuex.Store({
         },
         isAdmin: false,
         isBasic: false,
-        isParent: false,
+        isParent: true,
         messages: []
     },
     getters,
