@@ -1,7 +1,7 @@
 <template>
   <section class="main-section" :class="classObject">
   
-    <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent, 'warning': warningSystemStatus && activateWarning && !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
+    <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
@@ -65,23 +65,19 @@ export default {
     }
   },
   computed: {
-    // imgClassObject() {
-    //   return {
-    //     'kid-img': true,
-    //     'kid-present': this.kid.isPresent,
-    //     'kid-away': !this.kid.isPresent,
-    //     'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
-    //   }
-    // },
-    // classObject() {
-    //   return {
-    //     'kid-details': true,
-    //     'mark-present': this.kid.isPresent,
-    //     'mark-absent': !this.kid.isPresent,
-    //     'list-view': this.isListView,
-    //     'kid-details-container': this.isListView
-    //   }
-    // },
+    imgClassObject() {
+      return {
+        'kid-img': true,
+        'kid-present': this.kid.isPresent,
+        'kid-away': !this.kid.isPresent,
+        'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
+      }
+    },
+    classObject() {
+      return {
+        'list-view': this.isListView,
+      }
+    },
     emojisObject() {
       return {
         heart: this.kid.emojiType === 'heart',
