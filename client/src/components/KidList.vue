@@ -5,12 +5,11 @@
   
         <div class="status-bar">
           <div class="title">
-            <div class="clock">{{(time)}}</div>
             <h1> Kid list area </h1>
           </div>
           <ul class="controls">
             <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
-            <i class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
+            <i class="fa fa-refresh" @click=resetStatus aria-hidden="true"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -19,17 +18,10 @@
   
           </ul>
         </div>
-        <div class="warn-system">
-          <label class="switch">
-            <input type="checkbox" v-model="warningSystemOn">
-            <span class="slider round"></span>
-          </label>
-          <h5> Warning System Status </h5>
-        </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
   
-          <kid-details v-for="kid in kids" :activateWarning="activateWarning" :warningSystemStatus="warningSystemOn" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
+          <kid-details v-for="kid in kids" :kid="kid" :isAdmin="isAdmin" :isBasic="isBasic" :isParent="isParent" :isListView="triggerListView" :isAdmArea="isAdmArea" @toggle="toggleIsPresent(kid)" @edit="edit(kid)" @picture="updateKidPicture" @delete="deleteKidCard(kid)" @parent-message="sendParentMessage" @emoji="setEmoji" :key="kid._id"></kid-details>
   
         </div>
       </section>
@@ -41,7 +33,6 @@
 import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
 
-import moment from 'moment'
 import store from '../store'
 export default {
   name: 'kid-list',
@@ -55,30 +46,11 @@ export default {
       triggerListView: false,
       isReverseSort: false,
       isFirstSort: true,
-      time: moment().format('HH:mm'),
-      checkTime: moment('9:30', 'HH:mm'), //TODO: change the hardcoded time to a user selection
-      PresentChecked: false,
-      activateWarning: false,
-      warningSystemOn: true
     }
   },
-  created() {
-    window.moment = moment
-    let that = this;
-    const clockInterval = setInterval(function clockRun() {
-      that.time = moment().format('HH:mm');
-      let currTime = moment();
-      if (!that.PresentChecked && that.checkTime.isBefore(currTime)) {
-        that.PresentChecked = true;
-        that.activateWarning = true;
-      }
-      if (currTime.hours() === 7 && currTime.minutes() === 0 && currTime.seconds() === 0) {
-        console.log('A new day has arrived')
-        that.resetData()
-      }
-    }, 1000)
-  },
-  computed: {
+  computed: { //TODO: use map getters
+    // ...mapGetters([
+    // ]),
     kids() {
       return this.$store.getters.filteredKids
     },
@@ -102,17 +74,21 @@ export default {
     setThumbView() {
       this.triggerListView = false;
     },
+    plusClicked() {
+      //PLACEHOLDER, ACCEPT MEIR'S VERSION
+    },
     toggleIsPresent(kid) {
-
-      this.$store.dispatch({
-        type: 'togglePresent',
-        kid
-      })
-      this.$message({
-        type: 'success',
-        message: 'Kid Status Updated'
-      });
-
+      console.log('toggling is present:', kid.imgUrl)
+      
+        this.$store.dispatch({
+          type: 'togglePresent',
+          kid
+        })
+        this.$message({
+          type: 'success',
+          message: 'Kid Status Updated'
+        });
+    
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -168,31 +144,24 @@ export default {
       this.$forceUpdate();
     },
     sendParentMessage(message) {
-      // console.log('There is a message from the parents of:', message.kidFullName)
-      // console.log('message:', message)
+      console.log('There is a message from the parents of:', message.kidFullName)
+      console.log('message:', message)
       this.$store.dispatch({
         type: 'sendParentMessage',
         message
       })
     },
-    confirmReset() {
-      this.$confirm('This will reset the system, perform action?', 'Warning', {
+    resetStatus() {
+      // console.log('resetting')
+      this.$confirm('Are you sure?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'info'
       }).then(() => {
-        this.resetData()
         this.$message({
           type: 'success',
           message: 'Good Morning New Day!'
         });
-      })
-    },
-    resetData() {
-      this.warningSystemOn = true;
-      this.PresentChecked = false;
-      this.kids.forEach(kid => {
-        if (kid.isPresent) this.toggleIsPresent(kid);
       })
     },
     setEmoji(kid, emojiType) {
@@ -237,7 +206,11 @@ export default {
   justify-content: center;
 }
 
-
+.list-view {
+  background: yellow;
+  display: flex;
+  flex-direction: column;
+}
 
 .thumbnail {
   background: pink;
@@ -301,91 +274,9 @@ export default {
   flex-wrap: wrap;
 }
 
-
-.warn-system {
-  display: flex;
-  justify-content: flex-start;
-  height: 2em;
-  h5 {
-    margin: 1em;
-  }
-}
-
-/* The switch - the box around the slider */
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 4em;
-  height: 2em;
-  transform: translate(0.4em, 0.4em)
-}
-
-h5 {
-  display: inline-block;
-}
-
-
-/* Hide default HTML checkbox */
-
-.switch input {
-  display: none;
-}
-
-/* The slider */
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 1.5em;
-  width: 1.5em;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-}
-
-input:checked+.slider {
-  background-color: #2196F3;
-}
-
-input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked+.slider:before {
-  transform: translateX(2em);
-}
-
-
-/* Rounded sliders */
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.unseen {
-  display: none;
-}
-
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
-
+// ---- XS queries ---------
 @media screen and (max-width: $xs) {
   .kid-list .status-bar {
     display: flex;
@@ -395,6 +286,8 @@ input:checked+.slider:before {
   }
 }
 
+// ---- SM queries ---------
+//
 @media screen and (max-width: $sm) {
 
   .kid-list .status-bar {
