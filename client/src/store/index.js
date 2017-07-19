@@ -33,8 +33,8 @@ const store = new Vuex.Store({
             text: '',
             radio:'ignore'
         },
-        isAdmin: false,
-        isBasic: false,
+        isAdmin: localStorage.getItem('isAdmin') ? true : false,
+        isBasic: localStorage.getItem('isBasic') ? true : false,
         isParent: false,
         messages: []
     },

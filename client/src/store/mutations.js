@@ -36,13 +36,21 @@ export default {
     },
 
     login(state, payload) {
-        if (payload.user.type === 'admin') state.isAdmin = true
-        else if (payload.user.type === 'basic') state.isBasic = true
+        if (payload.user.type === 'admin') {
+            state.isAdmin = true
+            localStorage.setItem('isAdmin', true)
+        }
+        else if (payload.user.type === 'basic') {
+            state.isBasic = true
+            localStorage.setItem('isBasic', true)
+        }
     },
 
     logout(state) {
         state.isAdmin = false
+        localStorage.removeItem('isAdmin')
         state.isBasic = false
+        localStorage.removeItem('isBasic')
         state.isParent = false
     },
 
