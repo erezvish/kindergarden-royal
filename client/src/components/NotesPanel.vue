@@ -4,6 +4,10 @@
             <H1>
                 Notes panel
             </H1>
+    
+            <!--<div>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" @click="plusClicked"></i>
+                    </div>-->
         </div>
         <NoteCmp v-for="note in notes" :note="note" :key="note._id" @delete-note="deleteNote(note)"></NoteCmp>
     </section>

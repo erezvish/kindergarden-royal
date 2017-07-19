@@ -17,7 +17,7 @@ $box-shadow-default: 0 0 11px rgba(0, 0, 0, 0.2);
 
 // Borders
 $border-alpha-wide: 5px solid rgba(0,0,0,0.051);
-$border-alpha-narrow: 1px solid rgba(0, 0, 0, 0.1);
+$border-alpha-narrow: 1px solid rgba(0, 0, 0, 0.2);
 
 // ul styling
 .clear-style {
@@ -34,7 +34,7 @@ $border-alpha-narrow: 1px solid rgba(0, 0, 0, 0.1);
     }
 }
 // transitions
-$trans-default: all, 0.5s;
+$transition-default: all, 0.5s;
 
 // spacing
 .x-space {
@@ -54,9 +54,4 @@ $trans-default: all, 0.5s;
 
 .visible {
     display: initial;
-}
-
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
