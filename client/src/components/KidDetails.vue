@@ -25,7 +25,7 @@
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
-        <ul v-if="isAdmin" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+        <ul v-if="isAdmin || isParent" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li title="love">
             <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>
@@ -42,7 +42,7 @@
       </li>
     </ul>
   
-    <div v-if="isAdmArea" class="msg-parent">
+    <div v-if="isParent" class="msg-parent">
       <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
       <el-button type="default" @click="sendMessage">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
