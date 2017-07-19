@@ -55,3 +55,8 @@ $trans-default: all, 0.5s;
 .visible {
     display: initial;
 }
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
