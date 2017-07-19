@@ -1,41 +1,32 @@
 <template>
-  <!--<el-col :xs="12" :sm="8">-->
+<!--<el-col :xs="12" :sm="8">-->
   <section class="main-section" :class="classObject">
-
   
     <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
-
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
-
-      <img class="img-circle" src="../assets/img-kid/kid.jpg">
     </div>
-    <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent" v-show="!kid.isPresent">
-      <img class="img-circle" :src="kid.imgUrl">
-
-    </div>
-    <div class="list-wraper" v-if="isAdmin && isAdmArea">
-      <div class="ctrl-icons" >
-        <i class="fa fa-volume-control-phone" aria-hidden="true" title="Call Kid's parent"></i>
-        <i class="fa fa-camera" aria-hidden="true" @click.stop="cameraClicked" title="Take a picture"></i>
-        <i class="m-icon fa fa-pencil-square-o" aria-hidden="true" @click.stop="edit" title="Edit mode"></i>
-        <i class="m-icon fa fa-trash " aria-hidden="true" @click.stop="deleteKidCard" title="Delete Card"></i>
-        <i class="sm-icon fa fa-smile-o" aria-hidden="true" title="Send imoji"></i>
+    <div class="list-wraper">
+      <div class="ctrl-icons" v-if="isAdmin && isAdmArea">
+        <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+        <i class="fa fa-camera" aria-hidden="true" @click.stop="cameraClicked"></i>
+        <i class="m-icon fa fa-pencil-square-o" aria-hidden="true" @click.stop="edit"></i>
+        <i class="m-icon fa fa-trash " aria-hidden="true" @click.stop="deleteKidCard"></i>
       </div>
   
-    </div>
       <div class="kid-name-wraper" @click.stop="toggleIsPresent">
         <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
       </div>
+    </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
-      <li >
+      <li>
         <ul v-if="isAdmin" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-          <li title="love">
+          <li>
             <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>
           <li>
@@ -59,20 +50,20 @@
       </el-button>
     </div>
     <!--<div v-if="isAdmin && isAdmArea" class="action-icons">
-                        <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
-                        <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
-                      </div>-->
+                <i class="fa fa-trash" @click.stop="deleteKidCard" aria-hidden="true"></i>
+                <i class="fa fa-camera" @click.stop="cameraClicked" aria-hidden="true"></i>
+              </div>-->
     <!--</div>-->
   
   </section>
-  <!--</el-col>-->
+<!--</el-col>-->
 </template>
 
 <script>
 import Webcam from 'webcamjs'
 export default {
   name: 'kid-details',
-  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning', 'warningSystemStatus'],
+  props: ['kid', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea'],
   data() {
     return {
       inputMsgParent: '',
@@ -80,9 +71,6 @@ export default {
       cameraId: 'K' + this.kid._id,
       localKid: Object.assign({}, this.kid),
     }
-  },
-  created() {
-    // debugger;
   },
   computed: {
     classObject() {
@@ -101,15 +89,7 @@ export default {
         star: this.kid.emojiType === 'star',
         wink: this.kid.emojiType === 'wink'
       }
-    },
-    imgClassObject() {
-      return {
-        'kid-img': true,
-        'kid-present': this.kid.isPresent,
-        'kid-away': !this.kid.isPresent,
-        'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
-      }
-    },
+    }
   },
   methods: {
     toggleIsPresent() {
@@ -123,10 +103,12 @@ export default {
     },
     setEmoji(kid, emojiType) {
       this.$emit('emoji', this.kid, emojiType)
+      // console.log('emoji clicked')
     },
     cameraClicked() {
       if (this.isCameraOn) {
         let capturedImgUrl = null;
+        // console.log('url before change:', this.kid.imgUrl)
         Webcam.snap(function (data_uri) {
           capturedImgUrl = data_uri;
         });
@@ -153,6 +135,7 @@ export default {
       }
     },
     sendMessage() {
+      console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
       newMessage.text = this.inputMsgParent;
       newMessage.timestamp = Date.now();
@@ -170,12 +153,15 @@ export default {
 //   outline: 1px solid green;
 // }
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view START <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>> list view END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//
 .main-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 1.9vw 0.9vw;
-  padding: 0.7em 0;
+  padding-top: 0.7em;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.1);
   border-top-left-radius: 5%;
@@ -184,22 +170,22 @@ export default {
     left: $border-alpha-narrow;
     right: $border-alpha-narrow;
   }
-  @media screen and (min-width: $xs) and (max-width: $sm) {}
 }
 
 .kid-img {
   position: relative;
   z-index: 1;
-  display: flex;
+  display: flex; // flex-direction: column;
   justify-content: center;
   align-items: center;
   background: orange;
   width: 20vw;
   height: 20vw;
-  // margin: 0 1em;
+  margin: 0 1em;
   border-radius: 50%;
   box-shadow: 0 0 11px #333;
   cursor: pointer;
+
   .img-circle {
     position: relative;
     z-index: 1;
@@ -207,22 +193,17 @@ export default {
     height: 85%;
     border-radius: 50%;
     box-shadow: 0.1em 0.1em 2em rgba(0, 0, 0, 0.5);
-
     border: none;
-  }
-  @media screen and (max-width: $md){ 
-    
   }
 }
 
 .ctrl-icons {
   position: relative;
   top: -1em;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   .fa {
     display: flex;
     align-items: center;
@@ -243,12 +224,6 @@ export default {
       transition: $trans-default;
     }
   }
-  .sm-icon {
-    display: none;
-    @media screen and (max-width: $sm) {
-      display: flex;
-    }
-  }
 }
 
 .kid-present {
@@ -264,12 +239,8 @@ export default {
   color: white;
 }
 
-
 .msg-parent {
   display: flex; // width:100%;
-  @media screen and (min-width: $xs) and (max-width: $sm) {
-
-  }
 }
 
 .action-icons {
@@ -279,9 +250,6 @@ export default {
   padding: 0.5em 0;
   font-size: 2em;
   color: #376283;
-
-.warning {
-  animation: 1s warn-absent infinite
 }
 
 .status {
@@ -294,7 +262,7 @@ export default {
   }
   .icon-list {
     display: flex;
-    justify-content:space-between;
+    justify-content: center;
     margin: 1em 0;
     li {
       display: table-cell;
@@ -306,15 +274,12 @@ export default {
       }
     }
   }
-  @media screen and (max-width: $sm) {
-    display: none;
-  }
 }
 
 .kid-name-wraper {
   display: flex;
   justify-content: center;
-  // width: 100%;
+  width: 100%;
   .kid-name {
     font-size: 2.4vw;
     margin: 0.1em 0;
@@ -349,76 +314,40 @@ export default {
   }
 }
 
-
-// >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
   margin: 0;
-  padding: 0.9em 0;
+  padding: 0.6em 0;
   width: 100%;
   background: yellow;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-@keyframes warn-absent {
-  50% {
-    transform: scale(0.98);
-    background: linear-gradient(to top, rgba(236, 162, 0, 1) 1%, orange 0.5em, rgba(236, 162, 0, 0.9) 18em);
-  }
-}
-
-
   .kid-img {
-    width: 13vw;
-    height: 13vw;
-
+    width: 11vw;
+    height: 11vw;
   }
   .list-wraper {
+    margin: 0 2em 0 1em;
     display: flex;
-    flex-basis: 25%;
     height: 100%;
     flex-direction: column-reverse;
-    justify-content: center;
-    @media screen and (max-width: $sm) {
-    flex-basis: 70%;
-    .ctrl-icons {
-      justify-content: space-between;
-      .fa {
-        font-size: 5vw;
-        padding: 3vw;
-
-      }
-    }
-    }
+    justify-content: space-around;
   }
   .kid-name-wraper {
-    position: relative;
-    left: 0;
-    display: none;
+    // align-self: flex-start;
     justify-content: flex-start;
-    align-self: flex-start;
-    & p {
-      display: none;
-      position: absolute;
-      left: 0;
-    }
   }
   .ctrl-icons {
-    top: 0;
-    // flex-basis: 70%;
-    @media screen and (max-width: $md) {
-      justify-content: space-between;
-    }
     .fa {
-      margin: 0 0.3em 0 0; 
+      margin: 0 0.3em 0 0; // font-size: 4.6vw;
     }
   }
   .status {
     position: relative;
+  
     order: 4;
-    flex-basis: 25%;
-    // margin: 0 auto;
+    margin: 0 auto;
     .icon-list img {
       max-width: 3.2vw;
       max-height: 3.2vw;
@@ -428,16 +357,133 @@ export default {
   }
   .msg-parent {
     // position: absolute;
-    flex-basis: 25%;
     right: 10%;
     order: 3;
-    @media screen and (max-width: $sm) {
-      position: absolute;
-      display: none;
-    }
   }
 }
-
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
+// @media screen and (max-width: $md) {
+//   .main-section {
+//     width: 30vw;
+//     padding: 0;
+//   }
+// }
+
+// @media screen and (max-width: $md) {
+//   .main-section {
+//     width: 30%;
+//   }
+//   .kid-img {
+//     width: 25vw;
+//     height: 25vw; // max-width: 23vw;
+//     // max-height: 23vw;
+//     margin: 0 1em;
+//     border-radius: 50%;
+//     box-shadow: 0 0 11px #333;
+//     cursor: pointer; // .ctrl-icons {
+//     //   .fa {
+//     //     width: 3vw;
+//     //     height: 3vw;
+//     //     color: $color-default;
+//     //   }
+//     // }
+//     .img-circle {
+//       width: 90%;
+//       height: 90%;
+//       border-radius: 50%;
+//     }
+//   }
+//   .status {
+//     .icon-list {
+//       margin: 1em 0;
+//       li {
+//         margin: 0 0.5em;
+//         img {
+//           // width: 80%;
+//           // height: 80%;
+//         }
+//       }
+//     }
+//   }
+//   .kid-name {
+//     font-size: 3vw;
+//   }
+// }
+// @media screen and (max-width: $sm) {
+//   .main-section {
+//     margin: 0.4em 0;
+//     padding: 0.1em 0;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: center;
+//     width: 90vw;
+//     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+//   }
+//   .kid-img {
+//     width: 21vw;
+//     height: 21vw;
+//     margin: 0 0;
+//     box-shadow: 0 0 2px #333;
+//   }
+//   .container-right {
+//     display: none;
+//     flex-direction: column-reverse;
+//   }
+//   .status {
+//     margin: 0.5em 0;
+//     .icon-list {
+//       // width: 50vw;
+//       margin: 0em 0;
+//       li {
+//         width: 7vw;
+//         margin: 0 0.5em; // display: none;
+//         img {
+//           width: 100%;
+//           height: 100%;
+//         }
+//       }
+//     }
+//   }
+//   .kid-name-wraper {
+//     width: 70%;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start; // justify-content: space-between;
+//   }
+//   .kid-name {
+//     color: #376283;
+//     font-size: 6vw;
+//     margin: 0;
+//     padding: 0;
+//   }
+//   .emojis {
+//     cursor: pointer;
+//     .emoji {
+//       position: absolute;
+//       top: 0;
+//       animation: 1.5s blink-anim infinite;
+//     }
+//   }
+//   @keyframes blink-anim {
+//     0% {
+//       width: 1vw;
+//       opacity: 0;
+//       transform: rotate(0deg);
+//     }
+//     50% {
+//       width: 19vw;
+//       opacity: 0.7;
+//       transform: rotate(360deg);
+//     }
+//     100% {
+//       width: 1vw;
+//       opacity: 0;
+//       transform: rotate(0deg);
+//     }
+//   }
+// }
+// .fav-icon {
+//   cursor: pointer;
+// }
 </style>
