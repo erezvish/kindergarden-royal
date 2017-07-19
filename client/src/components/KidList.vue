@@ -2,10 +2,8 @@
   <el-row>
     <el-col :xs="24" :sm="24" :md="23">
       <section class="kid-list">
-  
         <div class="status-bar">
           <div class="title">
-            <div class="clock">{{(time)}}</div>
             <h1> Kid list area </h1>
           </div>
           <ul class="controls">
@@ -16,15 +14,17 @@
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
             <i class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
             <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
-  
           </ul>
         </div>
-        <div class="warn-system">
-          <label class="switch">
-            <input type="checkbox" v-model="warningSystemOn">
-            <span class="slider round"></span>
-          </label>
-          <h5> Warning System Status </h5>
+        <div class="info-bar flex spread middle">
+          <div class="warn-system">
+            <label class="switch">
+              <input type="checkbox" v-model="warningSystemOn">
+              <span class="slider round"></span>
+            </label>
+            <h5> Warning System Status </h5>
+          </div>
+          <div class="clock">{{(time)}}</div>
         </div>
         <div v-if="thumbnailView" class="kid-details-container">
           <!--:class="{ thumbnail: list}-->
@@ -40,9 +40,9 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
-
 import moment from 'moment'
 import store from '../store'
+
 export default {
   name: 'kid-list',
   props: ['isAdmArea'],
@@ -212,6 +212,7 @@ export default {
 // * {
 //   outline: 1px solid red;
 // }
+
 .bell-is-on {
   color: orange!important;
   animation-name: bell-flash;
@@ -301,15 +302,22 @@ export default {
   flex-wrap: wrap;
 }
 
-
+.info-bar {
+  padding: 0.2em 1em;
+  // font-size: 1em;
+}
 .warn-system {
   display: flex;
   justify-content: flex-start;
-  height: 2em;
+  flex-basis: 1;
+  margin: 0 0.5em;
+  height: 3em;
   h5 {
     margin: 1em;
   }
 }
+
+
 
 /* The switch - the box around the slider */
 
@@ -326,11 +334,15 @@ h5 {
 }
 
 
+
+
 /* Hide default HTML checkbox */
 
 .switch input {
   display: none;
 }
+
+
 
 /* The slider */
 
@@ -369,6 +381,8 @@ input:checked+.slider:before {
 }
 
 
+
+
 /* Rounded sliders */
 
 .slider.round {
@@ -385,7 +399,6 @@ input:checked+.slider:before {
 
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
-
 @media screen and (max-width: $xs) {
   .kid-list .status-bar {
     display: flex;
