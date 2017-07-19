@@ -1,7 +1,7 @@
 <template>
   <section class="main-section" :class="classObject">
   
-    <div class="kid-img" :class="{'kid-present': kid.isPresent, 'kid-away': !kid.isPresent, 'warning': warningSystemStatus && activateWarning && !kid.isPresent}" :id="cameraId" @click.stop="toggleIsPresent">
+    <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
@@ -19,10 +19,10 @@
         <i class="m-icon fa fa-trash " aria-hidden="true" @click.stop="deleteKidCard" title="Delete Card"></i>
         <i class="sm-icon fa fa-smile-o" aria-hidden="true" title="Send imoji"></i>
       </div>
-  
-    </div>
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+    </div>
+  
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
@@ -69,23 +69,20 @@ export default {
     // debugger;
   },
   computed: {
-    // imgClassObject() {
-    //   return {
-    //     'kid-img': true,
-    //     'kid-present': this.kid.isPresent,
-    //     'kid-away': !this.kid.isPresent,
-    //     'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
-    //   }
-    // },
-    // classObject() {
-    //   return {
-    //     'kid-details': true,
-    //     'mark-present': this.kid.isPresent,
-    //     'mark-absent': !this.kid.isPresent,
-    //     'list-view': this.isListView,
-    //     'kid-details-container': this.isListView
-    //   }
-    // },
+    imgClassObject() {
+      return {
+        'kid-img': true,
+        'kid-present': this.kid.isPresent,
+        'kid-away': !this.kid.isPresent,
+        'warning': this.warningSystemStatus && this.activateWarning && !this.kid.isPresent
+      }
+    },
+    classObject() {
+      return {
+        'list-view': this.isListView,
+        'kid-details-container': this.isListView
+      }
+    },
     emojisObject() {
       return {
         heart: this.kid.emojiType === 'heart',
@@ -317,10 +314,10 @@ export default {
   display: flex;
   justify-content: center;
   .kid-name {
-    font-size: 2.4em;
+
     margin: 0.1em 0;
     @media screen and (max-width: $md) {
-      font-size: 1.6rem; // margin: 3.2vw;
+      font-size: 1rem;
     }
   }
 }
@@ -391,6 +388,7 @@ export default {
     }
   }
   .kid-name-wraper {
+    position: relative;
     margin-left: 3vw;
     display: flex;
     flex-direction: column;
@@ -398,8 +396,12 @@ export default {
     align-self: center;
   }
   .kid-name {
+    align-self: flex-start;
+    position: absolute;
+    // left: -6em;
+    // flex-basis: 50%;
     color: #376283;
-    font-size: 7vw;
+    font-size: 2em;
     margin: 0;
     padding: 0;
   }
