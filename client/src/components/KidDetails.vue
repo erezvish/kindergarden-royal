@@ -3,7 +3,7 @@
   
     <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
-         <div class="emojis"> 
+      <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
@@ -22,7 +22,7 @@
     </div>
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-
+  
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
@@ -43,28 +43,30 @@
       </li>
     </ul>
   
-
     <div v-if="isParent" class="msg-parent">
       <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
       <el-button type="default" @click="sendMessage">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </el-button>
-
     </div>
+    <picture-modal class="picture-modal" v-if="showCameraModal" :kid="kid" @close="closeModal" @picture="receivePicture"></picture-modal>
   </section>
 </template>
 
 <script>
 import Webcam from 'webcamjs'
+import PictureModal from './PictureModal'
 export default {
   name: 'kid-details',
+  components: {
+    PictureModal
+  },
   props: ['kid', 'isParent', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning', 'warningSystemStatus'],
   data() {
     return {
       inputMsgParent: '',
-      isCameraOn: false,
       cameraId: 'K' + this.kid._id,
-      localKid: Object.assign({}, this.kid),
+      showCameraModal: false
     }
   },
   computed: {
@@ -105,21 +107,13 @@ export default {
       // console.log('emoji clicked')
     },
     cameraClicked() {
-      if (this.isCameraOn) {
-        let capturedImgUrl = null;
-        // console.log('url before change:', this.kid.imgUrl)
-        Webcam.snap(function (data_uri) {
-          capturedImgUrl = data_uri;
-        });
-        Webcam.reset()
-        let updatedKid = Object.assign({}, this.kid)
-        this.localKid.imgUrl = capturedImgUrl
-        updatedKid.imgUrl = capturedImgUrl
-        this.$emit('picture', updatedKid, this.kid)
-        this.localKid.imgUrl = capturedImgUrl
-      }
-      else Webcam.attach(`#${this.cameraId}`);
-      this.isCameraOn = !this.isCameraOn;
+      this.showCameraModal = true;
+    },
+    closeModal() {
+      this.showCameraModal = false
+    },
+    receivePicture(updatedKid) {
+      this.$emit('picture', updatedKid, this.kid)
     },
     createEmptyMessage() {
       const kidFullName = this.kid.firstName + ' ' + this.kid.lastName;
@@ -151,7 +145,6 @@ export default {
 // * {
 //   outline: 1px solid green;
 // }
-
 .main-section {
   display: flex;
   flex-direction: column;
@@ -353,6 +346,7 @@ export default {
     background: linear-gradient(to top, rgba(236, 162, 0, 1) 1%, orange 0.5em, rgba(236, 162, 0, 0.9) 18em);
   }
 }
+
 // >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
   margin: 0;
@@ -426,6 +420,11 @@ export default {
       display: none;
     }
   }
+}
+
+.picture-modal {
+  position: absolute;
+  top: 1em;
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
