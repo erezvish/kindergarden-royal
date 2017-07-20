@@ -424,7 +424,6 @@ export default {
 
 .picture-modal {
   position: absolute;
-  top: 1em;
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //

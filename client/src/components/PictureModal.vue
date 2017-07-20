@@ -1,13 +1,13 @@
 <template>
-    <section>
+    <section class="modal">
         <div>
             <i class="fa fa-times" aria-hidden="true" @click.stop="closeModal"></i>
-            <div class="camera-area"> </div>
             <div class="buttons-area">
                 <h5 class="freeze-picture" v-if="!isFrozen" @click.stop="freezePicture">Freeze Picture</h5>
                 <i class="fa fa-thumbs-up" v-if="isFrozen" @click.stop="acceptPicture" aria-hidden="true"></i>
                 <i class="fa fa-thumbs-down" v-if="isFrozen" @click.stop="rejectPicture" aria-hidden="true"></i>
             </div>
+            <div class="camera-area"> </div>
         </div>
     
     </section>
@@ -21,7 +21,7 @@ export default {
     data() {
         return {
         isFrozen: false,
-        localKid: Object.assign({}, this.kid),
+        elCameraArea: document.querySelector('.modal')
         }
     },
     mounted() {
@@ -29,6 +29,7 @@ export default {
     },
     methods: {
         closeModal() {
+            Webcam.reset()
             this.$emit('close');
         },
         freezePicture() {
@@ -46,7 +47,6 @@ export default {
             updatedKid.imgUrl = capturedImgUrl
             this.$emit('picture', updatedKid)
             this.closeModal()
-            Webcam.reset()
         },
         rejectPicture() {
             console.log('throwing image')
@@ -58,16 +58,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../sass/main.scss";
+* {
+    border: 1px solid red;
+}
+
 .camera-area {
     position: relative;
     z-index: 5;
     background: gray;
-    height: 400px; //temp
-    width: 400px; //temp
+    width: 400px;
+    height: 400px;
+    @media screen and (max-width: $sm) {
+        width: 100vw;
+        height: 100vh;
+    }
 }
 
 .buttons-area {
     position: absolute;
+    width: 100%;
+    bottom: 0.2em;
+    display: flex;
+    justify-content: space-between;
     z-index: 10;
     font-size: 2em;
     .fa {
