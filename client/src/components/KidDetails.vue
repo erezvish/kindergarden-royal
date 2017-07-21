@@ -147,6 +147,7 @@ export default {
 // }
 .main-section {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   margin: 1.9vw 0.9vw;
@@ -190,53 +191,6 @@ export default {
     // display: none;
     width: 55vw;
     height: 55vw;
-  }
-}
-
-.ctrl-icons {
-  position: relative;
-  top: -1em;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; // option icons
-  .fa {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0.2vw;
-    padding: 0.8vw; //0.4em;
-    width: 2vw;
-    height: 2vw;
-    background: rgba(255, 255, 255, 0.6);
-    color: $color-default-faded;
-    font-size: 2vw;
-    box-shadow: 0 0 5px 1px #376283;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: $trans-default;
-    &:hover {
-      color: $color-default;
-      transition: $trans-default;
-    }
-    @media screen and (max-width: $sm) {
-      font-size: 3.4vw;
-      padding: 2.0vw;
-    }
-    @media screen and (max-width: $sm) {
-      font-size: 5.4vw;
-      padding: 4.0vw;
-    }
-  }
-  .sm-icon {
-    display: none;
-    @media screen and (max-width: $sm) {
-      display: flex;
-    }
-  }
-  @media screen and (max-width: $sm) {
-    width: 75vw;
   }
 }
 
@@ -422,9 +376,9 @@ export default {
   }
 }
 
-.picture-modal {
-  position: absolute;
-}
+// .picture-modal {
+  // position: relative;
+// }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
 //

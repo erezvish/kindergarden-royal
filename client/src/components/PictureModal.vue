@@ -1,13 +1,11 @@
 <template>
     <section class="modal">
-        <div>
-            <i class="fa fa-times" aria-hidden="true" @click.stop="closeModal"></i>
-            <div class="buttons-area">
-                <h5 class="freeze-picture" v-if="!isFrozen" @click.stop="freezePicture">Freeze Picture</h5>
-                <i class="fa fa-thumbs-up" v-if="isFrozen" @click.stop="acceptPicture" aria-hidden="true"></i>
-                <i class="fa fa-thumbs-down" v-if="isFrozen" @click.stop="rejectPicture" aria-hidden="true"></i>
-            </div>
-            <div class="camera-area"> </div>
+        <i class="close-button fa fa-times" aria-hidden="true" @click.stop="closeModal"></i>
+        <div class="camera-area"> </div>
+        <div class="ctrl-icons">
+            <i class="fa fa-camera" aria-hidden="true" v-if="!isFrozen" @click.stop="freezePicture" title="freeze picture"></i>
+            <i class="fa fa-thumbs-up" v-if="isFrozen" @click.stop="acceptPicture" aria-hidden="true"></i>
+            <i class="fa fa-thumbs-down" v-if="isFrozen" @click.stop="rejectPicture" aria-hidden="true"></i>
         </div>
     
     </section>
@@ -63,55 +61,44 @@ export default {
     border: 1px solid red;
 }
 
-.camera-area {
-    position: relative;
-    z-index: 5;
-    background: gray;
-    width: 400px;
-    height: 400px;
-    @media screen and (max-width: $sm) {
-        width: 100vw;
-        height: 100vh;
-    }
-}
-
-.buttons-area {
-    position: absolute;
-    width: 100%;
-    bottom: 0.2em;
+.modal {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    background: linear-gradient(rgba(148, 192, 209, 1), white, rgba(148, 192, 209, 1));
+    z-index: 1;
+}
+
+.camera-area {
+    height: 50%;
+    width: 100%;
+}
+
+.ctrl-icons {
     justify-content: space-between;
-    z-index: 10;
-    font-size: 2em;
     .fa {
-        margin: 0.25em;
-        cursor: pointer;
+
     }
-    .fa-thumbs-up {
-        color: blue;
-    }
-    .fa-thumbs-down {
-        color: darkred;
+    :first-child {
+        // position: absolute;
     }
 }
 
-.fa-times {
+.close-button {
     position: absolute;
-    z-index: 10;
-    top: 0.3em;
-    right: 0.3em;
+    right: 0; // align-self: flex-end;
     font-size: 1.5em;
+    color: white;
     cursor: pointer;
 }
 
 .freeze-picture {
-    position: absolute;
-    left: 0.2em;
-    bottom: -1.5em;
-    z-index: 10;
-    transform: translateX(50%);
-    color: yellow;
-    border: 5px solid white;
     cursor: pointer;
 }
 </style>
