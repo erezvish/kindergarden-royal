@@ -62,7 +62,7 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 * {
-    border: 1px solid red;
+    // border: 1px solid red;
 }
 
 .modal {
@@ -131,12 +131,16 @@ export default {
         .camera-area {
             width: 30%;
             height: 80%;
+            margin-top: 0;
         }
         .ctrl-icons {
             width: 30%;
             .capture {
                 left: 2%;
             }
+        }
+        .clear-style {
+            margin: 0;
         }
     }
 }
