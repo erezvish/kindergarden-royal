@@ -49,7 +49,7 @@
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </el-button>
     </div>
-    <picture-modal class="picture-modal" v-if="showCameraModal" :kid="kid" @close="closeModal" @picture="receivePicture"></picture-modal>
+    <picture-modal class="picture-modal" v-if="showCameraModal" :kid="kid" :isListView="isListView" @close="closeModal" @picture="receivePicture"></picture-modal>
   </section>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <section class="modal">
+    <section class="modal" :class="{'list-view': isListView}">
         <i class="close-button fa fa-times" aria-hidden="true" @click.stop="closeModal"></i>
         <div class="camera-area"> </div>
         <div class="ctrl-icons">
@@ -15,7 +15,7 @@
 import Webcam from 'webcamjs'
 export default {
     name: 'picture-modal',
-    props: ['kid'],
+    props: ['kid', 'isListView'],
     data() {
         return {
         isFrozen: false,
@@ -86,7 +86,6 @@ export default {
 
 .ctrl-icons {
     justify-content: space-between;
-    .fa {}
     .capture {
         position: absolute;
         left: 45%;
@@ -105,6 +104,41 @@ export default {
 
 .freeze-picture {
     cursor: pointer;
+}
+
+// >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
+.list-view {
+    align-items: flex-start;
+    padding-top: 0;
+    .camera-area {
+        width: 20%;
+        height: 100%;
+    }
+    .ctrl-icons {
+        width: 20%;
+        .capture {
+            bottom: -1em;
+            left: 0;
+        }
+    }
+    .close-button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: auto;
+    }
+    @media screen and (min-width: $lg) {
+        .camera-area {
+            width: 30%;
+            height: 80%;
+        }
+        .ctrl-icons {
+            width: 30%;
+            .capture {
+                left: 2%;
+            }
+        }
+    }
 }
 </style>
 
