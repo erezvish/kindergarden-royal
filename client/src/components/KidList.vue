@@ -130,32 +130,9 @@ export default {
       this.$store.dispatch({
         type: 'updateKid',
         kid
-      }).then(
-        this.confirmImg(prevKid)
-        )
+      })
     },
-    confirmImg(prevKid) {
-      // console.log('current kid url:', kid.imgUrl)
-      this.$confirm('Accpet new Image?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'info'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: 'Image Saved!'
-        });
-      }).catch(() => {
-        this.$store.dispatch({
-          type: 'updateKid',
-          kid: prevKid
-        })
-        this.$message({
-          type: 'info',
-          message: 'Image Discarded'
-        });
-      });
-    },
+ 
     createKid() {
       this.$emit('createKid')
     },

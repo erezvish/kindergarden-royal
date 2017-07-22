@@ -3,7 +3,7 @@
         <i class="close-button fa fa-times" aria-hidden="true" @click.stop="closeModal"></i>
         <div class="camera-area"> </div>
         <div class="ctrl-icons">
-            <i class="fa fa-camera" aria-hidden="true" v-if="!isFrozen" @click.stop="freezePicture" title="freeze picture"></i>
+            <i class="fa fa-camera capture" aria-hidden="true" v-if="!isFrozen" @click.stop="freezePicture" title="freeze picture"></i>
             <i class="fa fa-thumbs-up" v-if="isFrozen" @click.stop="acceptPicture" aria-hidden="true"></i>
             <i class="fa fa-thumbs-down" v-if="isFrozen" @click.stop="rejectPicture" aria-hidden="true"></i>
         </div>
@@ -24,6 +24,10 @@ export default {
     },
     mounted() {
         Webcam.attach(`.camera-area`);
+        Webcam.set({
+		    dest_width: 300,
+		    dest_height: 300,
+	    });
     },
     methods: {
         closeModal() {
@@ -82,11 +86,11 @@ export default {
 
 .ctrl-icons {
     justify-content: space-between;
-    .fa {
-
-    }
-    :first-child {
-        // position: absolute;
+    .fa {}
+    .capture {
+        position: absolute;
+        left: 45%;
+        bottom: -2em;
     }
 }
 
@@ -96,6 +100,7 @@ export default {
     font-size: 1.5em;
     color: white;
     cursor: pointer;
+    z-index: 1;
 }
 
 .freeze-picture {
