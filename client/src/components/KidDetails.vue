@@ -3,12 +3,14 @@
   
     <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
-         <div class="emojis"> 
-          <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
-          <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
-          <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
-          <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
-        </div>
+
+      <div class="emojis">
+        <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
+        <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
+        <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
+        <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
+      </div>
+
     </div>
     <div class="list-wraper" v-if="isAdmin && isAdmArea">
       <div class="ctrl-icons">
@@ -22,6 +24,7 @@
     </div>
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
+
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
@@ -42,28 +45,30 @@
       </li>
     </ul>
   
-
     <div v-if="isParent" class="msg-parent">
       <el-input placeholder="Send Message" v-model="inputMsgParent" @keyup.native.enter="sendMessage"></el-input>
       <el-button type="default" @click="sendMessage">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
       </el-button>
-
     </div>
+    <picture-modal class="picture-modal" v-if="showCameraModal" :kid="kid" :isListView="isListView" @close="closeModal" @picture="receivePicture"></picture-modal>
   </section>
 </template>
 
 <script>
 import Webcam from 'webcamjs'
+import PictureModal from './PictureModal'
 export default {
   name: 'kid-details',
+  components: {
+    PictureModal
+  },
   props: ['kid', 'isParent', 'isListView', 'isAdmin', 'isBasic', 'isAdmArea', 'activateWarning', 'warningSystemStatus'],
   data() {
     return {
       inputMsgParent: '',
-      isCameraOn: false,
       cameraId: 'K' + this.kid._id,
-      localKid: Object.assign({}, this.kid),
+      showCameraModal: false
     }
   },
   computed: {
@@ -104,21 +109,13 @@ export default {
       // console.log('emoji clicked')
     },
     cameraClicked() {
-      if (this.isCameraOn) {
-        let capturedImgUrl = null;
-        // console.log('url before change:', this.kid.imgUrl)
-        Webcam.snap(function (data_uri) {
-          capturedImgUrl = data_uri;
-        });
-        Webcam.reset()
-        let updatedKid = Object.assign({}, this.kid)
-        this.localKid.imgUrl = capturedImgUrl
-        updatedKid.imgUrl = capturedImgUrl
-        this.$emit('picture', updatedKid, this.kid)
-        this.localKid.imgUrl = capturedImgUrl
-      }
-      else Webcam.attach(`#${this.cameraId}`);
-      this.isCameraOn = !this.isCameraOn;
+      this.showCameraModal = true;
+    },
+    closeModal() {
+      this.showCameraModal = false
+    },
+    receivePicture(updatedKid) {
+      this.$emit('picture', updatedKid, this.kid)
     },
     createEmptyMessage() {
       const kidFullName = this.kid.firstName + ' ' + this.kid.lastName;
@@ -150,9 +147,9 @@ export default {
 // * {
 //   outline: 1px solid green;
 // }
-
 .main-section {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   margin: 1.9vw 0.9vw;
@@ -197,55 +194,6 @@ export default {
     // display: none;
     width: 55vw;
     height: 55vw;
-  }
-}
-.list-wraper {
-  width: 100%;
-}
-.ctrl-icons {
-  position: relative;
-  top: -1em;
-  z-index: 1;
-  // width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center; // option icons
-  .fa {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0.2vw;
-    padding: 0.8vw; //0.4em;
-    width: 2vw;
-    height: 2vw;
-    background: rgba(255, 255, 255, 0.6);
-    color: $color-default-faded;
-    font-size: 2vw;
-    box-shadow: 0 0 5px 1px #376283;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: $trans-default;
-    &:hover {
-      color: $color-default;
-      transition: $trans-default;
-    }
-    @media screen and (max-width: $sm) {
-      font-size: 3.4vw;
-      padding: 2.0vw;
-    }
-    @media screen and (max-width: $sm) {
-      font-size: 5.4vw;
-      padding: 4.0vw;
-    }
-  }
-  .sm-icon {
-    display: none;
-    @media screen and (max-width: $sm) {
-      display: flex;
-    }
-  }
-  @media screen and (max-width: $sm) {
-    width: 75vw;
   }
 }
 
@@ -356,6 +304,7 @@ export default {
     background: linear-gradient(to top, rgba(236, 162, 0, 1) 1%, orange 0.5em, rgba(236, 162, 0, 0.9) 18em);
   }
 }
+
 // >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
   margin: 0;
@@ -430,6 +379,10 @@ export default {
     }
   }
 }
+
+// .picture-modal {
+  // position: relative;
+// }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
 //
