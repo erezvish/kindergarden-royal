@@ -3,12 +3,14 @@
   
     <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
       <img class="img-circle" :src="kid.imgUrl">
+
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
+
     </div>
     <div class="list-wraper" v-if="isAdmin && isAdmArea">
       <div class="ctrl-icons">
@@ -22,21 +24,21 @@
     </div>
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-  
+
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
         <ul v-if="isAdmin || isParent" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
-          <li title="love">
+          <li title="send love">
             <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>
-          <li>
+          <li title="send ultra love">
             <img class="fav-icon" src="../assets/msg-icon/heart-eyes.png" @click.stop="setEmoji(kid, 'heartEyes')">
           </li>
-          <li>
+          <li title="send a star">
             <img class="fav-icon" src="../assets/msg-icon/star.png" @click.stop="setEmoji(kid, 'star')">
           </li>
-          <li>
+          <li title="send a blink">
             <img class="fav-icon" src="../assets/msg-icon/blink.png" @click.stop="setEmoji(kid, 'wink')">
           </li>
         </ul>
@@ -152,6 +154,7 @@ export default {
   align-items: center;
   margin: 1.9vw 0.9vw;
   padding: 0.7em 0;
+  width: 25vw;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.1);
   border-top-left-radius: 5%;
@@ -207,7 +210,6 @@ export default {
   color: white;
 }
 
-
 .warning {
   animation: 1s warn-absent infinite
 }
@@ -226,7 +228,6 @@ export default {
   color: #376283;
 }
 
-
 .status {
   .kid-status {
     & span {
@@ -238,7 +239,8 @@ export default {
   .icon-list {
     display: flex;
     justify-content: space-between;
-    margin: 1em 0;
+    cursor: pointer;
+   
     li {
       display: table-cell;
       vertical-align: middle;
@@ -258,7 +260,8 @@ export default {
   display: flex;
   justify-content: center;
   .kid-name {
-    font-size: 2.4em;
+    color: $color-default;
+    font-size: 2.2em;
     margin: 0.1em 0;
     @media screen and (max-width: $md) {
       font-size: 1.6rem; // margin: 3.2vw;
@@ -270,6 +273,7 @@ export default {
   cursor: pointer;
   .emoji {
     position: absolute;
+    left: 0;
     z-index: 2;
     top: 0;
     animation: 1.5s blink-anim infinite;

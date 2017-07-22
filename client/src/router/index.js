@@ -6,7 +6,6 @@ import AdminCmp from '@/components/AdminCmp'
 import LoginCmp from '@/components/LoginCmp'
 
 // test component for dev time
-import TestCmp from '@/components/TestCmp'
 
 Vue.use(Router)
 
@@ -33,10 +32,5 @@ export default new Router({
       name: 'login-cpm',
       component: LoginCmp
     },
-    {
-      path: '/test',
-      name: 'test-cmp',
-      component: TestCmp
-    }
   ]
 })
