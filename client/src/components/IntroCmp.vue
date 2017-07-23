@@ -3,6 +3,7 @@
         <div class="titles">
             <h1>kinderYA!</h1>
             <h2>A Safety App for Parents That Kids Like!</h2>
+            <el-button @click="goHome">Go to Login</el-button>
         </div>
         <div class="bg-img"> </div>
     </section>
@@ -17,6 +18,11 @@ export default {
     },
     destroyed() {
         this.$emit('toggle-header', true)
+    },
+    methods: {
+        goHome() {
+            this.$router.push('/login')
+        }
     }
 }
 </script>

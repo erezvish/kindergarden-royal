@@ -4,7 +4,7 @@
     <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
       <img v-if="kid.imgUrl" class="img-circle" :src="kid.imgUrl">
       <div class="img-circle"></div>
-      <div class="emojis">
+      <div class="emojis" v-if="kid.isPresent">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
