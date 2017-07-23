@@ -220,6 +220,11 @@ header {
     margin: 0.3em;
   }
 }
+.mark {
+  height: 100%;
+  border-bottom: 2px solid #eca200;
+  // display: none;
+}
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 //
 @media screen and (max-width: $md) {

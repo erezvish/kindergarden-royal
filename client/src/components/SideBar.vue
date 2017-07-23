@@ -1,12 +1,9 @@
 <template>
     <el-col class="el-col-sidebar" :md="7" :class="{ 'hidden': !bellProp }">
         <section class="sidebar">
-            <div class="sidebar-header">
-                <i class="fa fa-times" aria-hidden="true" @click="closeClicked"></i>
-            </div>
+
             <div>
-                <notes-panel></notes-panel>
-                <!--<note-cmp></note-cmp>-->
+                <notes-panel @toggle-sidebar="toggleSidebar"></notes-panel>
             </div>
         </section>
     
@@ -28,8 +25,7 @@ export default {
         NotesPanel
     },
     methods: {
-        closeClicked() {
-            console.log('closeClicked');
+        toggleSidebar() {
             this.$emit('toggle-sidebar');
         }
     }
@@ -38,12 +34,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//     outline: 1px solid #333;
-// }
+
 .sidebar {
     position: relative;
-    z-index: 10;
+    z-index: 1;
+    height: 100%;
+    align-content: space-between;
+    justify-content: flex-start;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -57,11 +54,27 @@ export default {
         font-size: 2em;
         margin: 0 0.5em;
     }
+    .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #95C1D2;
+        background: linear-gradient(rgb(55, 98, 131) 80%, white);
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+        height: 3em;
+    }
 }
+
 .hr-bottom {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 0.5em;
 }
+
+.close-btn {
+    align-self: flex-end;
+}
+
 .notes-header {
     display: flex;
     justify-content: space-between;
@@ -79,10 +92,12 @@ export default {
         }
     }
 }
+
 @media screen and (max-width: $md) {
     .el-col-sidebar {
         position: absolute;
         left: 0;
+        height: 100%;
     }
     .sidebar {
         border-radius: 0em;
@@ -96,4 +111,8 @@ export default {
         box-shadow: $box-shadow-default;
     }
 }
+
+// * {
+//     outline: 1px solid #333;
+// }
 </style>
