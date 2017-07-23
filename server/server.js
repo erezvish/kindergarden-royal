@@ -214,7 +214,7 @@ app.get('/logout', function (req, res) {
 	console.log('logged out')
 	req.mySession.reset();
 	res.end('Loggedout');
-});
+})
 
 function requireLogin(req, res, next) {
 	if (!req.mySession.user) {

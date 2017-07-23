@@ -3,13 +3,18 @@
   "short_name": "kinderya",
   "icons": [
     {
-      "src": "/static/img/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "/static/img/icons/baby-icon16x16.png",
+      "sizes": "16x16",
       "type": "image/png"
     },
     {
-      "src": "/static/img/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
+      "src": "/static/img/icons/baby-icon32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icons/baby-icon96x96.png",
+      "sizes": "96x96",
       "type": "image/png"
     }
   ],
