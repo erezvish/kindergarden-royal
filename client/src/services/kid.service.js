@@ -1,12 +1,11 @@
 import axios from 'axios-es6'
 
-import moment from 'moment';
+import moment from 'moment'
 import ioClient from 'socket.io-client'
 
-const port = '3003';
-const url = `http://localhost:${port}/data/kid`
-const socket = ioClient(`http://localhost:${port}`);
-
+const port = '3003'
+const url = process.env.NODE_ENV === 'development' ? `http://localhost:${port}/data/kid` : '/data/kid'
+const socket = process.env.NODE_ENV === 'development' ? ioClient(`http://localhost:${port}`) : ioClient()
 
 // const tempKid = {
 //     _id: 1,
@@ -24,7 +23,7 @@ export default {
         return axios.get(url)
             .catch(err => {
                 console.log('list request failed:', err)
-                return err;
+                return err
         })
     },
 
@@ -32,12 +31,12 @@ export default {
         const kidUrl = url + `/${kidId}`
         return axios.get(kidUrl)
             .then(kid => {
-                console.log('server responded to find kid request');
-                return kid;
+                console.log('server responded to find kid request')
+                return kid
             })
             .catch(err => {
-                console.log('find kid failed');
-                return err;
+                console.log('find kid failed')
+                return err
             })
     },
 
@@ -47,7 +46,7 @@ export default {
         return axios.post(url, kid)
             .catch(err => {
                 console.log('post kid object failed:', err)
-                return err;
+                return err
             })
     },
 
@@ -56,7 +55,7 @@ export default {
         return axios.put(kidUrl, kid)
             .catch(err => {
                 console.log('updating kid object failed:', err)
-                return err;
+                return err
             })
     },
 
@@ -74,10 +73,9 @@ export default {
 
     initSocket(actionFunc) {
         socket.on('toggle notice', (kid) => {
-            console.log('emit received!')
-            if (typeof actionFunc === 'function') {
+            // if (typeof actionFunc === 'function') {
                 actionFunc(kid)
-            }
+            // }
         })
     }
 }

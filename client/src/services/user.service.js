@@ -2,7 +2,7 @@
 
 import axios from 'axios-es6'
 
-const url = 'http://localhost:3003'
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3003' : ''
 
 export default {
 

@@ -7,12 +7,12 @@
         <div class="kid-details-container">
   
           <!-- form -->
-          <el-form action="">
+          <el-form action="" ref="login">
             <div>
-              <el-input type="text" :placeholder="username" autofocus required v-model="user.username"></el-input>
+              <el-input ref="username" type="text" :placeholder="username" autofocus required v-model="user.username" @keyup.native.enter="isPasswordFocused = true"></el-input>
             </div>
             <div>
-              <el-input type="password" :placeholder="password" required v-model="user.pass"></el-input>
+              <el-input ref="password" type="password" :placeholder="password" required v-model="user.pass" @keyup.native.enter="submit"></el-input>
             </div>
             <div>
               <el-button type="success" value="Login" @click="submit" autofocus>Log In</el-button>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
   data() {
     return {
@@ -40,10 +41,20 @@ export default {
       },
       // TODO: implement translation somehow
       username: 'username',
-      password: 'password'
+      password: 'password',
+      isPasswordFocused: false
+    }
+  },
+  watch: {
+    isPasswordFocused(val) {
+      this.toggleFocus(val)
     }
   },
   methods: {
+    toggleFocus(isPasswordFocused) {
+      if (isPasswordFocused) this.$refs.password.$el.querySelector('input').focus()
+      else this.$refs.username.$el.querySelector('input').focus()
+    },
     submit() {
       this.$store.dispatch({
         type: 'login',
@@ -60,7 +71,10 @@ export default {
             message: 'Error in log in'
           })
           this.$router.push('/login')
+          this.user.username = ''
+          this.user.pass = ''
         })
+      this.isPasswordFocused = false
     }
   }
 }

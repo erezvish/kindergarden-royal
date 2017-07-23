@@ -84,8 +84,7 @@ export default {
         state.messages.splice(0, len, ...messages)
     },
     deleteMessage(state, { _id }) {
-        console.log('message deleted from store')
-        const idx = state.messages.findIndex(someMessage => someMessa._id === _id)
+        const idx = state.messages.findIndex(someMessage => someMessage._id === _id)
         if (idx !== -1) {
             state.messages.splice(idx, 1)
         } else {
