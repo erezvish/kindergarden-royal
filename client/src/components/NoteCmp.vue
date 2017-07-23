@@ -35,6 +35,7 @@ export default {
 .body {
     text-align: left;
     padding: 0 0.5em 1em 0.5em;
+    word-wrap: break-word;
 }
 
 .ctrl {
