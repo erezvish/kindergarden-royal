@@ -1,8 +1,8 @@
 <template>
   <div id="app" ref="app">
-    <header-cmp> </header-cmp>
+    <header-cmp v-if="showHeader"> </header-cmp>
     <main>
-      <router-view></router-view>
+      <router-view @toggle-header="setShowHeader"></router-view>
     </main>
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
   },
   data() {
     return {
+      showHeader: true,
       voiceCommands: {
         'hello': () => { this.$message('Hello, how are you?'); },
         'Tamir': () => { this.$message('Number 1 Designer!'); },
@@ -51,6 +52,11 @@ export default {
   },
   destroyed() {
     annyang.abort()
+  },
+  methods: {
+    setShowHeader(showStatus) {
+      this.showHeader = showStatus;
+    }
   }
 }
 </script>

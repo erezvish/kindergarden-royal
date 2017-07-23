@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from '../App'
+import IntroCmp from '@/components/IntroCmp'
 import MainPanel from '@/components/MainPanel'
 import AdminCmp from '@/components/AdminCmp'
 import LoginCmp from '@/components/LoginCmp'
@@ -31,6 +32,11 @@ export default new Router({
       path: '/login',
       name: 'login-cpm',
       component: LoginCmp
+    },
+    {
+      path: '/intro',
+      name: 'intro-cmp',
+      component: IntroCmp
     },
   ]
 })
