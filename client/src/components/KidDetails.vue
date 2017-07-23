@@ -345,7 +345,7 @@ export default {
     justify-content: flex-start;
     align-self: flex-start;
     & p {
-      display: none;
+      // display: none;
       position: absolute;
       left: 0;
     }
