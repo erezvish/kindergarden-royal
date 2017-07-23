@@ -2,7 +2,9 @@
   <div id="app" ref="app">
     <header-cmp v-if="showHeader"> </header-cmp>
     <main>
-      <router-view @toggle-header="setShowHeader"></router-view>
+      <!-- <transition name="fade"> -->
+        <router-view @toggle-header="setShowHeader"></router-view>
+      <!-- </transition> -->
     </main>
   </div>
 </template>
@@ -41,7 +43,7 @@ export default {
         id,
         that
       })
-    }, 7000);
+    }, 5000);
     this.$store.dispatch({
       type: 'initSocket',
     })
@@ -103,4 +105,16 @@ header span {
 }
 
 // Media queries sizes
+.fade-enter-active {
+  transition: opacity 1s ease-out;
+}
+
+ .fade-leave-active {
+  transition: opacity 1s ease-in;   
+ }
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  
+}
 </style>
