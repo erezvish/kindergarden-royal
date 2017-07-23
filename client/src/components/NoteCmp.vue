@@ -17,12 +17,11 @@
 export default {
     name: 'note-cmp',
     props: ['note'],
+
     methods: {
         noteClicked: function () {
-            console.log('note clicked!');
         },
         trashClicked: function (e) {
-            console.log('Trash clicked!');
             this.$emit('delete-note');
         }
     }
