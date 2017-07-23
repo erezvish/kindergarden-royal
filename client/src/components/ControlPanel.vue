@@ -111,10 +111,6 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-// * {
-//   outline: 1px solid #333;
-// }
-
 .el-row {
   display: flex;
   justify-content: center;
@@ -162,7 +158,6 @@ export default {
 
   .icon-wraper {
     display: flex;
-    // flex-direction: column;
   }
 }
 
@@ -197,9 +192,6 @@ export default {
     }
   }
   .search-bar {
-    // position: absolute;
-    // margin: 0 18%;
-    // width: 66%;
     z-index: 1;
     visibility: visible;
     opacity: 1;
@@ -227,4 +219,9 @@ export default {
     }
   }
 }
+
+// * {
+//   outline: 1px solid #333;
+// }
+
 </style>
