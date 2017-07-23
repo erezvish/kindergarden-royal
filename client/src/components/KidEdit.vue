@@ -4,7 +4,9 @@
       <section class="kid-edit">
         <h2> Kid properties </h2>
         <div class="editor-header">
-          <div class="kid-img"></div>
+          <div class="kid-img">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+          </div>
           <el-col :lg="14" class="info-form">
             <el-form :model="editedKid" :rules="rules" ref="edit-kid">
               <el-form-item label="First name" prop="firstName">
@@ -20,27 +22,6 @@
                   <el-option label="Undefined" value="Undefined"></el-option>
                 </el-select>
               </el-form-item>
-  
-
-              <!--<h4> {{ t('Parents details') }} </h4>
-                <el-form-item label="Mother name">
-                  <el-input v-model="editedKid.parents[0].name"></el-input>
-                </el-form-item>
-                <el-form-item label="Mother Tel.">
-                  <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[0].tel"></el-input>
-                </el-form-item>
-                <el-form-item label="Mother Email.">
-                  <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[0].mail"></el-input>
-                </el-form-item>
-                <el-form-item label="Father name">
-                  <el-input v-model="editedKid.parents[1].name"></el-input>
-                </el-form-item>
-                <el-form-item label="Father Tel.">
-                  <el-input placeholder="05x-xxxxxxx" v-model="editedKid.parents[1].tel"></el-input>
-                </el-form-item>
-                <el-form-item label="Father Email.">
-                  <el-input type="email" placeholder="example@gmail.com" v-model="editedKid.parents[1].mail"></el-input>
-                </el-form-item>-->
   
               <div class="form-controls" dir="ltr">
                 <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
@@ -185,15 +166,21 @@ export default {
   }
   ;
   & .kid-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 1em 0;
     background: #f4f4f4;
-    background-image: url('../assets/img-kid/img.png');
+    // background-image: url('../assets/img-kid/img.png');
     background-size: cover;
     width: 12.4em;
     height: 20em;
     border: $border-alpha-narrow;
+    .fa {
+      font-size: 6.5em;
+      cursor: pointer;
+    }
   }
-  ;
 
   & ul {
     display: flex;
