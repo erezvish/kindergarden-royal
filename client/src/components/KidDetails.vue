@@ -2,8 +2,8 @@
   <section class="main-section" :class="classObject">
   
     <div :class="imgClassObject" :id="cameraId" @click.stop="toggleIsPresent">
-      <img class="img-circle" :src="kid.imgUrl">
-
+      <img v-if="kid.imgUrl" class="img-circle" :src="kid.imgUrl">
+      <div class="img-circle"></div>
       <div class="emojis">
         <img class="emoji" src="../assets/msg-icon/heart.png" v-if="emojisObject.heart">
         <img class="emoji" src="../assets/msg-icon/heart-eyes.png" v-if="emojisObject.heartEyes">
@@ -183,7 +183,7 @@ export default {
   box-shadow: 0 0 11px #333;
   cursor: pointer;
   .img-circle {
-    position: relative;
+    position: absolute;
     z-index: -1;
     width: 85%;
     height: 85%;
