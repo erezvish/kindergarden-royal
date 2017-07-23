@@ -3,4 +3,4 @@ script.sh
 debug.log
 */debug.log
 script.cmd
-prod/
+prod
