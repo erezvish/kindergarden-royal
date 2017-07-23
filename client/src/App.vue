@@ -25,11 +25,23 @@ export default {
         'Erez': () => { this.$message('Google him, you may be surprised!'); },
         'Alon': () => { this.$message('He is VP R&D'); },
         'Yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
-        
+
       }
     }
   },
   created() {
+    const that = this
+    let currPath = this.$route.path
+    this.$router.push('/intro')
+    setTimeout(function () {
+      that.$router.push(currPath)
+      const id = that.$route.params.kidId
+      that.$store.dispatch({
+        type: 'checkParent',
+        id,
+        that
+      })
+    }, 7000);
     this.$store.dispatch({
       type: 'initSocket',
     })
@@ -39,13 +51,7 @@ export default {
     this.$store.dispatch({
       type: 'getKids'
     })
-    const id = this.$route.params.kidId
-    const that = this
-    this.$store.dispatch({
-      type: 'checkParent',
-      id,
-      that
-    })
+
     // Add our commands to annyang
     annyang.addCommands(this.voiceCommands);
     // annyang.start();
@@ -67,7 +73,7 @@ body {
 }
 
 #app {
-  font-family: 'Avenir', 'Varela Round',Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', 'Varela Round', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

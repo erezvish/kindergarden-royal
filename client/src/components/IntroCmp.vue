@@ -15,12 +15,6 @@ export default {
     created() {
         this.$emit('toggle-header', false)
     },
-    mounted() {
-        let that = this;
-        // setTimeout(function() {
-            // that.$router.push('/')
-        // }, (6000));
-    },
     destroyed() {
         this.$emit('toggle-header', true)
     }
