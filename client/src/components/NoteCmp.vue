@@ -1,19 +1,15 @@
 <template>
     <section class="note">
-        <ul class="title clear-style" @click="noteClicked">
-            <li>
-                <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-            </li>
-            <li>
-                <h4>{{note.title}}</h4>
-                <h5>{{note.text}}</h5>
-            </li>
-        </ul>
-        <ul class="add-note clear-style" @click="trashClicked">
-            <li>
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </li>
-        </ul>
+        <div class="body clear-style" @click="noteClicked">
+            <h4>{{note.title}}</h4>
+            <p>{{note.text}}</p>
+        </div>
+        <div class="ctrl ctrl-icons clear-style" @click="trashClicked">
+            <i class="fa fa-reply" aria-hidden="true"></i>
+            <!--<i class="fa fa-eye" aria-hidden="true"></i>-->
+            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </div>
     </section>
 </template>
 
@@ -37,43 +33,33 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
+.body {
+    text-align: left;
+    padding: 0 0.5em 1em 0.5em;
+}
+
+.ctrl {
+    background: linear-gradient(white, rgba(53, 53, 53, 0.1), white);
+    text-align: right;
+}
+
+.ctrl-icons {
+    justify-content: flex-end;
+    .fa {
+        margin: 0.3em;
+        padding: 0.2em;
+        font-size: 1.3em;
+        @media all and (max-width: $md) {
+            padding: 0.5em;
+            
+        }
+    }
+    @media all and (max-width: $sm) {
+        width: 100vw;
+    }
+}
+
 // * {
 //     outline: 1px solid #333;
 // }
-.note {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(53, 53, 53, 0.2);
-    & .title {
-        flex: 1;
-    }
-    & ul {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 0;
-        padding: 1em 0;
-        & li {
-            margin: 0 0.5em;
-
-            & .fa {
-                font-size: 2.5em;
-            }
-        }
-    }
-    ;
-
-    & .add-note {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        & .fa {
-            font-size: 1.7em;
-        }
-        &:hover {
-            color: lightcoral;
-            transition: all, 0.2s;
-        }
-    }
-}
 </style>

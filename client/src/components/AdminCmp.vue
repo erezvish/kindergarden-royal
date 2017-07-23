@@ -1,7 +1,6 @@
 <template>
   <section class="admin-panel">
     <el-row>
-      
       <el-col :xs="24" :sm="24" :md="24">
         <!--<h1>Admin Panel </h1>-->
         <control-panel></control-panel>
@@ -46,7 +45,7 @@ export default {
   },
   methods: {
     toggleSidebar() {
-    this.sidebarOn = !this.sidebarOn;
+      this.sidebarOn = !this.sidebarOn;
     },
     setEditMode(kid) {
       this.toggleEditMode()
@@ -62,25 +61,25 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid red;
-// }
+
 .el-row {
   display: flex;
 }
+
 .admin-panel {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  background: lightblue;
+  background: #f1f1f1;
   padding: 2em;
   min-height: 100vh;
-}
-// ------------------------- MEDIA QUERIES ------------------------- //
-//
-@media screen and (max-width: $sm) {
-  .admin-panel {
+  @media screen and (max-width: $sm) {
     padding: 0;
   }
 }
+
+// * {
+//   outline: 1px solid red;
+// }
+
 </style>
