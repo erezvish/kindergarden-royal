@@ -199,6 +199,7 @@ export default {
     }
     :active{
       opacity: 1;
+      color: #eca200;
     }
     .fa {
       font-size: 6.5em;
