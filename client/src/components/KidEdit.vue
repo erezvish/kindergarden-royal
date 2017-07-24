@@ -5,6 +5,7 @@
         <h2> Kid properties </h2>
         <div class="editor-header">
           <div class="kid-img">
+            <input type="file" accept="image/*" @change="onChange" />
             <i class="fa fa-user-plus" aria-hidden="true"></i>
           </div>
           <el-col :lg="14" class="info-form">
@@ -73,6 +74,25 @@ export default {
     };
   },
   methods: {
+    onChange(event) {
+      if (event.target.files && event.target.files[0]) {
+        let file = event.target.files[0]
+        let reader = new FileReader()
+
+        reader.addEventListener('load', e => {
+          this.editedKid.imgUrl = e.target.result
+          // this.src = e.target.result
+          // let [, base64] = this.src.split(',')
+          // this.$emit('change', {
+          //   size: file.size,
+          //   type: file.type,
+          //   name: file.name,
+          //   base64: base64
+          // })
+        })
+        reader.readAsDataURL(file)
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -170,8 +190,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 1em 0;
-    background: #f4f4f4;
-    // background-image: url('../assets/img-kid/img.png');
+    background: #f4f4f4; // background-image: url('../assets/img-kid/img.png');
     background-size: cover;
     width: 12.4em;
     height: 20em;
