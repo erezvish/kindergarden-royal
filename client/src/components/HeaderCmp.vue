@@ -22,7 +22,7 @@
             </li>
             <li v-if="isAdmin" @click="slideMenu">
               <router-link class="router-link single-item" to="/admin">
-               <i class="fa fa-users" aria-hidden="true"></i>{{ t('Stuff') }}</router-link>
+               <i class="fa fa-users" aria-hidden="true"></i>{{ t('Staff') }}</router-link>
             </li>
             <li v-if="!isAdmin && !isBasic" @click="slideMenu">
               <router-link class="router-link single-item" to="/login">

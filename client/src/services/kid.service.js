@@ -19,12 +19,23 @@ const socket = process.env.NODE_ENV === 'development' ? ioClient(`http://localho
 
 export default {
 
-    getList() {
-        return axios.get(url)
-            .catch(err => {
+    getList: function*() {
+
+        let kids = JSON.parse(localStorage.getItem('kids'))
+        yield(kids)
+
+        const pm = axios.get(url)
+        
+        pm
+        .then(res => {
+            localStorage.setItem('kids', JSON.stringify(res.data))
+        })
+        .catch(err => {
                 console.log('list request failed:', err)
                 return err
         })
+
+        yield pm
     },
 
     getOne(kidId) {

@@ -4,7 +4,7 @@
       <section class="login-container">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
         <h1> Log In </h1>
-        <div class="kid-details-container">
+        <div class="kid-details-container" dir="ltr">
   
           <!-- form -->
           <el-form action="" ref="login">

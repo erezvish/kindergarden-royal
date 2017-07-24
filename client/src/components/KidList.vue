@@ -4,7 +4,7 @@
       <section class="kid-list">
         <div class="status-bar">
           <div class="title">
-            <h1> Only True-love's kiss will remove the Curse! </h1>
+            <h1> {{t('Our Precious Kids')}} </h1>
           </div>
           <ul class="controls">
             <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="bellClicked"></i>
@@ -22,7 +22,7 @@
               <input type="checkbox" v-model="warningSystemOn">
               <span class="slider round"></span>
             </label>
-            <h5> Warning System Status </h5>
+            <h5> {{t('Toggle Warning')}} </h5>
           </div>
           <div class="clock">{{(time)}}</div>
         </div>
@@ -243,7 +243,7 @@ export default {
       padding: 0;
       margin: 0.1em;
       font: {
-        family: Abel;
+        family: Abel, 'Avenir', 'Varela Round', Helvetica, Arial, sans-serif;
         size: 2em;
       }
     }
