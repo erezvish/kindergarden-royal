@@ -16,6 +16,31 @@
       "src": "/static/img/icons/baby-icon96x96.png",
       "sizes": "96x96",
       "type": "image/png"
+    },
+    {
+      "src": "/static/img/icons/baby-icon256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icons/baby-icon128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icons/baby-icon64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icons/baby-icon48x48.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icons/baby-icon72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
     }
   ],
   "start_url": "/index.html",
