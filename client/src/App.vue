@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import appSpeech from './speech/app.speech'
 import HeaderCmp from './components/HeaderCmp'
 export default {
@@ -29,19 +30,26 @@ export default {
       }
     }
   },
+  computed: mapState([
+    'isAdmin',
+    'isBasic',
+    'isParent'
+  ]),
   created() {
     const that = this
     let currPath = this.$route.path
-    this.$router.push('/intro')
-    setTimeout(function () {
-      that.$router.push(currPath)
-      const id = that.$route.params.kidId
-      that.$store.dispatch({
-        type: 'checkParent',
-        id,
-        that
-      })
-    }, 4000);
+    if (!this.isAdmin && !this.isBasic) {
+      this.$router.push('/intro')
+      setTimeout(function () {
+        that.$router.push(currPath)
+        const id = that.$route.params.kidId
+        that.$store.dispatch({
+          type: 'checkUser',
+          id,
+          that
+        })
+      }, 4000);
+    }
     this.$store.dispatch({
       type: 'initSocket',
     })

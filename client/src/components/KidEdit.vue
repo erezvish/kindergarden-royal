@@ -85,14 +85,6 @@ export default {
 
         reader.addEventListener('load', e => {
           this.editedKid.imgUrl = e.target.result
-          // this.src = e.target.result
-          // let [, base64] = this.src.split(',')
-          // this.$emit('change', {
-          //   size: file.size,
-          //   type: file.type,
-          //   name: file.name,
-          //   base64: base64
-          // })
         })
         reader.readAsDataURL(file)
       }
