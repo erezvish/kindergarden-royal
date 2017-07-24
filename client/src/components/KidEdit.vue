@@ -5,8 +5,10 @@
         <h2> Kid properties </h2>
         <div class="editor-header">
           <div class="kid-img">
-            
-            <label for="file"><i class="fa fa-user-plus" aria-hidden="true"></i></label>
+  
+            <label for="file">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+            </label>
             <input type="file" class="inputfile" name="file" id="file" accept="image/*" @change="onChange" />
             <!--<input type="file" name="file" id="file" class="inputfile" />-->
           </div>
@@ -198,6 +200,14 @@ export default {
     width: 12.4em;
     height: 20em;
     border: $border-alpha-narrow;
+    opacity: 1;
+     :hover {
+      opacity: 0.5;
+      transition: all, 0.4s;
+    }
+    :active{
+      opacity: 1;
+    }
     .fa {
       font-size: 6.5em;
       cursor: pointer;
