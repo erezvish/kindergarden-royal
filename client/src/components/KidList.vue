@@ -4,16 +4,16 @@
       <section class="kid-list">
         <div class="status-bar">
           <div class="title">
-            <h1> Kid list area </h1>
+            <h1> Only True-love's kiss will remove the Curse! </h1>
           </div>
           <ul class="controls">
-            <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
+            <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="bellClicked"></i>
             <i class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
             <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
             <i class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
+            <i class="fa fa-plus-square-o" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="createKid"></i>
           </ul>
         </div>
         <div class="info-bar flex spread middle">
