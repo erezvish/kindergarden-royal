@@ -5,8 +5,10 @@
         <h2> Kid properties </h2>
         <div class="editor-header">
           <div class="kid-img">
-            <input type="file" accept="image/*" @change="onChange" />
-            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            
+            <label for="file"><i class="fa fa-user-plus" aria-hidden="true"></i></label>
+            <input type="file" class="inputfile" name="file" id="file" accept="image/*" @change="onChange" />
+            <!--<input type="file" name="file" id="file" class="inputfile" />-->
           </div>
           <el-col :lg="14" class="info-form">
             <el-form :model="editedKid" :rules="rules" ref="edit-kid">
@@ -185,9 +187,10 @@ export default {
     top: $border-alpha-wide;
   }
   ;
-  & .kid-img {
+  .kid-img {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     margin: 1em 0;
     background: #f4f4f4; // background-image: url('../assets/img-kid/img.png');
@@ -200,7 +203,9 @@ export default {
       cursor: pointer;
     }
   }
-
+  .inputfile {
+    display: none;
+  }
   & ul {
     display: flex;
     flex-direction: column;
