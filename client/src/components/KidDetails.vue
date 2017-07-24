@@ -12,7 +12,7 @@
       </div>
 
     </div>
-    <div class="list-wraper" v-if="isAdmin && isAdmArea">
+    <div class="list-wraper" v-if="isAdmArea">
       <div class="ctrl-icons">
         <i class="fa fa-volume-control-phone" aria-hidden="true" title="Call Kid's parent"></i>
         <i class="fa fa-camera" aria-hidden="true" @click.stop="cameraClicked" title="Take a picture"></i>

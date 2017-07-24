@@ -62,8 +62,7 @@ export default {
       })
         .then((res) => {
           const user = res.data
-          if (user.type === 'admin') this.$router.push('/admin')
-          else this.$router.push('/')
+          this.$router.push('/')
         },
         () => {
           this.$message({
