@@ -178,7 +178,7 @@ export default {
   align-items: center;
   background: orange;
   width: 20vw;
-  height: 20vw; // margin: 0 1em;
+  height: 20vw;
   border-radius: 50%;
   box-shadow: 0 0 11px #333;
   cursor: pointer;
@@ -190,10 +190,8 @@ export default {
     border-radius: 50%;
     box-shadow: 0.1em 0.1em 2em rgba(0, 0, 0, 0.5);
     outline: 1px solid transparent;
-    // border: none;
   }
   @media screen and (max-width: $sm) {
-    // display: none;
     width: 55vw;
     height: 55vw;
   }
@@ -266,7 +264,7 @@ export default {
     font-size: 2.2em;
     margin: 0.1em 0;
     @media screen and (max-width: $md) {
-      font-size: 1.6rem; // margin: 3.2vw;
+      font-size: 1.6rem; 
     }
   }
 }
@@ -351,7 +349,7 @@ export default {
     }
   }
   .ctrl-icons {
-    top: 0; // flex-basis: 70%;
+    top: 0; 
     @media screen and (max-width: $md) {
       justify-content: space-between;
     }
@@ -362,7 +360,7 @@ export default {
   .status {
     position: relative;
     order: 4;
-    flex-basis: 25%; // margin: 0 auto;
+    flex-basis: 25%; 
     .icon-list img {
       max-width: 3.2vw;
       max-height: 3.2vw;
@@ -371,7 +369,6 @@ export default {
     }
   }
   .msg-parent {
-    // position: absolute;
     flex-basis: 25%;
     right: 10%;
     order: 3;
@@ -382,10 +379,4 @@ export default {
   }
 }
 
-// .picture-modal {
-  // position: relative;
-// }
-
-// ------------------------- MEDIA QUERIES ------------------------- //
-//
 </style>
