@@ -2,7 +2,7 @@
     <section class="notes-panel">
         <div class="title ">
             <H1>
-                Notes panel
+                {{t('Notes panel')}}
             </H1>
             <i class="close-btn fa fa-times" aria-hidden="true" @click="closeClicked"></i>
         </div>
@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         deleteNote: function (note) {
-            console.log('deleting note: ', );
+            console.log(note);
             this.$store.dispatch({
                 type: 'deleteMessage',
                 _id: note._id

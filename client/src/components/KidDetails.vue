@@ -130,7 +130,6 @@ export default {
       }
     },
     sendMessage() {
-      console.log('message sent to KidList')
       let newMessage = this.createEmptyMessage();
       newMessage.text = this.inputMsgParent;
       newMessage.timestamp = Date.now();

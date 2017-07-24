@@ -10,9 +10,9 @@
         </el-input>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
           <el-radio-group class="controls" dir="ltr" v-model="radioSelected">
-            <el-radio-button label="all">All</el-radio-button>
-            <el-radio-button label="present">Present</el-radio-button>
-            <el-radio-button label="absent">Absent</el-radio-button>
+            <el-radio-button label="all">{{t('All')}}</el-radio-button>
+            <el-radio-button label="present">{{t('Present')}}</el-radio-button>
+            <el-radio-button label="absent">{{t('Absent')}}</el-radio-button>
           </el-radio-group>
         </div>
       </section>
@@ -21,12 +21,8 @@
 </template>
 
 <script>
-import FilterCmp from './FilterCmp'
 export default {
   name: 'control-panel',
-  components: {
-    FilterCmp
-  },
   data() {
     return {
       searchInput: '',
