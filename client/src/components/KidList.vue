@@ -78,6 +78,9 @@ export default {
       }
     }, 1000)
   },
+  destroyed() {
+    clearInterval(this.clockInterval)
+  },
   computed: {
     kids() {
       return this.$store.getters.filteredKids
