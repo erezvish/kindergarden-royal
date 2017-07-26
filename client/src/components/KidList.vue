@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
 import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
 import moment from 'moment'
@@ -107,15 +108,31 @@ export default {
       this.triggerListView = false;
     },
     toggleIsPresent(kid) {
-      if (!kid.isPresent) this.toggleAudio.play() //quick and dirty, wrong if toggle failed. Will suffice however since it is only a sound
+      if (!kid.isPresent) { //quick and dirty, wrong if toggle failed. Will suffice for demo since it is only a sound and an alert
+        this.toggleAudio.play()
+        swal({
+          title: `${kid.firstName} ${kid.lastName} is here!`,
+          type: 'success',
+          timer: 2000
+        }).then(
+          function () { },
+          // handling the promise rejection
+          function (dismiss) {
+            if (dismiss === 'timer') {
+              console.log('I was closed by the timer')
+            }
+          }
+          )
+      }
       this.$store.dispatch({
         type: 'togglePresent',
         kid
       })
-      this.$message({
-        type: 'success',
-        message: 'Kid Status Updated'
-      });
+
+      // this.$message({
+      // type: 'success',
+      // message: 'Kid Status Updated'
+      // });
 
     },
     deleteKidCard(kid) {
@@ -190,6 +207,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
 // * {
 //   outline: 1px solid red;
 // }
@@ -301,6 +319,14 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
 /* The switch - the box around the slider */
 
 .switch {
@@ -320,11 +346,27 @@ h5 {
 
 
 
+
+
+
+
+
+
+
+
 /* Hide default HTML checkbox */
 
 .switch input {
   display: none;
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -365,6 +407,14 @@ input:focus+.slider {
 input:checked+.slider:before {
   transform: translateX(2em);
 }
+
+
+
+
+
+
+
+
 
 
 
