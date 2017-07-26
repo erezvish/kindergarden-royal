@@ -59,7 +59,8 @@ export default {
       checkTime: moment('9:30', 'HH:mm'), //TODO: change the hardcoded time to a user selection
       PresentChecked: false,
       activateWarning: false,
-      warningSystemOn: true
+      warningSystemOn: true,
+      toggleAudio: new Audio('/static/sound/yay.mp3'),
     }
   },
   created() {
@@ -77,6 +78,9 @@ export default {
         that.resetData()
       }
     }, 1000)
+  },
+  destroyed() {
+    clearInterval(this.clockInterval)
   },
   computed: {
     kids() {
@@ -103,7 +107,7 @@ export default {
       this.triggerListView = false;
     },
     toggleIsPresent(kid) {
-
+      if (!kid.isPresent) this.toggleAudio.play() //quick and dirty, wrong if toggle failed. Will suffice however since it is only a sound
       this.$store.dispatch({
         type: 'togglePresent',
         kid
@@ -132,7 +136,7 @@ export default {
         kid
       })
     },
- 
+
     createKid() {
       this.$emit('createKid')
     },
@@ -189,7 +193,6 @@ export default {
 // * {
 //   outline: 1px solid red;
 // }
-
 .bell-is-on {
   color: orange!important;
   animation-name: bell-flash;
@@ -280,9 +283,9 @@ export default {
 }
 
 .info-bar {
-  padding: 0.2em 1em;
-  // font-size: 1em;
+  padding: 0.2em 1em; // font-size: 1em;
 }
+
 .warn-system {
   display: flex;
   justify-content: flex-start;
@@ -293,6 +296,8 @@ export default {
     margin: 1em;
   }
 }
+
+
 
 
 
@@ -313,11 +318,15 @@ h5 {
 
 
 
+
+
 /* Hide default HTML checkbox */
 
 .switch input {
   display: none;
 }
+
+
 
 
 
@@ -356,6 +365,8 @@ input:focus+.slider {
 input:checked+.slider:before {
   transform: translateX(2em);
 }
+
+
 
 
 

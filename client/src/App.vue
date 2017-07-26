@@ -19,15 +19,6 @@ export default {
   data() {
     return {
       showHeader: true,
-      voiceCommands: {
-        'hello': () => { this.$message('Hello, how are you?'); },
-        'Tamir': () => { this.$message('Number 1 Designer!'); },
-        'Meir': () => { this.$message('Programmer Extraordinaire'); },
-        'Erez': () => { this.$message('Google him, you may be surprised!'); },
-        'Alon': () => { this.$message('He is VP R&D'); },
-        'Yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
-
-      }
     }
   },
   computed: mapState([
@@ -48,7 +39,7 @@ export default {
           id,
           that
         })
-      }, 4000);
+      }, 5000);
     }
     this.$store.dispatch({
       type: 'initSocket',
@@ -60,9 +51,7 @@ export default {
       type: 'getKids'
     })
 
-    // Add our commands to annyang
     annyang.addCommands(this.voiceCommands);
-    // annyang.start();
   },
   destroyed() {
     annyang.abort()

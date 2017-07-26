@@ -3,8 +3,8 @@
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
         <div class="icon-wraper">
-        <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}" @click="activateVoice"></i>
-        <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
+          <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}" @click="activateVoice"></i>
+          <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         </div>
         <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" v-model="searchInput" @input="filterKids">
         </el-input>
@@ -33,7 +33,13 @@ export default {
         'search *spokenFilter': this.runSpokenFilter,
         'find *spokenFilter': this.runSpokenFilter,
         'clear': this.clearFilter,
-        'show *radioSelection': this.runSpokenRadioFilter
+        'show *radioSelection': this.runSpokenRadioFilter,
+        'hello': () => { this.$message('Hello, how are you?'); },
+        'bye bye': () => { this.$message('Bye bye, see you soon!'); },
+        'tamir': () => { this.$message('Number 1 Designer!'); },
+        'meir': () => { this.$message('Programmer Extraordinaire'); },
+        'erez': () => { this.$message('Google him, you may be surprised!'); },
+        'yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
       },
       audioSounds: {
         micAudio1: new Audio('/static/sound/mic1.mp3'),
@@ -168,7 +174,8 @@ export default {
     background: rgba(255, 255, 255, 0.8);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) .021em, rgba(255, 255, 255, 0.3));
 
-    .fa-search, fa-microphone {
+    .fa-search,
+    fa-microphone {
       margin-left: 0;
       font-size: 2.1em;
       color: rgba(55, 98, 131, 0.6);
@@ -180,7 +187,7 @@ export default {
 }
 
 @media screen and (max-width: $sm) {
-  
+
   .control-panel {
     justify-content: flex-start;
     .controls-wraper {
@@ -219,5 +226,4 @@ export default {
 // * {
 //   outline: 1px solid #333;
 // }
-
 </style>
