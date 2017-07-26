@@ -4,16 +4,16 @@
       <section class="kid-list">
         <div class="status-bar">
           <div class="title">
-            <h1> {{t('Our Precious Kids')}} </h1>
+            <h1> {{t('Kids list area ')}} </h1>
           </div>
           <ul class="controls">
-            <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="bellClicked"></i>
-            <i class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
-            <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
-            <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
-            <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
-            <i class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="createKid"></i>
+            <i title="Notifications" class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="bellClicked"></i>
+            <i title="reload list" class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
+            <i title="Sort up" class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
+            <i title="Dort down" class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
+            <i title="List view" class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+            <i title="Thumbnails view" class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
+            <i title="Add new kid" class="fa fa-plus-square-o" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="createKid"></i>
           </ul>
         </div>
         <div class="info-bar flex spread middle">
@@ -186,9 +186,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid red;
-// }
 
 .bell-is-on {
   color: orange!important;
@@ -281,7 +278,6 @@ export default {
 
 .info-bar {
   padding: 0.2em 1em;
-  // font-size: 1em;
 }
 .warn-system {
   display: flex;
@@ -296,7 +292,7 @@ export default {
 
 
 
-/* The switch - the box around the slider */
+// The switch - the box around the slider
 
 .switch {
   position: relative;
@@ -310,18 +306,13 @@ h5 {
   display: inline-block;
 }
 
-
-
-
-/* Hide default HTML checkbox */
+// Hide default HTML checkbox 
 
 .switch input {
   display: none;
 }
 
-
-
-/* The slider */
+// The slider 
 
 .slider {
   position: absolute;
@@ -358,9 +349,7 @@ input:checked+.slider:before {
 }
 
 
-
-
-/* Rounded sliders */
+// Rounded sliders 
 
 .slider.round {
   border-radius: 34px;
@@ -375,15 +364,7 @@ input:checked+.slider:before {
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
-//
-@media screen and (max-width: $xs) {
-  .kid-list .status-bar {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 1em;
-    justify-content: center;
-  }
-}
+
 
 @media screen and (max-width: $sm) {
 
@@ -403,14 +384,6 @@ input:checked+.slider:before {
   .kid-list .status-bar {
     border-top-left-radius: 0.9em;
     border-top-right-radius: 0.9em;
-  }
-}
-
-// ---- MD queries ---------
-//
-@media screen and (max-width: $sm) {
-  .view {
-    display: none;
   }
 }
 </style>
