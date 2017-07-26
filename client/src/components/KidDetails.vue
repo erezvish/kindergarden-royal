@@ -10,7 +10,7 @@
         <img class="emoji" src="../assets/msg-icon/star.png" v-if="emojisObject.star">
         <img class="emoji" src="../assets/msg-icon/blink.png" v-if="emojisObject.wink">
       </div>
-
+  
     </div>
     <div class="list-wraper" v-if="isAdmArea">
       <div class="ctrl-icons">
@@ -24,7 +24,7 @@
     </div>
     <div class="kid-name-wraper" @click.stop="toggleIsPresent">
       <p class="kid-name">{{`${kid.firstName} ${kid.lastName}`}} </p>
-
+  
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
@@ -143,9 +143,6 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-// * {
-//   outline: 1px solid green;
-// }
 .main-section {
   display: flex;
   position: relative;
@@ -239,7 +236,7 @@ export default {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-   
+
     li {
       display: table-cell;
       vertical-align: middle;
@@ -263,7 +260,7 @@ export default {
     font-size: 2.2em;
     margin: 0.1em 0;
     @media screen and (max-width: $md) {
-      font-size: 1.6rem; 
+      font-size: 1.6rem;
     }
   }
 }
@@ -307,23 +304,28 @@ export default {
 // >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
   margin: 0;
-  padding: 0.9em 0;
+  padding: 2.9% 2%;
   width: 100%;
-  background: yellow;
+  background: white;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   .kid-img {
     width: 13vw;
     height: 13vw;
+    @media all and (max-width: $sm) {
+      margin-right: 4%;
+      width: 20vw;
+      height: 20vw;
+    }
   }
   .list-wraper {
     display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
     flex-basis: 25%;
     height: 100%;
-    flex-direction: column-reverse;
-    justify-content: center;
     @media screen and (max-width: $sm) {
       flex-basis: 70%;
       .ctrl-icons {
@@ -336,19 +338,12 @@ export default {
     }
   }
   .kid-name-wraper {
-    position: relative;
-    left: 0;
-    display: none;
     justify-content: flex-start;
-    align-self: flex-start;
-    & p {
-      // display: none;
-      position: absolute;
-      left: 0;
-    }
+    align-self: center;
+
   }
   .ctrl-icons {
-    top: 0; 
+    top: 0;
     @media screen and (max-width: $md) {
       justify-content: space-between;
     }
@@ -359,7 +354,7 @@ export default {
   .status {
     position: relative;
     order: 4;
-    flex-basis: 25%; 
+    flex-basis: 25%;
     .icon-list img {
       max-width: 3.2vw;
       max-height: 3.2vw;
@@ -376,6 +371,13 @@ export default {
       display: none;
     }
   }
+  @media all and (min-width: $md) {
+    justify-content: space-around;
+  }
 }
 
+
+// * {
+//   outline: 1px solid green;
+// }
 </style>

@@ -12,14 +12,18 @@
             <input type="file" class="inputfile" name="file" id="file" accept="image/*" @change="onChange" />
             <!--<input type="file" name="file" id="file" class="inputfile" />-->
           </div>
-          <el-col :lg="14" class="info-form">
+          <el-col :md="24" class="info-form">
             <el-form :model="editedKid" :rules="rules" ref="edit-kid">
+              <el-col :span="12">
               <el-form-item label="First name" prop="firstName">
-                <el-input v-model="editedKid.firstName"></el-input>
+                <el-input v-model="editedKid.firstName" maxlength="30"></el-input>
               </el-form-item>
+              </el-col>
+              <el-col :span="12">
               <el-form-item label="Last name" prop="lastName">
                 <el-input v-model="editedKid.lastName"></el-input>
               </el-form-item>
+              </el-col>
               <el-form-item label="Gender" prop="gender">
                 <el-select placeholder="Gender" v-model="editedKid.gender">
                   <el-option label="Male" value="Male"></el-option>
@@ -29,15 +33,12 @@
               </el-form-item>
               <el-col :span="12">
                 <el-form-item label="Parent First Name" prop="ParentFirstName">
-                  <el-input v-model="editedKid.parentFirstName"></el-input>
+                  <el-input v-model="editedKid.parentFirstName" maxlength="25"></el-input>
                 </el-form-item>
                 <el-form-item label="Parent Telephone" prop="ParentTel">
-                  <el-input v-model="editedKid.parentTel"></el-input>
+                  <el-input type="number" pattern="{1,10}" v-model="editedKid.parentTel"></el-input>
                 </el-form-item>
               </el-col>
-              <el-form-item label="Parent Last Name" prop="ParentLastName">
-                <el-input v-model="editedKid.parentLastName"></el-input>
-              </el-form-item>
               <div class="form-controls" dir="ltr">
                 <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
                 <el-button type="danger" @click="cancel">Cancel</el-button>
@@ -133,9 +134,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid #333;
-// }
+
 .el-row {
   padding: 0;
   margin: 0;
@@ -162,7 +161,7 @@ export default {
 }
 
 .info-form {
-  align-self: center;
+  // align-self: center;
   margin-left: 1em;
 }
 
@@ -259,5 +258,8 @@ export default {
     flex-direction: column;
     margin: 1em 0;
   }
+}
+* {
+  outline: 1px solid #333;
 }
 </style>
