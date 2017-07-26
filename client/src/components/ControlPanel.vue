@@ -29,17 +29,23 @@ export default {
       isSearchBarHidden: true,
       radioSelected: 'all',
 
-      voiceCommands: {
+      voiceCommands: { //there is some ready support for hebrew, if we choose in the future that the translation will toggle the filter voice commands as well
         'search *spokenFilter': this.runSpokenFilter,
         'find *spokenFilter': this.runSpokenFilter,
         'clear': this.clearFilter,
         'show *radioSelection': this.runSpokenRadioFilter,
         'hello': () => { this.$message('Hello, how are you?'); },
+        'שלום': () => { this.$message('שלום, מה שלומך?'); },
         'bye bye': () => { this.$message('Bye bye, see you soon!'); },
+        'להתראות': () => { this.$message('להתראות, נתראה בקרוב'); },
         'tamir': () => { this.$message('Number 1 Designer!'); },
+        'תמיר': () => { this.$message('מר עיצוב בכבודו ובעצמו'); },
         'meir': () => { this.$message('Programmer Extraordinaire'); },
+        'מאיר': () => { this.$message('הוא סופר מתכנת'); },
         'erez': () => { this.$message('Google him, you may be surprised!'); },
+        'ארז': () => { this.$message('חפשו אותו בגוגל'); },
         'yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
+        'ירון': () => { this.$message('מיסטר ביטון האמיתי, אנא קום!'); },
       },
       audioSounds: {
         micAudio1: new Audio('/static/sound/mic1.mp3'),
@@ -53,6 +59,7 @@ export default {
   },
   created() {
     annyang.addCommands(this.voiceCommands)
+    // annyang.setLanguage('he')
   },
   methods: {
     filterKids() {
