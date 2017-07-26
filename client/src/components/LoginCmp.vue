@@ -52,7 +52,8 @@ export default {
   },
   methods: {
     toggleFocus(isPasswordFocused) {
-      this.$refs.username.$el.querySelector('input').focus()
+      if (isPasswordFocused) this.$refs.password.$el.querySelector('input').focus()
+      else this.$refs.username.$el.querySelector('input').focus()
     },
     submit() {
       this.$store.dispatch({
