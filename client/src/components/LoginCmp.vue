@@ -52,8 +52,7 @@ export default {
   },
   methods: {
     toggleFocus(isPasswordFocused) {
-      if (isPasswordFocused) this.$refs.password.$el.querySelector('input').focus()
-      else this.$refs.username.$el.querySelector('input').focus()
+      this.$refs.username.$el.querySelector('input').focus()
     },
     submit() {
       this.$store.dispatch({
@@ -61,7 +60,6 @@ export default {
         user: this.user
       })
         .then((res) => {
-          const user = res.data
           this.$router.push('/')
         },
         () => {
