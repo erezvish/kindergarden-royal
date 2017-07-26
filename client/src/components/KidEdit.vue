@@ -27,7 +27,17 @@
                   <el-option label="Undefined" value="Undefined"></el-option>
                 </el-select>
               </el-form-item>
-  
+              <el-col :span="12">
+                <el-form-item label="Parent First Name" prop="ParentFirstName">
+                  <el-input v-model="editedKid.parentFirstName"></el-input>
+                </el-form-item>
+                <el-form-item label="Parent Telephone" prop="ParentTel">
+                  <el-input v-model="editedKid.parentTel"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-form-item label="Parent Last Name" prop="ParentLastName">
+                <el-input v-model="editedKid.parentLastName"></el-input>
+              </el-form-item>
               <div class="form-controls" dir="ltr">
                 <el-button type="success" @click="submitForm('edit-kid')">Save</el-button>
                 <el-button type="danger" @click="cancel">Cancel</el-button>
@@ -197,7 +207,7 @@ export default {
       opacity: 0.5;
       transition: all, 0.4s;
     }
-    :active{
+     :active {
       opacity: 1;
       color: #eca200;
     }
