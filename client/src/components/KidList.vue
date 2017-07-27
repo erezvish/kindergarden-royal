@@ -207,6 +207,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
+
 .bell-is-on {
   color: orange!important;
   animation-name: bell-flash;
