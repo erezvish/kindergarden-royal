@@ -33,28 +33,17 @@ export default {
   justify-content: flex-start;
   flex-direction: column;
   background: lightblue;
-  padding: 2em;
+  padding: 0em;
   min-height: 100vh;
-}
-
-
-// ------------------------- MEDIA QUERIES ------------------------- //
-//
-@media screen and (min-width: $xs) {
-  .main-panel {
-    padding: 0em;
+  @media all and (min-width: $sm) {
+      padding: 1em;
   }
-}
-
-@media screen and (min-width: $sm) {
-  .main-panel {
-    padding: 1em;
-  }
-}
-
-@media screen and (min-width: $md) {
-  .main-panel {
+  @media all and (min-width: $md) {
     padding: 2em;
   }
+}
+
+* {
+  outline: 1px solid red;
 }
 </style>
