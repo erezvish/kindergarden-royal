@@ -16,7 +16,14 @@ export default {
     },
 
     getKids({ commit }, payload) {
-        kidService.getList()
+        const getKids = kidService.getList()
+        const cachedKids = getKids.next().value
+        if (cachedKids) {
+            payload.kids = cachedKids
+            commit(payload)
+        }
+        const pmKids = getKids.next().value
+        pmKids
             .then(res => {
                 payload.kids = res.data
                 commit(payload)
@@ -100,7 +107,7 @@ export default {
             })
     },
 
-    checkParent({ commit, state }, payload) {
+    checkUser({ commit, state }, payload) {
         if (payload.id) {
             userService.checkParent(payload.id)
                 .then(isParent => {

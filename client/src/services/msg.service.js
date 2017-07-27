@@ -5,15 +5,14 @@ import ioClient from 'socket.io-client'
 import appSocket from './socket'
 
 const port = appSocket.port;
-const url = `http://localhost:${port}/data/msg`
+const url = process.env.NODE_ENV === 'development' ? `http://localhost:${port}/data/msg` : '/data/msg'
 
 export default {
     initSocket(actionFunc) {
         appSocket.socket.on('parent message', (message) => {
-            // console.log('emit received!')
-            if (typeof actionFunc === 'function') {
+            // if (typeof actionFunc === 'function') {
                 actionFunc(message)
-            }
+            // }
         })
     },
     initEmojiSocket(actionFunc) {

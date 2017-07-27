@@ -18,11 +18,11 @@
           <ul class="navbar clear-style-nav">
             <li class="nav-item" @click="slideMenu" v-if="isAdmin || isBasic || isParent">
               <router-link class="router-link single-item" to="/">
-                <i class="fa fa-home" aria-hidden="true"></i>{{ t('Home') }}</router-link>
+               <i class="fa fa-tachometer" aria-hidden="true"></i>{{ t('Dashboard') }}</router-link>
             </li>
             <li v-if="isAdmin" @click="slideMenu">
               <router-link class="router-link single-item" to="/admin">
-                <i class="fa fa-unlock-alt" aria-hidden="true"></i>{{ t('Admin') }}</router-link>
+               <i class="fa fa-users" aria-hidden="true"></i>{{ t('Staff') }}</router-link>
             </li>
             <li v-if="!isAdmin && !isBasic" @click="slideMenu">
               <router-link class="router-link single-item" to="/login">
@@ -219,6 +219,11 @@ header {
     cursor: pointer;
     margin: 0.3em;
   }
+}
+.mark {
+  height: 100%;
+  border-bottom: 2px solid #eca200;
+  // display: none;
 }
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 //

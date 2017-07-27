@@ -3,16 +3,16 @@
     <el-col :xs="24" :sm="24" :md="23" :lg="23">
       <section class="control-panel">
         <div class="icon-wraper">
-        <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}" @click="activateVoice"></i>
-        <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
+          <i class="fa fa-microphone" aria-hidden="true" :class="{'hideSearchBar': isSearchBarHidden}" @click="activateVoice"></i>
+          <i class="fa fa-search" aria-hidden="true" @click="toggleSearchBar"></i>
         </div>
         <el-input type="search" class="search-bar" :class="{'hideSearchBar': isSearchBarHidden}" placeholder="Search" v-model="searchInput" @input="filterKids">
         </el-input>
         <div class="controls-wraper" :class="{'hideSearchBar': !isSearchBarHidden}">
           <el-radio-group class="controls" dir="ltr" v-model="radioSelected">
-            <el-radio-button label="all">All</el-radio-button>
-            <el-radio-button label="present">Present</el-radio-button>
-            <el-radio-button label="absent">Absent</el-radio-button>
+            <el-radio-button label="all">{{t('All')}}</el-radio-button>
+            <el-radio-button label="present">{{t('Present')}}</el-radio-button>
+            <el-radio-button label="absent">{{t('Absent')}}</el-radio-button>
           </el-radio-group>
         </div>
       </section>
@@ -21,23 +21,31 @@
 </template>
 
 <script>
-import FilterCmp from './FilterCmp'
 export default {
   name: 'control-panel',
-  components: {
-    FilterCmp
-  },
   data() {
     return {
       searchInput: '',
       isSearchBarHidden: true,
       radioSelected: 'all',
 
-      voiceCommands: {
+      voiceCommands: { //there is some ready support for hebrew, if we choose in the future that the translation will toggle the filter voice commands as well
         'search *spokenFilter': this.runSpokenFilter,
         'find *spokenFilter': this.runSpokenFilter,
         'clear': this.clearFilter,
-        'show *radioSelection': this.runSpokenRadioFilter
+        'show *radioSelection': this.runSpokenRadioFilter,
+        'hello': () => { this.$message('Hello, how are you?'); },
+        'שלום': () => { this.$message('שלום, מה שלומך?'); },
+        'bye bye': () => { this.$message('Bye bye, see you soon!'); },
+        'להתראות': () => { this.$message('להתראות, נתראה בקרוב'); },
+        'tamir': () => { this.$message('Number 1 Designer!'); },
+        'תמיר': () => { this.$message('מר עיצוב בכבודו ובעצמו'); },
+        'meir': () => { this.$message('Programmer Extraordinaire'); },
+        'מאיר': () => { this.$message('הוא סופר מתכנת'); },
+        'erez': () => { this.$message('Google him, you may be surprised!'); },
+        'ארז': () => { this.$message('חפשו אותו בגוגל'); },
+        'yaron': () => { this.$message('Will the real MisterBit please stand up?'); },
+        'ירון': () => { this.$message('מיסטר ביטון האמיתי, אנא קום!'); },
       },
       audioSounds: {
         micAudio1: new Audio('/static/sound/mic1.mp3'),
@@ -51,6 +59,7 @@ export default {
   },
   created() {
     annyang.addCommands(this.voiceCommands)
+    // annyang.setLanguage('he')
   },
   methods: {
     filterKids() {
@@ -111,10 +120,6 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
-// * {
-//   outline: 1px solid #333;
-// }
-
 .el-row {
   display: flex;
   justify-content: center;
@@ -162,7 +167,6 @@ export default {
 
   .icon-wraper {
     display: flex;
-    // flex-direction: column;
   }
 }
 
@@ -177,7 +181,8 @@ export default {
     background: rgba(255, 255, 255, 0.8);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) .021em, rgba(255, 255, 255, 0.3));
 
-    .fa-search, fa-microphone {
+    .fa-search,
+    fa-microphone {
       margin-left: 0;
       font-size: 2.1em;
       color: rgba(55, 98, 131, 0.6);
@@ -189,7 +194,7 @@ export default {
 }
 
 @media screen and (max-width: $sm) {
-  
+
   .control-panel {
     justify-content: flex-start;
     .controls-wraper {
@@ -197,9 +202,6 @@ export default {
     }
   }
   .search-bar {
-    // position: absolute;
-    // margin: 0 18%;
-    // width: 66%;
     z-index: 1;
     visibility: visible;
     opacity: 1;
@@ -227,4 +229,8 @@ export default {
     }
   }
 }
+
+// * {
+//   outline: 1px solid #333;
+// }
 </style>

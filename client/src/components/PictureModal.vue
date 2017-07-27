@@ -40,7 +40,6 @@ export default {
         },
         acceptPicture() {
             console.log('saving picture')
-
             let capturedImgUrl = null;
             Webcam.snap(function (data_uri) {
                 capturedImgUrl = data_uri;
@@ -64,7 +63,6 @@ export default {
 * {
     // border: 1px solid red;
 }
-
 .modal {
     display: flex;
     flex-direction: column;
@@ -78,12 +76,10 @@ export default {
     background: linear-gradient(rgba(148, 192, 209, 1), white, rgba(148, 192, 209, 1));
     z-index: 1;
 }
-
 .camera-area {
     height: 50%;
     width: 100%;
 }
-
 .ctrl-icons {
     justify-content: space-between;
     .capture {
@@ -92,7 +88,6 @@ export default {
         bottom: -2em;
     }
 }
-
 .close-button {
     position: absolute;
     right: 0; // align-self: flex-end;
@@ -101,11 +96,9 @@ export default {
     cursor: pointer;
     z-index: 1;
 }
-
 .freeze-picture {
     cursor: pointer;
 }
-
 // >>>>>>>>>>>>>>>>>>>>> LIST VIEW <<<<<<<<<<<<<<<<<<<<<<
 .list-view {
     align-items: flex-start;
@@ -145,4 +138,3 @@ export default {
     }
 }
 </style>
-

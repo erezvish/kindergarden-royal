@@ -4,16 +4,16 @@
       <section class="kid-list">
         <div class="status-bar">
           <div class="title">
-            <h1> Kid list area </h1>
+            <h1> {{t('Kids list area ')}} </h1>
           </div>
           <ul class="controls">
-            <i class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" aria-hidden="true" @click="bellClicked"></i>
-            <i class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
-            <i class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
-            <i class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
-            <i class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
-            <i class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
-            <i class="fa fa-plus-square-o" v-if="isAdmin" aria-hidden="true" @click="createKid"></i>
+            <i title="Notifications" class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="bellClicked"></i>
+            <i title="reload list" class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
+            <i title="Sort up" class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
+            <i title="Dort down" class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
+            <i title="List view" class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
+            <i title="Thumbnails view" class="view fa fa-th-large" @click="setThumbView" aria-hidden="true"></i>
+            <i title="Add new kid" class="fa fa-plus-square-o" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="createKid"></i>
           </ul>
         </div>
         <div class="info-bar flex spread middle">
@@ -22,7 +22,7 @@
               <input type="checkbox" v-model="warningSystemOn">
               <span class="slider round"></span>
             </label>
-            <h5> Warning System Status </h5>
+            <h5> {{t('Toggle Warning')}} </h5>
           </div>
           <div class="clock">{{(time)}}</div>
         </div>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
 import { mapGetters, mapState } from 'vuex'
 import KidDetails from './KidDetails'
 import moment from 'moment'
@@ -59,7 +60,8 @@ export default {
       checkTime: moment('9:30', 'HH:mm'), //TODO: change the hardcoded time to a user selection
       PresentChecked: false,
       activateWarning: false,
-      warningSystemOn: true
+      warningSystemOn: true,
+      toggleAudio: new Audio('/static/sound/yay.mp3'),
     }
   },
   created() {
@@ -77,6 +79,9 @@ export default {
         that.resetData()
       }
     }, 1000)
+  },
+  destroyed() {
+    clearInterval(this.clockInterval)
   },
   computed: {
     kids() {
@@ -103,15 +108,31 @@ export default {
       this.triggerListView = false;
     },
     toggleIsPresent(kid) {
-
+      if (!kid.isPresent) { //quick and dirty, wrong if toggle failed. Will suffice for demo since it is only a sound and an alert
+        this.toggleAudio.play()
+        swal({
+          title: `${kid.firstName} ${kid.lastName} is here!`,
+          type: 'success',
+          timer: 2000
+        }).then(
+          function () { },
+          // handling the promise rejection
+          function (dismiss) {
+            if (dismiss === 'timer') {
+              console.log('I was closed by the timer')
+            }
+          }
+          )
+      }
       this.$store.dispatch({
         type: 'togglePresent',
         kid
       })
-      this.$message({
-        type: 'success',
-        message: 'Kid Status Updated'
-      });
+
+      // this.$message({
+      // type: 'success',
+      // message: 'Kid Status Updated'
+      // });
 
     },
     deleteKidCard(kid) {
@@ -132,7 +153,7 @@ export default {
         kid
       })
     },
- 
+
     createKid() {
       this.$emit('createKid')
     },
@@ -186,9 +207,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
-// * {
-//   outline: 1px solid red;
-// }
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
 
 .bell-is-on {
   color: orange!important;
@@ -243,7 +262,7 @@ export default {
       padding: 0;
       margin: 0.1em;
       font: {
-        family: Abel;
+        family: Abel, 'Avenir', 'Varela Round', Helvetica, Arial, sans-serif;
         size: 2em;
       }
     }
@@ -281,8 +300,8 @@ export default {
 
 .info-bar {
   padding: 0.2em 1em;
-  // font-size: 1em;
 }
+
 .warn-system {
   display: flex;
   justify-content: flex-start;
@@ -296,7 +315,7 @@ export default {
 
 
 
-/* The switch - the box around the slider */
+// The switch - the box around the slider
 
 .switch {
   position: relative;
@@ -310,18 +329,13 @@ h5 {
   display: inline-block;
 }
 
-
-
-
-/* Hide default HTML checkbox */
+// Hide default HTML checkbox 
 
 .switch input {
   display: none;
 }
 
-
-
-/* The slider */
+// The slider 
 
 .slider {
   position: absolute;
@@ -358,9 +372,7 @@ input:checked+.slider:before {
 }
 
 
-
-
-/* Rounded sliders */
+// Rounded sliders 
 
 .slider.round {
   border-radius: 34px;
@@ -375,15 +387,7 @@ input:checked+.slider:before {
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
-//
-@media screen and (max-width: $xs) {
-  .kid-list .status-bar {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 1em;
-    justify-content: center;
-  }
-}
+
 
 @media screen and (max-width: $sm) {
 
@@ -403,14 +407,6 @@ input:checked+.slider:before {
   .kid-list .status-bar {
     border-top-left-radius: 0.9em;
     border-top-right-radius: 0.9em;
-  }
-}
-
-// ---- MD queries ---------
-//
-@media screen and (max-width: $sm) {
-  .view {
-    display: none;
   }
 }
 </style>
