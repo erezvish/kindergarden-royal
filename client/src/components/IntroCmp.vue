@@ -15,6 +15,7 @@ export default {
 
     created() {
         this.$emit('toggle-header', false)
+        new Audio('/static/sound/intro.mp3').play()
     },
     destroyed() {
         this.$emit('toggle-header', true)
