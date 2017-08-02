@@ -259,7 +259,7 @@ export default {
     margin: 1em 0;
   }
 }
-* {
-  outline: 1px solid #333;
-}
+// * {
+//   outline: 1px solid #333;
+// }
 </style>
