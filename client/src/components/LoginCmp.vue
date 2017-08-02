@@ -3,7 +3,7 @@
     <el-col :xs="24" :sm="17" :md="10">
       <section class="login-container">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
-        <h1> {{t('Log In')}} </h1>
+        <h1> {{t('Log In')}}, user: 'a', pass: 'a' </h1>
         <div class="kid-details-container" dir="ltr">
   
           <!-- form -->
