@@ -1,4 +1,4 @@
-# kindergarden-royal
+# kinderYA!
 Final Sprint - Week 11-12: A project by Meir Pechthalt, Tamir Kitay and myself. A full scale kindergarden management app, designed to help manage arrivals, make sure everyone arrived without being forgotten, chat (socket io) and telephone options, admin page with full CRUDL and some extra features
 
 ## How to install?
