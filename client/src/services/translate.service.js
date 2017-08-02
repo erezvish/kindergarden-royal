@@ -19,7 +19,7 @@ const locales = {
         'Notes panel': 'הודעות אחרונות',
         'Toggle Warning': 'מצב התראה',
         'Message from': 'הודעה מאת',
-        '': '',
+        'Parent': 'הורה',
         '': '',
         '': '',
         '': '',

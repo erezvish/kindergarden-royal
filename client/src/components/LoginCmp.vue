@@ -16,6 +16,7 @@
             </div>
             <div>
               <el-button type="success" value="Login" @click="submit" autofocus>{{t('Ok')}}</el-button>
+              <el-button type="success" value="Login" @click="logAsParent" autofocus>{{t('Parent')}}</el-button>
             </div>
             <div>
               <!--<a href="#">Lost your password?</a>-->
@@ -51,6 +52,14 @@ export default {
     }
   },
   methods: {
+  ////////////////////////////
+    /////// FOR DEMO ONLY!
+  ////////////////////////////
+    logAsParent() {
+      this.$store.commit('setParent')
+      this.$router.push('/')
+    },
+  /////////////////////////////
     toggleFocus(isPasswordFocused) {
       if (isPasswordFocused) this.$refs.password.$el.querySelector('input').focus()
       else this.$refs.username.$el.querySelector('input').focus()

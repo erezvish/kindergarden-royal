@@ -54,7 +54,7 @@ export default {
         state.isParent = false
     },
 
-    setParent(state, payload) {
+    setParent(state) {
         state.isParent = true
     },
 
