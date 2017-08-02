@@ -179,7 +179,6 @@ header {
       cursor: pointer;
     }
     .single-item {
-      // display: none;
       margin: 0 0.8em;
       padding: 0;
       cursor: pointer;
@@ -199,7 +198,7 @@ header {
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
-  position: relative; // margin-right: 1.5em;
+  position: relative;
   z-index: 3;
 }
 .nav-menu-btn {
@@ -226,7 +225,7 @@ header {
   // display: none;
 }
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
-//
+
 @media screen and (max-width: $md) {
   .nav-items {
     display: flex;
@@ -245,7 +244,6 @@ header {
     width: 100%;
     transition: all, 0.8s;
     & li {
-      // font-size: 1.5em;
       margin: 0.6em 0;
     }
   }
@@ -256,9 +254,7 @@ header {
   .nav-items .navbar {
     position: relative;
     top: 1em;
-    // flex-direction: column;
     li {
-      // text-align: center;
       .single-item {
         display: flex;
         flex-direction: column;

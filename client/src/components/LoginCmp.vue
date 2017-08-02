@@ -39,7 +39,7 @@ export default {
         username: '',
         pass: ''
       },
-      // TODO: implement translation somehow
+
       username: 'username',
       password: 'password',
       isPasswordFocused: false
@@ -80,16 +80,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   outline: 1px solid #333;
-// }
+@import "../sass/main.scss";
+
 .login {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   background: lightblue;
-
   padding: 2em;
   min-height: 100vh;
 }
@@ -99,7 +97,7 @@ export default {
   display: flex;
   flex-direction: column;
   background: white;
-  background: linear-gradient(to top, #95C1D2 1%, white 55%);
+  background: $bg-login;
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   border-radius: 1em;
   margin-bottom: 1em;
@@ -124,4 +122,9 @@ export default {
     width: 100%;
   }
 }
+
+// * {
+//   outline: 1px solid #333;
+// }
+
 </style>

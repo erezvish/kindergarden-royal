@@ -234,8 +234,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0em 2em;
-    border-top-left-radius: 0em;
-    border-top-right-radius: 0em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border-bottom: 0.3em solid #2C4D68;
     border-top: 0.3em solid transparent;
     background: #376283;
@@ -280,6 +280,10 @@ export default {
     .title {
       display: flex;
     }
+    @media all and (min-width: $sm) {
+      border-top-left-radius: 0.9em;
+      border-top-right-radius: 0.9em;
+    }
   }
 }
 
@@ -303,8 +307,6 @@ export default {
     margin: 1em;
   }
 }
-
-
 
 // The switch - the box around the slider
 .switch {
@@ -359,7 +361,6 @@ input:checked+.slider:before {
   transform: translateX(2em);
 }
 
-
 // Rounded sliders 
 .slider.round {
   border-radius: 34px;
@@ -386,12 +387,13 @@ input:checked+.slider:before {
 
 @media screen and (min-width: $sm) {
   .kid-list {
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em; // display:none;
+    // display: none;
+    // border-top-left-radius: 1em;
+    // border-top-right-radius: 1em;
   }
   .kid-list .status-bar {
-    border-top-left-radius: 0.9em;
-    border-top-right-radius: 0.9em;
+    // border-top-left-radius: 0.9em;
+    // border-top-right-radius: 0.9em;
   }
 }
 </style>

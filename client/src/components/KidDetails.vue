@@ -160,7 +160,7 @@ export default {
   }
   @media screen and (max-width: $sm) {
     margin: 3vw 0;
-    width: 80vw;
+    width: 90vw;
   }
 }
 
@@ -261,7 +261,7 @@ export default {
     font-size: 2.5em;
     margin: 0.1em 0;
     @media screen and (max-width: $md) {
-      font-size: 1.6rem;
+      font-size: 2.6em;
     }
   }
 }
