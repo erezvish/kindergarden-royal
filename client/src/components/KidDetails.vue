@@ -149,7 +149,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 1.9vw 0.9vw;
-  padding: 1.7em 0 0 0;
+  padding: 1.7em 0;
   width: 25vw;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.1);
