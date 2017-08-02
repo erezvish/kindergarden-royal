@@ -267,6 +267,15 @@ export default {
       align-items: center;
       padding: 0;
       text-align: center;
+      @media all and (max-width: $sm) {
+        font-size: 80%;
+      }
+      @media all and (max-width: $xs) {
+        font-size: 70%;
+      }
+      @media all and (min-width: $md) {
+        font-size: 80%;
+      }
     }
     .title {
       display: flex;
@@ -298,7 +307,6 @@ export default {
 
 
 // The switch - the box around the slider
-
 .switch {
   position: relative;
   display: inline-block;
@@ -312,13 +320,11 @@ h5 {
 }
 
 // Hide default HTML checkbox 
-
 .switch input {
   display: none;
 }
 
 // The slider 
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -355,7 +361,6 @@ input:checked+.slider:before {
 
 
 // Rounded sliders 
-
 .slider.round {
   border-radius: 34px;
 }
@@ -369,8 +374,6 @@ input:checked+.slider:before {
 }
 
 // ------------------------- MEDIA QUERIES ------------------------- //
-
-
 @media screen and (max-width: $sm) {
 
   .kid-list .status-bar {

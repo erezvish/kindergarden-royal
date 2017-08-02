@@ -149,12 +149,11 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 1.9vw 0.9vw;
-  padding: 0.7em 0;
+  padding: 1.7em 0 0 0;
   width: 25vw;
   background: linear-gradient(rgba(148, 192, 209, 0.5), white, rgba(148, 192, 209, 0.5));
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 5%;
-  border-top-right-radius: 5%;
+  border-radius: 5%;
   border: {
     left: $border-alpha-narrow;
     right: $border-alpha-narrow;
@@ -255,9 +254,11 @@ export default {
 .kid-name-wraper {
   display: flex;
   justify-content: center;
+  margin: 0.7em 0;
   .kid-name {
     color: $color-default;
-    font-size: 2.2em;
+    font-family: 'Boogaloo', cursive;
+    font-size: 2.5em;
     margin: 0.1em 0;
     @media screen and (max-width: $md) {
       font-size: 1.6rem;
@@ -340,7 +341,6 @@ export default {
   .kid-name-wraper {
     justify-content: flex-start;
     align-self: center;
-
   }
   .ctrl-icons {
     top: 0;
