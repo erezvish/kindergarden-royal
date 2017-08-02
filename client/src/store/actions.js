@@ -115,6 +115,7 @@ export default {
                         type: 'setParent',
                         id: payload.id
                     })
+                    payload.that.$router.push('/')
                 }).catch(err => {
                     payload.that.$router.push('/login')
                 })
@@ -149,11 +150,9 @@ export default {
     },
 
     sendEmoji({ commit }, payload) {
-        // console.log('emoji reached action - sending to server', payload._id, payload.emojiType)
         msgService.sendEmoji(payload._id, payload.emojiType)
     },
     receiveEmojiMessage({ commit }, { _id, emojiType }) {
-        console.log('emoji message from server reached action!!!')
         commit({
             type: 'receiveEmojiMessage',
             _id,

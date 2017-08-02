@@ -28,7 +28,7 @@
     </div>
     <ul class="status clear-style" @click.stop="toggleIsPresent">
       <li>
-        <ul v-if="isAdmin || isParent" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
+        <ul v-if="isAdmArea || isParent" class="icon-list clear-style" :class="{'disabled': !kid.isPresent}">
           <li title="send love">
             <img class="fav-icon" src="../assets/msg-icon/heart.png" @click.stop="setEmoji(kid, 'heart')">
           </li>

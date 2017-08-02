@@ -1,11 +1,10 @@
 const locales = {
     heb: {
         'KinderYA': 'הקינדרייה',
-        'Staff': 'גננות',
+        'Staff': 'צוות',
         'Dashboard': 'ראשי',
         'Log In': 'התחברי',
         'Log Out': 'התנתקי',
-        'Our Precious Kids': 'הילדים החמודים:',
         'Admin Side Bar': 'הודעות מההורים',
         'All': 'כולם',
         'Present': 'נוכחים',
@@ -13,7 +12,7 @@ const locales = {
         'Status': 'סטטוס',
         'Kid properties': 'פרטי ילד',
         'Parents details': 'פרטי הורים',
-        'Ok': '',
+        'Ok': 'אישור',
         'Cancel': '',
         'Reset': '',
         'Lost your password': '',

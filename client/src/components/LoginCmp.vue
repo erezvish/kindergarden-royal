@@ -3,7 +3,7 @@
     <el-col :xs="24" :sm="17" :md="10">
       <section class="login-container">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
-        <h1> Log In </h1>
+        <h1> {{t('Log In')}} </h1>
         <div class="kid-details-container" dir="ltr">
   
           <!-- form -->
@@ -15,7 +15,7 @@
               <el-input ref="password" type="password" :placeholder="password" required v-model="user.pass" @keyup.native.enter="submit"></el-input>
             </div>
             <div>
-              <el-button type="success" value="Login" @click="submit" autofocus>Log In</el-button>
+              <el-button type="success" value="Login" @click="submit" autofocus>{{t('Ok')}}</el-button>
             </div>
             <div>
               <!--<a href="#">Lost your password?</a>-->

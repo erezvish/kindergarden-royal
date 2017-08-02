@@ -4,11 +4,11 @@
       <section class="kid-list">
         <div class="status-bar">
           <div class="title">
-            <h1> {{t('Kids list area ')}} </h1>
+            <h1></h1>
           </div>
           <ul class="controls">
             <i title="Notifications" class="fa fa-bell-o" :class="{'bell-is-on': hasMessages}" v-if="isAdmin && isAdmArea" aria-hidden="true" @click="bellClicked"></i>
-            <i title="reload list" class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
+            <i title="reset status" class="fa fa-power-off" @click=confirmReset aria-hidden="true"></i>
             <i title="Sort up" class="fa fa-sort-amount-asc" @click="sortKids(false)" aria-hidden="true"></i>
             <i title="Dort down" class="fa fa-sort-amount-desc" @click="sortKids(true)" aria-hidden="true"></i>
             <i title="List view" class="view fa fa-list" aria-hidden="true" :isListView="triggerListView" @click="setListView"></i>
@@ -57,7 +57,7 @@ export default {
       isReverseSort: false,
       isFirstSort: true,
       time: moment().format('HH:mm'),
-      checkTime: moment('9:30', 'HH:mm'), //TODO: change the hardcoded time to a user selection
+      checkTime: moment('8:26', 'HH:mm'), //TODO: change the hardcoded time to a user selection
       PresentChecked: false,
       activateWarning: false,
       warningSystemOn: true,
@@ -113,27 +113,13 @@ export default {
         swal({
           title: `${kid.firstName} ${kid.lastName} is here!`,
           type: 'success',
-          timer: 2000
-        }).then(
-          function () { },
-          // handling the promise rejection
-          function (dismiss) {
-            if (dismiss === 'timer') {
-              console.log('I was closed by the timer')
-            }
-          }
-          )
+          // timer: 2000
+        })
       }
       this.$store.dispatch({
         type: 'togglePresent',
         kid
       })
-
-      // this.$message({
-      // type: 'success',
-      // message: 'Kid Status Updated'
-      // });
-
     },
     deleteKidCard(kid) {
       this.$store.dispatch({
@@ -146,8 +132,6 @@ export default {
     },
 
     updateKidPicture(kid, prevKid) {
-      // console.log('recieved picture update request', prevKid)
-      // console.log('kids:', kid, prevKid)
       this.$store.dispatch({
         type: 'updateKid',
         kid
@@ -194,7 +178,6 @@ export default {
       })
     },
     setEmoji(kid, emojiType) {
-      console.log('kid', kid, 'should get the emoji', emojiType)
       this.$store.dispatch({
         type: 'sendEmoji',
         _id: kid._id,
@@ -207,6 +190,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../sass/main.scss";
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
 .bell-is-on {
   color: orange!important;
   animation-name: bell-flash;

@@ -71,10 +71,10 @@ export default {
             clearTimeout(updatedKid.emojiTimeoutIdx);
             updatedKid.emojiType = emojiType;
             state.kids.splice(idx, 1, updatedKid)
-            updatedKid.emojiTimeoutIdx =  setTimeout(_ => {
+            updatedKid.emojiTimeoutIdx = setTimeout(_ => {
                 updatedKid.emojiType = null;
                 state.kids.splice(idx, 1, updatedKid)
-            }, 7000)
+            }, 1000 * 60 * 10)
             // console.log('updated kid:', updatedKid)
             // console.log('updated state with kid emoji:', state.kids)    
         }

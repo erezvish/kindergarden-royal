@@ -27,19 +27,19 @@ export default {
     'isParent'
   ]),
   created() {
+    const id = this.$route.params.kidId
     const that = this
     let currPath = this.$route.path
     if (!this.isAdmin && !this.isBasic) {
       this.$router.push('/intro')
       setTimeout(function () {
-        that.$router.push(currPath)
-        const id = that.$route.params.kidId
+        // that.$router.push(currPath)
         that.$store.dispatch({
           type: 'checkUser',
           id,
           that
         })
-      }, 5000);
+      }, 4000);
     }
     this.$store.dispatch({
       type: 'initSocket',
