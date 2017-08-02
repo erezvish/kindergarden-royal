@@ -377,7 +377,7 @@ export default {
 }
 
 
-* {
-  outline: 1px solid green;
-}
+// * {
+//   outline: 1px solid green;
+// }
 </style>
