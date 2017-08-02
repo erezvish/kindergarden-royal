@@ -39,7 +39,7 @@ export default {
           id,
           that
         })
-      }, 4000);
+      }, 5000);
     }
     this.$store.dispatch({
       type: 'initSocket',
