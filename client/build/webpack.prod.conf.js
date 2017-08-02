@@ -106,7 +106,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       staticFileGlobs: ['dist/**/*'],
       dynamicUrlToDependencies: ['data/kid', 'data/msg'],
       minify: true,
-      stripPrefix: 'dist/'
+      stripPrefix: 'dist/' 
     })
   ]
 })
