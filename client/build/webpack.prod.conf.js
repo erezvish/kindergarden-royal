@@ -104,6 +104,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       cacheId: 'my-vue-app',
       filename: 'service-worker.js',
       staticFileGlobs: ['dist/**/*'],
+      dynamicUrlToDependencies: ['data/kid', 'data/msg'],
       minify: true,
       stripPrefix: 'dist/'
     })
