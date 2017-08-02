@@ -3,16 +3,16 @@
     <el-col :xs="24" :sm="17" :md="10">
       <section class="login-container">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
-        <h1> {{t('Log In')}}, user: 'a', pass: 'a' </h1>
+        <h1> {{t('Log In')}} </h1>
         <div class="kid-details-container" dir="ltr">
   
           <!-- form -->
           <el-form action="" ref="login">
             <div>
-              <el-input ref="username" type="text" :placeholder="username" autofocus required v-model="user.username" @keyup.native.enter="isPasswordFocused = true"></el-input>
+              <el-input ref="username" type="text" placeholder="Type a for admin, b for basic" autofocus required v-model="user.username" @keyup.native.enter="isPasswordFocused = true"></el-input>
             </div>
             <div>
-              <el-input ref="password" type="password" :placeholder="password" required v-model="user.pass" @keyup.native.enter="submit"></el-input>
+              <el-input ref="password" type="password" placeholder="Type a for admin, b for basic" required v-model="user.pass" @keyup.native.enter="submit"></el-input>
             </div>
             <div>
               <el-button type="success" value="Login" @click="submit" autofocus>{{t('Ok')}}</el-button>
