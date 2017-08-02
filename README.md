@@ -9,7 +9,8 @@ This app is build with advanced technologies featuring ES6 JS, Vue Js, responsiv
 ## How to install?
 > * Open command line
 > * Clone the repo
-> * Go to folder 'client'
+> * Go to the repo folder
+> * Change directory to folder 'client'
 > * Run 'npm i'
 > * Go to folder 'server'
 > * Run 'npm i'
