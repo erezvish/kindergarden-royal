@@ -313,8 +313,8 @@ export default {
   justify-content: flex-start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   .kid-img {
-    width: 13vw;
-    height: 13vw;
+    width: 8vw;
+    height: 8vw;
     @media all and (max-width: $sm) {
       margin-right: 4%;
       width: 20vw;
@@ -377,7 +377,7 @@ export default {
 }
 
 
-// * {
-//   outline: 1px solid green;
-// }
+* {
+  outline: 1px solid green;
+}
 </style>
