@@ -18,7 +18,7 @@
     "element-ui": "^1.3.7",
     "font-awesome": "^4.7.0",
     "moment": "^2.18.1",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.5.0",
     "speechkitt": "^0.3.0",
     "sweetalert2": "^6.6.6",
     "vue": "^2.3.3",
