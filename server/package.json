@@ -3,7 +3,9 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
     "babel-core": "^6.14.0",
@@ -16,6 +18,8 @@
     "mongodb": "^2.2.4",
     "multer": "^1.1.0",
     "prompt": "^1.0.0",
-    "socket.io": "^1.4.8"
-  }
+    "socket.io": "^1.4.8",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
